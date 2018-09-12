@@ -1,0 +1,30 @@
+extends layouts/layout
+
+block variables
+  include ./includes/config
+  - const cityName = pypData.name
+  - const pageTitle = `Vehículos exentos de Pico y Placa en ${cityName}`
+
+block pypData
+  section.container
+    form(action="")
+      label(for='placa') Name:
+      input#placa(type="text" placeholder="PLACA" name="placa" oninput="this.value = this.value.toUpperCase()", maxlength="6" required)
+      button(type='submit') Consultar
+  script.
+    const plate = () => {
+      const options = {
+        method: 'POST',
+        body: 'lstTipoExcepcion=3&txtPlaca=ESL497',
+        headers: new Headers({
+          'Content-Type': 'application/x-www-form-urlencoded'
+        })
+      }
+      return fetch(`http://www.movilidadbogota.gov.co/web/SIMUR/CONSULTA_ED/php/excepciones/paso2.php`)
+        .then(res => res.json())
+        .then(posts => console.log(posts))
+    }
+
+block pypInfo
+  section.info-container
+    +exceptionsInfo(pypData)

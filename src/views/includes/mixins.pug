@@ -1,0 +1,144 @@
+mixin ad(filter)
+  if pypData.data[0].categories[0].path === filter
+    .container
+      a.button.ad.bg-yellow.text-center(href="https://docs.google.com/forms/d/e/1FAIpQLSeTDO2QxsUAGZvSYpnxJE_7uLM3bWJGMe_wXPqPttWvbqs9fA/viewform?usp=sf_link")
+        p.uppercase.lead Busco conductor turno largo
+        p.hyperlink Información acá
+
+mixin email(hyperlink = false)
+  span(class=hyperlink ? 'hyperlink' : '') &#105;&#110;&#102;&#111;&#064;&#112;&#121;&#112;&#104;&#111;&#121;&#046;&#099;&#111;&#109;
+
+mixin selectCity(cityName)
+  .select
+    select#cities(class=home && 'main' required onchange="window.location.href = '/' + this.options[this.selectedIndex].value")
+      if !city
+        option(value="" disabled selected hidden) Ciudad...
+      each city, citySlug in citiesMap
+        - const selected = city.name === cityName
+        option(value=citySlug selected=selected)= city.name
+
+mixin selectCategory(citySlug, categoryName)
+  .select
+    select#categories(required onchange="window.location.href = '/' + this.options[this.selectedIndex].value")
+      if !categoryName
+        option(value="" disabled selected hidden) Categoría...
+      each category, categorySlug in citiesMap[citySlug].categories
+        - const selected = category.name === categoryName
+        option(value=`${citySlug}/${categorySlug}` selected=selected)= category.name
+
+mixin breadCrumbs()
+  if path.length > 1
+    .breadcrumbs
+      - let currentPath = ''
+      each crumb, index in path
+        - currentPath += "/" + crumb.path
+        if index === path.length - 1
+          span.current= crumb.name
+        else
+          a(href=currentPath)= crumb.name
+          |
+          | /
+          |
+
+mixin datePicker()
+  form(action=".")
+    input(type="date" name="d" value=date)
+    input(type="submit" value="Consultar")
+
+mixin cityInfo(city)
+  h2.title
+    a(href=`/${city.path}`) Pico y placa vigente en #{city.name}
+  p.subtitle Las siguientes son las medidas de restricción vehicular vigentes para #{city.name} durante el #{timePeriod}, de acuerdo con lo establecido por la Alcaldía de #{city.name}:
+
+mixin categoryList(city)
+  each category in city.info
+    ul
+      li.title
+        a(href=`/${category.path}`) Pico y placa #{category.name} en #{city.name}
+
+mixin exceptionsInfo(city)
+  each category in city.info
+    if category.exceptions
+      header
+        h2.title
+          a(href=`/${category.path}`) Exenciones Pico y Placa #{category.name} en #{city.name}
+      article !{category.exceptions}
+        
+mixin categoryInfo(city)
+  each category in city.info
+    header
+      h2.title
+        a(href=`/${category.path}`) Pico y placa #{category.name} en #{city.name}
+    article
+      dl
+        dt Clase de vehículos
+        dd= category.vehicleClasses
+        dt Decreto
+        dd
+          ul.list-style-none
+            each decree in category.decrees
+              li
+                if decree.url
+                  a(href=decree.url)= decree.name
+                else
+                  |= decree.name
+        dt Días de apliación
+        dd
+          ul.list-style-none
+            each day in category.days
+              li= day
+        dt Horario
+        dd
+          ul.list-style-none
+            each hour in category.hours
+              li= hour
+        dt Esquema
+        dd= category.scheme
+        if category.observations
+          dt Observaciones
+          dd !{category.observations}
+        if category.map
+          dt Mapa
+          dd 
+            amp-img(src=category.map alt=`Mapa Pico y Placa en ${city.name}` height="612" width="906")
+        if category.exceptions
+          dt Excepciones
+          dd !{category.exceptions}
+        dt Sanciones
+        dd Los infractores a lo dispuesto serán sancionados con multa equivalente a quince (15) salarios mínimos diarios legales vigentes e inmovilización del vehículo, según lo consagrado por el artículo 131 literal C numeral 14 de la #[a(href="https://www.mintransporte.gov.co/descargar.php?idFile=13114") Ley 769 de 2002].
+
+mixin cityTable(city)
+    table.table
+      thead.dark
+        tr
+          th Categoría
+          th.text-right Placas
+      tbody
+        each cityCategory in city.data[0].categories
+          - const na = cityCategory.pyp === 'NA'
+          tr(class=na ? 'table-secondary text-muted' : '')
+            td(title=`Pico y placa para ${cityCategory.name.toLowerCase()}`)
+              a(href=`/${cityCategory.path}`)= cityCategory.name
+            +tdLicensePlate(cityCategory, na)
+
+mixin tdLicensePlate(data, na)
+  td.text-right
+      +licensePlate(data)
+
+mixin licensePlate(data)
+    - const public = data.name === 'Taxis' || data.name === 'Transporte Público Colectivo' || data.name === 'Transporte Público de Carga'
+    span(class=na ? '' : `plate is-${public ? 'public' : 'particular'}`) #{data.pyp}
+
+mixin pypQuery(path)
+  - letters = ["H", "I", "J", "A", "B", "C", "D", "E", "F", "G"]
+  - numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+  - nums = path === '/manizales/transporte-publico-colectivo' ? letters : numbers
+  .query
+    h3 ¿Cuándo tengo pico y placa?
+    .nums
+      each val in nums
+        if num == val
+          span= val
+        else
+          span
+            a(href=`${path}/${val}`)= val

@@ -1,0 +1,30 @@
+extends layouts/layout
+
+block variables
+  include ./includes/config
+  - const cityName = pypData.name
+  - const pageTitle = `Pico y placa ${pypData.data[0].categories[0].name} en ${cityName}`
+  - const category = true
+
+block pypData
+  section.container
+      table.table
+        thead.dark
+          tr
+            th Fecha
+            th.text-right Placas
+        tbody
+          each pyp in pypData.data
+            - const d = new Date(pyp.date)
+            - const localDate = helpers.format(d, "YYYY/MM/DD")
+            - const localDay = helpers.format(d, "dddd");
+            - const na = pyp.categories[0].pyp === 'NA'
+            tr(class=na ? 'table-secondary text-muted' : '')
+              td #[time(datetime=helpers.format(d, "YYYY-MM-DD") + "T05:00:00.000Z") #{localDay} #[span.text-muted.small= localDate]]
+              +tdLicensePlate(pyp.categories[0], na)
+block pypQuery
+  +pypQuery(pagePath)
+block pypInfo
+  .info-container
+    +categoryInfo(pypData)
+

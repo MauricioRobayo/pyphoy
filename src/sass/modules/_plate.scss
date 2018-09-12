@@ -1,0 +1,16 @@
+.plate {
+  color: $black;
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: 75%;
+  font-weight: bold;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+  font-family: $family-license;
+  font-size: 100%;
+  padding: 0.45em 0.4em 0.2em 0.4em;
+  border: 1.5px solid $black;
+}

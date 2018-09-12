@@ -1,0 +1,19 @@
+nav.navbar(role="navigation" aria-label="main navigation")
+  a.navbar-item(title='Pico y placa para hoy' href=site.url)
+    include ../../../public/imgs/pyphoy.svg
+  if home
+    a.navbar-item.site-name(title=site.name href=site.url)= site.name
+  else
+    .navbar-item
+      +selectCity(pypData.name)
+      +selectCategory(pypData.path, category ? pypData.data[0].categories[0].name : false)
+
+    
+header.header.container.text-center
+  h1.title
+    a(title=site.name href=site.url)= pageTitle || site.name
+  p.subtitle
+    time(datetime=ISODate)= date
+.container.text-center
+  if pagePath
+    +breadCrumbs(pagePath)

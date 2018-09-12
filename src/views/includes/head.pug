@@ -1,0 +1,38 @@
+- const siteTitle = cityName ? `${pageTitle.replace("para ", "")} ${cityName} ${timePeriod}` : `Conozca el pico y placa para las distintas ciudades de Colombia durante el ${timePeriod}`
+- const siteDescription = ( cityName ? pageTitle + ' ' + cityName + ' durante el ' + timePeriod : '' ) + ': Horarios, números de placas, días, decretos, exensiones, sanciones y toda la información vigente sobre restricciones vehiculares por Pico y Placa.'
+- const sitePath = `${site.url}${pagePath ? '/' + pagePath : ''}${num ? '/' + num : ''}`
+
+head
+  meta(charset='utf-8')
+  script(async src='https://cdn.ampproject.org/v0.js')
+  meta(http-equiv='X-UA-Compatible' content='IE=edge')
+  meta(name='viewport' content='width=device-width,minimum-scale=1,initial-scale=1')
+  title= `${siteTitle} | ${site.name}`
+  meta(name='description' content=siteDescription)
+  link(rel='canonical' href=sitePath)
+
+  meta(itemprop="name" content=siteTitle)
+  meta(itemprop="Description" content=siteDescription)
+  meta(itemprop="url" content=sitePath)
+  meta(itemprop="startDate" content=ISODate)
+
+  include ./social
+  include ./favicon
+
+  if site.env === 'production'
+    include ./google-analytics
+    //- include ./google-adsense
+
+  style(amp-boilerplate).
+    body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}
+  noscript
+    style(amp-boilerplate).
+      body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}
+
+  //- link(rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css")
+  if site.env === "development"
+    style(amp-custom)
+        include ../../../public/css/main.css
+  else
+    style(amp-custom)
+        include ../../../public/css/main.min.css

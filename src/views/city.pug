@@ -1,0 +1,15 @@
+extends layouts/layout
+
+block variables
+  include ./includes/config
+  - const cityName = pypData.name
+  - const pageTitle = `${site.name} en ${cityName}`
+
+block pypData
+  section.container
+      +cityTable(pypData)
+
+block pypInfo
+  section.info-container
+    +cityInfo(pypData)
+    +categoryList(pypData)

@@ -1,0 +1,42 @@
+.select {
+  margin: 0.25em;
+  position: relative;
+  display: inline-block;
+  select {
+    border-radius: 5px;
+    padding: 0.4rem 3rem 0.4rem 0.5rem;
+    @media (max-width: $tablet) {
+      padding: 0.4rem 2rem 0.4rem 0.4rem;
+    }
+    &.main {
+      border-radius: 0;
+      border: none;
+      border-bottom: 2px solid #444;
+      color: #565656;
+      font-size: 1.5em;
+    }
+    background-color: $white;
+    appearance: none;
+    cursor: pointer;
+    &:invalid {
+      color: $grey;
+    }
+    &:focus {
+      outline: none;
+    }
+    &::-ms-expand {
+      display: none;
+    }
+  }
+  &::after {
+    content: "";
+    display: inline-block;
+    border-top: 10px solid #777;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+    position: absolute;
+    top: calc(50% - 5px);
+    right: 0.5rem;
+    pointer-events: none;
+  }
+}

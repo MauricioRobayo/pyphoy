@@ -1,0 +1,14 @@
+extends layouts/layout
+
+block variables
+  include ./includes/config
+  - const home = true
+
+block pypData
+  section.hero
+    .container.text-center
+      h1.title= site.name
+      h2.subtitle
+        time(datetime=ISODate)= date
+    .container.text-center
+      +selectCity()

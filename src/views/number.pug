@@ -1,0 +1,40 @@
+extends layouts/layout
+
+block variables
+  include ./includes/config
+  - const category = true
+block pypData
+  section.text-center
+    div.m-1
+      span.badge(class=status ? 'stop' : 'go')= num
+    p.lead Hoy #{status ? '' : 'no'} tiene pico y placa
+    .info
+      p= date
+      .m-1
+        +licensePlate(pypData.data[0].categories[0])
+      dt Horario
+        dd
+          each category in pypData.info
+            ul.list-style-none
+              each hour in category.hours
+                li= hour
+    .container
+      table.table
+          caption
+            p Prográmese
+            - const data = { name: pypData.data[0].categories[0].name, pyp: num}
+            p
+              +licensePlate(data)
+            p tiene pico y placa los días
+          tbody
+            each date in nextPyp
+              tr
+                td.text-center= helpers.format(new Date(date.date), "dddd, D [de] MMMM [de] YYYY")
+
+block pypQuery
+  +pypQuery('/' + pypData.data[0].categories[0].path)
+
+block pypInfo
+  .info-container
+    +categoryInfo(pypData)
+

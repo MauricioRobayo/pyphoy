@@ -1,0 +1,23 @@
+block variables
+include ../includes/mixins
+
+doctype html
+html(amp=amp lang="es")
+  include ../includes/head
+  body
+    if !home
+      include ../includes/header
+    block pypData
+    block pypQuery
+    block contact
+      if !home  
+        section.cta.text-center
+          p.mb-0 ¿Falta algo?
+          p.mb-0 ¿Algo no está bien?
+          p
+            a(href="https://m.me/picoyplacahoy")
+            u Ayúdenos a mejorar esta página
+            block contact
+    
+    block pypInfo
+    include ../includes/footer

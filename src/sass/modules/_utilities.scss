@@ -1,0 +1,59 @@
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.is-public {
+  background-color: $white;
+  box-shadow: 0 0 0 1.5px $white;
+}
+
+.is-particular {
+  background-color: $yellow;
+  box-shadow: 0 0 0 1.5px $yellow;
+}
+
+.badge {
+  padding: 0em 0.25em;
+  margin: 0.25em;
+  font-size: 4em;
+  font-weight: bold;
+  border-radius: 4px;
+  color: $white;
+}
+
+.go {
+  background-color: $success;
+}
+
+.stop {
+  background-color: $danger;
+}
+
+.m-1 {
+  margin: 0.5em;
+}
+
+.bg-yellow {
+  background: #f3d50c;
+}
+
+.bg-white-ter {
+  background: $white-ter;
+}
+
+.current {
+  font-weight: bold;
+}
+
+.breadcrumbs {
+  @media (max-width: $tablet) {
+    font-size: 90%;
+  }
+}

@@ -1,0 +1,24 @@
+$navbar-height: 3.25rem;
+$navbar-item-color: $grey-dark;
+$navbar-burger-color: $navbar-item-color;
+
+nav {
+  display: flex;
+  background-color: $white-ter;
+  min-height: $navbar-height;
+  border-bottom: 1px solid $grey-lighter;
+  justify-content: space-between;
+  align-items: center;
+  .navbar-item {
+    color: $navbar-item-color;
+    line-height: 1.5;
+    padding: 0.5rem 0.75rem;
+    text-align: right;
+  }
+  .site-name {
+    margin: auto;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+}
