@@ -4,7 +4,6 @@ module.exports = {
       name: "pyphoy",
       script: "dist/bin/server.js",
       env_production: {
-        NODE_ICU_DATA: "/usr/lib/node_modules/full-icu",
         NODE_ENV: "production",
         PORT: 3246
       }
