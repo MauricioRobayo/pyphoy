@@ -17,7 +17,7 @@ module.exports = {
       port: process.env.PYPHOY_PRODUCTION_PORT,
       ref: "origin/master",
       repo: "git@github.com:archemiro/pyphoy.git",
-      path: "/home/pyp/pyphoy",
+      path: "/home/node/pyphoy",
       "post-deploy":
         "npm install && npm run build && pm2 startOrRestart ecosystem.config.js --env production && pm2 save"
     }
