@@ -1,6 +1,12 @@
 extends layouts/layout
 
 block pypData
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+  .container
+    h2.text-center= error.status
+    h1.text-center= message
+    if error.stack
+      pre
+        code= error.stack
+  section.hero
+    .container.text-center
+      +selectCity('', true)

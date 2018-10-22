@@ -1,12 +1,12 @@
 import cookieParser from "cookie-parser";
+import debug from "debug";
 import express from "express";
+import { fetchUrl } from "fetch";
 import createError from "http-errors";
 import logger from "morgan";
 import { join } from "path";
-import debug from "debug";
-import { fetchUrl } from "fetch";
+import { helpers, pyptron, site } from "./config";
 import indexRouter from "./routes";
-import { site, helpers, pyptron } from "./config";
 
 const log = debug("pyphoy:app");
 
@@ -40,6 +40,7 @@ app.use("/", indexRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
+  log("No existe la URI solicitada, creamos el error y continuamos.");
   next(
     createError(
       404,

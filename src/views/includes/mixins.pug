@@ -8,9 +8,9 @@ mixin ad(filter)
 mixin email(hyperlink = false)
   span(class=hyperlink ? 'hyperlink' : '') &#105;&#110;&#102;&#111;&#064;&#112;&#121;&#112;&#104;&#111;&#121;&#046;&#099;&#111;&#109;
 
-mixin selectCity(cityName)
+mixin selectCity(cityName, main=false)
   .select
-    select#cities(class=home && 'main' required onchange="window.location.href = '/' + this.options[this.selectedIndex].value")
+    select#cities(class=main && 'main' required onchange="window.location.href = '/' + this.options[this.selectedIndex].value")
       if !city
         option(value="" disabled selected hidden) Ciudad...
       each city, citySlug in citiesMap

@@ -8,9 +8,7 @@ import sm from "sitemap";
 import { pyptron, site } from "../config";
 
 const log = debugFunc("pyphoy:routes");
-
 const router = Router();
-
 const api = pyptron.url();
 
 router.get("/sitemap.xml", (req, res) => {
@@ -92,6 +90,7 @@ router.get("/", async (req, res, next) => {
     }
     if (meta.status !== 200) {
       next();
+      return;
     }
     res.render("home", {
       pypData: JSON.parse(body),
@@ -107,16 +106,6 @@ router.get("/:city/exentos", async (req, res, next) => {
   const date = req.query.d || format(new Date(), "YYYY-MM-DD");
   const { citiesMap } = req.app.locals;
   const { city } = req.params;
-  const path = [
-    {
-      path: city,
-      name: citiesMap[city].name
-    },
-    {
-      path: "exentos",
-      name: "Exentos"
-    }
-  ];
   // verificamos que la ciudad solicitada esté disponible
   if (!citiesMap.hasOwnProperty(city)) {
     next();
@@ -129,7 +118,18 @@ router.get("/:city/exentos", async (req, res, next) => {
     }
     if (meta.status !== 200) {
       next();
+      return;
     }
+    const path = [
+      {
+        path: city,
+        name: citiesMap[city].name
+      },
+      {
+        path: "exentos",
+        name: "Exentos"
+      }
+    ];
     res.render("exceptions", {
       pypData: JSON.parse(body),
       ISODate: `${date}T05:00:00.000Z`,
@@ -145,17 +145,18 @@ router.get("/:city", async (req, res, next) => {
   const date = format(new Date(), "YYYY-MM-DD");
   const { citiesMap } = req.app.locals;
   const { city } = req.params;
+  // verificamos que la ciudad solicitada esté disponible
+  if (!citiesMap.hasOwnProperty(city)) {
+    log("La ciudad solicitada no existe.");
+    next();
+    return;
+  }
   const path = [
     {
       path: city,
       name: citiesMap[city].name
     }
   ];
-  // verificamos que la ciudad solicitada esté disponible
-  if (!citiesMap.hasOwnProperty(city)) {
-    next();
-    return;
-  }
   fetchUrl(`${api}/${city}?date=${date}`, (err, meta, body) => {
     if (err) {
       next(err);
@@ -179,6 +180,18 @@ router.get("/:city/:category", async (req, res, next) => {
   const date = req.query.d || formatedDate;
   const { citiesMap } = req.app.locals;
   const { city, category } = req.params;
+  // verificamos que la ciudad solicitada se encuentre disponible
+  if (!citiesMap.hasOwnProperty(city)) {
+    log("La ciudad solicitada no existe.");
+    next();
+    return;
+  }
+  // verificamos que la categoría solicita se encuentre disponible dentro de la ciudad
+  if (!citiesMap[city].categories.hasOwnProperty(category)) {
+    log("La categoría solicitada no existe.");
+    next();
+    return;
+  }
   const path = [
     {
       path: city,
@@ -189,20 +202,17 @@ router.get("/:city/:category", async (req, res, next) => {
       name: citiesMap[city].categories[category].name
     }
   ];
-  // verificamos que la ciudad solicitada se encuentre disponible
-  if (!citiesMap.hasOwnProperty(city)) {
-    next();
-    return;
-  }
-  // verificamos que la categoría solicita se encuentre disponible dentro de la ciudad
-  if (!citiesMap[city].categories.hasOwnProperty(category)) {
-    next();
-    return;
-  }
   fetchUrl(
     `${api}/${city}/${category}?days=7&date=${date}`,
     (err, meta, body) => {
-      if (err) next(err);
+      if (meta.status === 404) {
+        next();
+        return;
+      }
+      if (err) {
+        next(err);
+        return;
+      }
       res.render("category", {
         pypData: JSON.parse(body),
         ISODate: `${date}T05:00:00.000Z`,
@@ -219,22 +229,7 @@ router.get("/:city/:category/:number", async (req, res, next) => {
   const date = req.query.d || format(new Date(), "YYYY-MM-DD");
   const { citiesMap } = req.app.locals;
   const { city, category, number } = req.params;
-  const path = [
-    {
-      path: city,
-      name: citiesMap[city].name
-    },
-    {
-      path: category,
-      name: citiesMap[city].categories[category].name
-    },
-    {
-      path: number,
-      name: number
-    }
-  ];
   const num = number.toString().toUpperCase();
-
   if (city === "manizales" && category === "transporte-publico-colectivo") {
     if (!["H", "I", "J", "A", "B", "C", "D", "E", "F", "G"].includes(num)) {
       next();
@@ -257,8 +252,25 @@ router.get("/:city/:category/:number", async (req, res, next) => {
     next();
     return;
   }
+  const path = [
+    {
+      path: city,
+      name: citiesMap[city].name
+    },
+    {
+      path: category,
+      name: citiesMap[city].categories[category].name
+    },
+    {
+      path: number,
+      name: number
+    }
+  ];
   fetchUrl(`${api}/${city}/${category}?days=30`, (err, meta, body) => {
-    if (err) next(err);
+    if (err) {
+      next(err);
+      return;
+    }
     const pypData = JSON.parse(body);
     const status = pypData.data[0].categories[0].pyp.split("-").includes(num);
     const nextPyp = pypData.data.filter(val =>

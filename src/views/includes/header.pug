@@ -5,8 +5,11 @@ nav.navbar(role="navigation" aria-label="main navigation")
     a.navbar-item.site-name(title=site.name href=site.url)= site.name
   else
     .navbar-item
-      +selectCity(pypData.name)
-      +selectCategory(pypData.path, category ? pypData.data[0].categories[0].name : false)
+      if pypData
+        +selectCity(pypData.name)
+        +selectCategory(pypData.path, category ? pypData.data[0].categories[0].name : false)
+      else
+        +selectCity()
 
     
 header.header.container.text-center

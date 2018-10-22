@@ -67,3 +67,12 @@ section {
 dt {
   font-weight: bold;
 }
+
+pre {
+  background: $grey-lighter;
+  border: 1px solid $grey;
+  font-size: 90%;
+  margin: 1em;
+  padding: 1em;
+  overflow: auto;
+}
