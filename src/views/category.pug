@@ -21,7 +21,7 @@ block pypData
             - const localDay = helpers.format(d, "dddd");
             - const na = pyp.categories[0].pyp === 'NA'
             if index === 0
-              tr(class=na && 'table-secondary text-muted' class=amp && 'active')
+              tr.active(class=na && 'table-secondary text-muted')
                 td
                   time(datetime=`${dateISOString}T05:00:00.000Z`)= localDay
                   |
