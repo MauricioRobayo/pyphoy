@@ -16,12 +16,27 @@ block pypData
         tbody
           each pyp, index in pypData.data
             - const d = new Date(pyp.date)
+            - const dateISOString = helpers.format(d, "YYYY-MM-DD")
             - const localDate = helpers.format(d, "YYYY/MM/DD")
             - const localDay = helpers.format(d, "dddd");
             - const na = pyp.categories[0].pyp === 'NA'
-            tr(class=na && 'table-secondary text-muted' class=(amp && index === 0) && 'active')
-              td #[time(datetime=helpers.format(d, "YYYY-MM-DD") + "T05:00:00.000Z") #{localDay} #[span.text-muted.small= localDate]]
-              +tdLicensePlate(pyp.categories[0], na)
+            if index === 0
+              tr(class=na && 'table-secondary text-muted' class=amp && 'active')
+                td
+                  time(datetime=`${dateISOString}T05:00:00.000Z`)= localDay
+                  |
+                  |
+                  span.warning.small= localDate
+                +tdLicensePlate(pyp.categories[0], na)
+            else
+              tr(class=na && 'table-secondary text-muted')
+                td
+                  a(href=`${pagePath}?d=${dateISOString}`)
+                    time(datetime=`${dateISOString}T05:00:00.000Z`)= localDay
+                    |
+                    |
+                    span.text-muted.small= localDate
+                +tdLicensePlate(pyp.categories[0], na)
 block pypQuery
   +pypQuery(pagePath)
 block pypInfo

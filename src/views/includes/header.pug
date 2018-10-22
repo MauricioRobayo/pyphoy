@@ -17,12 +17,8 @@ header.header.container.text-center
   .subtitle(class=amp && 'archive')
     time(datetime=ISODate)= date
     if amp
-      p.small.warning Está viendo una página archivada.
-      p.small.warning Para ver la última información haga
-        |
-        |
-        a(href=pagePath) click acá
-        | .
+      p.small.warning Esta página no corresponde con la fecha actual.
+      a.small.hyperlink(href=pagePath) Consulte acá el pico y placa para el día de hoy.
 .container.text-center
   if pagePath
     +breadCrumbs(pagePath)

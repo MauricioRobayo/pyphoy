@@ -9,13 +9,8 @@
   border: 0;
 }
 
-.warning {
-  font-weight: bold;
-  color: $danger;
-}
-
 .archive {
-  background-color: lighten($warning, 35%);
+  background-color: lighten($warning, 45%);
   padding: 0.25em 0.5em;
   border-radius: 5px;
   border: 1px solid $warning;
