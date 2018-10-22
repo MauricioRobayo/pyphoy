@@ -2,9 +2,9 @@
 
 import debugFunc from "debug";
 import { Router } from "express";
+import { format } from "fecha";
 import { fetchUrl } from "fetch";
 import sm from "sitemap";
-import { format } from "fecha";
 import { pyptron, site } from "../config";
 
 const log = debugFunc("pyphoy:routes");
@@ -142,7 +142,7 @@ router.get("/:city/exentos", async (req, res, next) => {
 
 /* GET city page. */
 router.get("/:city", async (req, res, next) => {
-  const date = req.query.d || format(new Date(), "YYYY-MM-DD");
+  const date = format(new Date(), "YYYY-MM-DD");
   const { citiesMap } = req.app.locals;
   const { city } = req.params;
   const path = [
@@ -168,7 +168,6 @@ router.get("/:city", async (req, res, next) => {
       pypData: JSON.parse(body),
       ISODate: `${date}T05:00:00.000Z`,
       path,
-      amp: !!req.query.d,
       pagePath: req.path
     });
   });
@@ -176,7 +175,8 @@ router.get("/:city", async (req, res, next) => {
 
 /* GET category page. */
 router.get("/:city/:category", async (req, res, next) => {
-  const date = req.query.d || format(new Date(), "YYYY-MM-DD");
+  const formatedDate = format(new Date(), "YYYY-MM-DD");
+  const date = req.query.d || formatedDate;
   const { citiesMap } = req.app.locals;
   const { city, category } = req.params;
   const path = [
@@ -199,16 +199,19 @@ router.get("/:city/:category", async (req, res, next) => {
     next();
     return;
   }
-  fetchUrl(`${api}/${city}/${category}?days=7`, (err, meta, body) => {
-    if (err) next(err);
-    res.render("category", {
-      pypData: JSON.parse(body),
-      ISODate: `${date}T05:00:00.000Z`,
-      path,
-      amp: !!req.query.d,
-      pagePath: req.path
-    });
-  });
+  fetchUrl(
+    `${api}/${city}/${category}?days=7&date=${date}`,
+    (err, meta, body) => {
+      if (err) next(err);
+      res.render("category", {
+        pypData: JSON.parse(body),
+        ISODate: `${date}T05:00:00.000Z`,
+        path,
+        amp: !!req.query.d && req.query.d !== formatedDate,
+        pagePath: req.path
+      });
+    }
+  );
 });
 
 /* GET Query page. */

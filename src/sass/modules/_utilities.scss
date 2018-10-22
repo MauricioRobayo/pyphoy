@@ -9,6 +9,18 @@
   border: 0;
 }
 
+.warning {
+  font-weight: bold;
+  color: $danger;
+}
+
+.archive {
+  background-color: lighten($warning, 35%);
+  padding: 0.25em 0.5em;
+  border-radius: 5px;
+  border: 1px solid $warning;
+}
+
 .is-public {
   background-color: $white;
   box-shadow: 0 0 0 1.5px $white;

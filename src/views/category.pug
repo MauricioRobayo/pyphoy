@@ -14,12 +14,12 @@ block pypData
             th Fecha
             th.text-right Placas
         tbody
-          each pyp in pypData.data
+          each pyp, index in pypData.data
             - const d = new Date(pyp.date)
             - const localDate = helpers.format(d, "YYYY/MM/DD")
             - const localDay = helpers.format(d, "dddd");
             - const na = pyp.categories[0].pyp === 'NA'
-            tr(class=na ? 'table-secondary text-muted' : '')
+            tr(class=na && 'table-secondary text-muted' class=(amp && index === 0) && 'active')
               td #[time(datetime=helpers.format(d, "YYYY-MM-DD") + "T05:00:00.000Z") #{localDay} #[span.text-muted.small= localDate]]
               +tdLicensePlate(pyp.categories[0], na)
 block pypQuery

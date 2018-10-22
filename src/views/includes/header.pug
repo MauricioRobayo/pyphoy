@@ -11,8 +11,15 @@ nav.navbar(role="navigation" aria-label="main navigation")
     
 header.header.container.text-center
   h1.title= pageTitle || site.name
-  p.subtitle
+  .subtitle(class=amp && 'archive')
     time(datetime=ISODate)= date
+    if amp
+      p.small.warning Está viendo una página archivada.
+      p.small.warning Para ver la última información haga
+        |
+        |
+        a(href=pagePath) click acá
+        | .
 .container.text-center
   if pagePath
     +breadCrumbs(pagePath)

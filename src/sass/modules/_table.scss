@@ -22,7 +22,14 @@
   tbody {
     tr {
       border-bottom: 1px solid $grey-lighter;
-
+      &.active {
+        font-weight: bold;
+        td:first-child::before {
+          content: "▶";
+          padding-right: 0.25em;
+          color: $success;
+        }
+      }
       &.table-secondary {
         background-color: $white-ter;
         color: $grey-light;
