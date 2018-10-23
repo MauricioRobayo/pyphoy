@@ -17,8 +17,7 @@ header.header.container.text-center
   .subtitle(class=amp && 'archive')
     time(datetime=ISODate)= date
     if amp
-      p.small.warning Esta página no corresponde con la fecha actual.
-      a.small.hyperlink(href=pagePath) Consulte acá el pico y placa para el día de hoy.
+      +archiveWarning()
 .container.text-center
   if pagePath
     +breadCrumbs(pagePath)

@@ -176,8 +176,14 @@ router.get("/:city", async (req, res, next) => {
 
 /* GET category page. */
 router.get("/:city/:category", async (req, res, next) => {
-  const formatedDate = format(new Date(), "YYYY-MM-DD");
-  const date = req.query.d || formatedDate;
+  const dateObject = req.query.d
+    ? new Date(`${req.query.d}T05:00:00.000Z`)
+    : new Date();
+  const startDateObject = new Date(dateObject);
+  startDateObject.setDate(dateObject.getDate() - 6);
+  const formatedStartDateObject = format(startDateObject, "YYYY-MM-DD");
+  const formatedDate = format(dateObject, "YYYY-MM-DD");
+  log("getting date from:", req.query.d, formatedDate);
   const { citiesMap } = req.app.locals;
   const { city, category } = req.params;
   // verificamos que la ciudad solicitada se encuentre disponible
@@ -203,7 +209,7 @@ router.get("/:city/:category", async (req, res, next) => {
     }
   ];
   fetchUrl(
-    `${api}/${city}/${category}?days=7&date=${date}`,
+    `${api}/${city}/${category}?days=13&date=${formatedStartDateObject}`,
     (err, meta, body) => {
       if (meta.status === 404) {
         next();
@@ -215,9 +221,9 @@ router.get("/:city/:category", async (req, res, next) => {
       }
       res.render("category", {
         pypData: JSON.parse(body),
-        ISODate: `${date}T05:00:00.000Z`,
+        ISODate: `${formatedDate}T05:00:00.000Z`,
         path,
-        amp: !!req.query.d && req.query.d !== formatedDate,
+        amp: !!req.query.d && req.query.d !== format(new Date(), "YYYY-MM-DD"),
         pagePath: req.path
       });
     }

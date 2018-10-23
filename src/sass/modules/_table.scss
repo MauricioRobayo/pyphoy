@@ -27,9 +27,21 @@
         color: $grey-light;
       }
       &.active {
-        font-size: 1.15em;
+        font-size: 1.25em;
+        box-shadow: 0px 0px 10px 0px $grey;
+        transform: scale(1);
         td:first-child {
-          font-weight: bold;
+          padding-left: 0.75em;
+          &::before {
+            content: "▶";
+            font-weight: bold;
+            color: $danger;
+            font-size: 90%;
+            margin-right: 0.25em;
+          }
+        }
+        td:last-child {
+          padding-right: 0.75em;
         }
       }
     }

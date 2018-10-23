@@ -5,6 +5,9 @@ block variables
   - const cityName = pypData.name
   - const pageTitle = `Pico y placa ${pypData.data[0].categories[0].name} en ${cityName}`
   - const category = true
+  - const today = new Date()
+  - const todayLong = helpers.format(today, "dddd, D [de] MMMM [de] YYYY")
+  - const todayShort = helpers.format(today, "YYYY-MM-DD")
 
 block pypData
   section.container
@@ -15,18 +18,21 @@ block pypData
             th.text-right Placas
         tbody
           each pyp, index in pypData.data
-            - const d = new Date(pyp.date)
-            - const dateISOString = helpers.format(d, "YYYY-MM-DD")
-            - const localDate = helpers.format(d, "YYYY/MM/DD")
-            - const localDay = helpers.format(d, "dddd");
+            - const currentDate = new Date(pyp.date)
+            - const dateISOString = helpers.format(currentDate, "YYYY-MM-DD")
+            - const datetimeISOString = `${dateISOString}T05:00:00.000Z`
+            - const localDate = helpers.format(currentDate, "YYYY/MM/DD")
+            - const localDay = helpers.format(currentDate, "dddd");
             - const na = pyp.categories[0].pyp === 'NA'
-            if index === 0
+            if datetimeISOString === locals.ISODate
               tr.active(class=na && 'table-secondary text-muted')
                 td
                   time(datetime=`${dateISOString}T05:00:00.000Z`)= localDay
                   |
                   |
                   span.warning.small= localDate
+                  if amp
+                    +archiveWarning(todayLong)
                 +tdLicensePlate(pyp.categories[0], na)
             else
               tr(class=na && 'table-secondary text-muted')
