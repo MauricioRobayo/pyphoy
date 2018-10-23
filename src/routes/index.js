@@ -104,7 +104,7 @@ router.get("/", async (req, res, next) => {
 /* GET home page. */
 router.get("/:city/exentos", async (req, res, next) => {
   const date = req.query.d || format(new Date(), "YYYY-MM-DD");
-  const { citiesMap } = req.app.locals;
+  const { citiesMap } = res.locals;
   const { city } = req.params;
   // verificamos que la ciudad solicitada esté disponible
   if (!citiesMap.hasOwnProperty(city)) {
@@ -143,7 +143,7 @@ router.get("/:city/exentos", async (req, res, next) => {
 /* GET city page. */
 router.get("/:city", async (req, res, next) => {
   const date = format(new Date(), "YYYY-MM-DD");
-  const { citiesMap } = req.app.locals;
+  const { citiesMap } = res.locals;
   const { city } = req.params;
   // verificamos que la ciudad solicitada esté disponible
   if (!citiesMap.hasOwnProperty(city)) {
@@ -184,7 +184,7 @@ router.get("/:city/:category", async (req, res, next) => {
   const formatedStartDateObject = format(startDateObject, "YYYY-MM-DD");
   const formatedDate = format(dateObject, "YYYY-MM-DD");
   log("getting date from:", req.query.d, formatedDate);
-  const { citiesMap } = req.app.locals;
+  const { citiesMap } = res.locals;
   const { city, category } = req.params;
   // verificamos que la ciudad solicitada se encuentre disponible
   if (!citiesMap.hasOwnProperty(city)) {
@@ -233,7 +233,7 @@ router.get("/:city/:category", async (req, res, next) => {
 /* GET Query page. */
 router.get("/:city/:category/:number", async (req, res, next) => {
   const date = req.query.d || format(new Date(), "YYYY-MM-DD");
-  const { citiesMap } = req.app.locals;
+  const { citiesMap } = res.locals;
   const { city, category, number } = req.params;
   const num = number.toString().toUpperCase();
   if (city === "manizales" && category === "transporte-publico-colectivo") {

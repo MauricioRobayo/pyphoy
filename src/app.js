@@ -14,11 +14,6 @@ const api = pyptron.url();
 
 const app = express();
 
-fetchUrl(`${api}/cities`, (err, meta, body) => {
-  log("Getting citiesMap!");
-  app.locals.citiesMap = JSON.parse(body);
-});
-
 // view engine setup
 app.set("views", join(__dirname, "views"));
 app.set("view engine", "pug");
@@ -31,9 +26,17 @@ app.use(express.static(join(__dirname, "..", "public")));
 
 // pass variables to our templates + all requests
 app.use((req, res, next) => {
-  res.locals.site = site;
-  res.locals.helpers = helpers;
-  next();
+  fetchUrl(`${api}/cities`, (err, meta, body) => {
+    if (err) {
+      next(err);
+      return;
+    }
+    log("Getting citiesMap!");
+    res.locals.citiesMap = JSON.parse(body);
+    res.locals.site = site;
+    res.locals.helpers = helpers;
+    next();
+  });
 });
 
 app.use("/", indexRouter);
