@@ -20,14 +20,14 @@ block pypData
           each pyp, index in pypData.data
             - const currentDate = new Date(pyp.date)
             - const dateISOString = helpers.format(currentDate, "YYYY-MM-DD")
-            - const datetimeISOString = `${dateISOString}T05:00:00.000Z`
             - const localDate = helpers.format(currentDate, "YYYY/MM/DD")
+            - const datetimeISOString = `${dateISOString}T05:00:00.000Z`
             - const localDay = helpers.format(currentDate, "dddd");
             - const na = pyp.categories[0].pyp === 'NA'
             if datetimeISOString === locals.ISODate
               tr.active(class=na && 'table-secondary text-muted')
                 td
-                  time(datetime=`${dateISOString}T05:00:00.000Z`)= localDay
+                  time(datetime=`${dateISOString}T05:00:00.000Z`)= dateISOString === todayShort ? `hoy ${localDay}` : localDay 
                   |
                   |
                   span.warning.small= localDate

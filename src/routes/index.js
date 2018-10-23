@@ -178,7 +178,7 @@ router.get("/:city/:category", async (req, res, next) => {
     ? new Date(`${req.query.d}T05:00:00.000Z`)
     : new Date();
   const startDateObject = new Date(dateObject);
-  startDateObject.setDate(dateObject.getDate() - 6);
+  startDateObject.setDate(dateObject.getDate() - 3);
   const formatedStartDateObject = format(startDateObject, "YYYY-MM-DD");
   const formatedDate = format(dateObject, "YYYY-MM-DD");
   log("getting date from:", req.query.d, formatedDate);
@@ -207,7 +207,7 @@ router.get("/:city/:category", async (req, res, next) => {
     }
   ];
   fetchUrl(
-    `${api}/${city}/${category}?days=13&date=${formatedStartDateObject}`,
+    `${api}/${city}/${category}?days=10&date=${formatedStartDateObject}`,
     (err, meta, body) => {
       if (meta.status === 404) {
         next();
