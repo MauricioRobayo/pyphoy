@@ -82,7 +82,7 @@ router.get("/sitemap.xml", (req, res) => {
 
 /* GET home page. */
 router.get("/", async (req, res, next) => {
-  const date = req.query.d || format(new Date(), "YYYY-MM-DD");
+  const date = format(new Date(), "YYYY-MM-DD");
   fetchUrl(`${api}?date=${date}`, (err, meta, body) => {
     if (err) {
       next(err);
@@ -95,7 +95,6 @@ router.get("/", async (req, res, next) => {
     res.render("home", {
       pypData: JSON.parse(body),
       ISODate: `${date}T05:00:00.000Z`,
-      amp: !!req.query.d,
       pagePath: req.path
     });
   });
@@ -103,7 +102,7 @@ router.get("/", async (req, res, next) => {
 
 /* GET home page. */
 router.get("/:city/exentos", async (req, res, next) => {
-  const date = req.query.d || format(new Date(), "YYYY-MM-DD");
+  const date = format(new Date(), "YYYY-MM-DD");
   const { citiesMap } = res.locals;
   const { city } = req.params;
   // verificamos que la ciudad solicitada esté disponible
@@ -133,7 +132,6 @@ router.get("/:city/exentos", async (req, res, next) => {
     res.render("exceptions", {
       pypData: JSON.parse(body),
       ISODate: `${date}T05:00:00.000Z`,
-      amp: !!req.query.d,
       path,
       pagePath: req.path
     });
@@ -223,7 +221,8 @@ router.get("/:city/:category", async (req, res, next) => {
         pypData: JSON.parse(body),
         ISODate: `${formatedDate}T05:00:00.000Z`,
         path,
-        amp: !!req.query.d && req.query.d !== format(new Date(), "YYYY-MM-DD"),
+        archive:
+          !!req.query.d && req.query.d !== format(new Date(), "YYYY-MM-DD"),
         pagePath: req.path
       });
     }
@@ -232,7 +231,7 @@ router.get("/:city/:category", async (req, res, next) => {
 
 /* GET Query page. */
 router.get("/:city/:category/:number", async (req, res, next) => {
-  const date = req.query.d || format(new Date(), "YYYY-MM-DD");
+  const date = format(new Date(), "YYYY-MM-DD");
   const { citiesMap } = res.locals;
   const { city, category, number } = req.params;
   const num = number.toString().toUpperCase();
@@ -288,7 +287,6 @@ router.get("/:city/:category/:number", async (req, res, next) => {
       num,
       status,
       ISODate: `${date}T05:00:00.000Z`,
-      amp: !!req.query.d,
       path,
       pagePath: req.path
     });

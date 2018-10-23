@@ -50,7 +50,6 @@
   "devDependencies": {
     "@commitlint/cli": "^7.2.1",
     "@commitlint/config-conventional": "^7.1.2",
-    "amphtml-validator": "^1.0.23",
     "browser-sync": "^2.26.3",
     "cross-env": "^5.2.0",
     "eslint": "^5.7.0",
