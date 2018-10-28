@@ -5,14 +5,18 @@
   border: 1px solid $grey-lighter;
   break-inside: avoid-column;
   vertical-align: top;
-
   caption {
     border: 1px solid $dark;
     background-color: $dark;
     padding: 0.25em;
     font-size: 1.25em;
     color: $light;
-
+    &.footer {
+      caption-side: bottom;
+      font-size: 1rem;
+      border: none;
+      background-color: $turquoise;
+    }
     a {
       color: $light;
       text-decoration: none;

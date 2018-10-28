@@ -79,6 +79,11 @@ mixin categoryInfo(city)
         a(href=`/${category.path}`) Pico y placa #{category.name} en #{city.name}
     article
       dl
+        dt Horario
+        dd
+          ul.list-style-none
+            each hour in category.hours
+              li= hour
         dt Clase de vehículos
         dd= category.vehicleClasses
         dt Decreto
@@ -95,11 +100,6 @@ mixin categoryInfo(city)
           ul.list-style-none
             each day in category.days
               li= day
-        dt Horario
-        dd
-          ul.list-style-none
-            each hour in category.hours
-              li= hour
         dt Esquema
         dd= category.scheme
         if category.observations
