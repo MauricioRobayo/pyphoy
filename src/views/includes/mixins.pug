@@ -116,18 +116,21 @@ mixin categoryInfo(city)
         dd Los infractores a lo dispuesto serán sancionados con multa equivalente a quince (15) salarios mínimos diarios legales vigentes e inmovilización del vehículo, según lo consagrado por el artículo 131 literal C numeral 14 de la #[a(href="https://www.mintransporte.gov.co/descargar.php?idFile=13114") Ley 769 de 2002].
 
 mixin cityTable(city)
-    table.table
-      thead.dark
-        tr
-          th Categoría
-          th.text-right Placas
-      tbody
-        each cityCategory in city.data[0].categories
-          - const na = cityCategory.pyp === 'NA'
-          tr(class=na ? 'table-secondary text-muted' : '')
-            td(title=`Pico y placa para ${cityCategory.name.toLowerCase()}`)
-              a(href=`/${cityCategory.path}`)= cityCategory.name
-            +tdLicensePlate(cityCategory, na)
+  table.table
+    thead.dark
+      tr
+        th Categoría
+        th.text-right Placas
+    tbody
+      each cityCategory in city.data[0].categories
+        - const na = cityCategory.pyp === 'NA'
+        tr(class=na ? 'table-secondary text-muted' : '')
+          td(title=`Pico y placa para ${cityCategory.name.toLowerCase()}`)
+            a(href=`/${cityCategory.path}`)= cityCategory.name
+            ul.list-style-none
+              each hour in city.info[cityCategory.key].hours
+                li= hour
+          +tdLicensePlate(cityCategory, na)
 
 mixin tdLicensePlate(data, na)
   td.text-right
