@@ -127,7 +127,7 @@ mixin cityTable(city)
         tr(class=na ? 'table-secondary text-muted' : '')
           td(title=`Pico y placa para ${cityCategory.name.toLowerCase()}`)
             a(href=`/${cityCategory.path}`)= cityCategory.name
-            ul.list-style-none
+            ul.list-style-none.small
               each hour in city.info[cityCategory.key].hours
                 li= hour
           +tdLicensePlate(cityCategory, na)
