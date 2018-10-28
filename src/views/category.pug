@@ -12,11 +12,6 @@ block variables
 block pypData
   section.container
     table.table
-      caption.footer
-        h3 Horario
-        ul.list-style-none
-          each hour in pypData.info[pypData.data[0].categories[0].key].hours
-            li= hour
       thead.dark
         tr
           th Fecha
