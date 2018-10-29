@@ -2,10 +2,9 @@
 
 import debugFunc from "debug";
 import { Router } from "express";
-import { format } from "fecha";
 import { fetchUrl } from "fetch";
 import sm from "sitemap";
-import { pyptron, site } from "../config";
+import { helpers, pyptron, site } from "../config";
 
 const log = debugFunc("pyphoy:routes");
 const router = Router();
@@ -165,23 +164,22 @@ router.get("/:city", async (req, res, next) => {
 
 /* GET category page. */
 router.get("/:city/:category", async (req, res, next) => {
-  const dateObject = req.query.d
-    ? new Date(req.query.d.replace(/-/g, "/"))
-    : res.locals.d;
-  const startDateObject = new Date(dateObject);
-  startDateObject.setDate(dateObject.getDate() - 3);
-  const formatedStartDateObject = format(startDateObject, "YYYY-MM-DD");
-  const formatedDate = format(dateObject, "YYYY-MM-DD");
-  log("getting date from:", req.query.d, formatedDate);
+  const daysBack = req.query.b ? parseInt(req.query.b, 10) : 3;
+  const daysForward = req.query.f ? parseInt(req.query.f, 10) : 6;
+  const totalDays = daysBack + daysForward + 1;
+  if (totalDays > 31) {
+    next();
+    return;
+  }
+  res.locals.d.setDate(res.locals.d.getDate() - daysBack);
+  const startISODateShort = helpers.format(res.locals.d);
   const { citiesMap } = res.locals;
   const { city, category } = req.params;
-  // verificamos que la ciudad solicitada se encuentre disponible
   if (!citiesMap.hasOwnProperty(city)) {
     log("La ciudad solicitada no existe.");
     next();
     return;
   }
-  // verificamos que la categoría solicita se encuentre disponible dentro de la ciudad
   if (!citiesMap[city].categories.hasOwnProperty(category)) {
     log("La categoría solicitada no existe.");
     next();
@@ -198,7 +196,7 @@ router.get("/:city/:category", async (req, res, next) => {
     }
   ];
   fetchUrl(
-    `${api}/${city}/${category}?days=10&date=${formatedStartDateObject}`,
+    `${api}/${city}/${category}?days=${totalDays}&date=${startISODateShort}`,
     (err, meta, body) => {
       if (meta.status === 404) {
         next();
@@ -210,11 +208,7 @@ router.get("/:city/:category", async (req, res, next) => {
       }
       res.render("category", {
         pypData: JSON.parse(body),
-        ISODate: `${formatedDate}T05:00:00.000Z`,
-        path,
-        archive:
-          !!req.query.d && req.query.d !== format(new Date(), "YYYY-MM-DD"),
-        pagePath: req.path
+        path
       });
     }
   );

@@ -39,7 +39,7 @@ export const site = {
 export const helpers = {
   longDate: "cccc, d 'de' MMMM 'de' yyyy",
   format(date, formatString) {
-    return format(date, formatString, { locale: es });
+    return format(date, formatString || "yyyy-MM-dd", { locale: es });
   },
   cdn(path) {
     const p = path.startsWith("/") ? path : `/${path}`;

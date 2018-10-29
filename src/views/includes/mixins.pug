@@ -62,7 +62,7 @@ mixin categoryList(city)
   ul.list-style-none
     each category in city.info
       li.m-1.title
-        a(href=`/${category.path}`) Pico y placa #{category.name.toLowerCase()} en #{city.name}
+        a(href=`/${category.path}` title=`Pico y placa ${category.name.toLowerCase()} en ${city.name}`) Pico y placa #{category.name.toLowerCase()}
 
 mixin exceptionsInfo(city)
   each category in city.info

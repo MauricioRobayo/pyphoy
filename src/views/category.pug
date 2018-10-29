@@ -11,7 +11,7 @@ block variables
   //- creación de la página si estamos hablando de hoy.
   - const today = new Date()
   - const todayISODate = today.toISOString()
-  - const todayISODateShort = todayISODate.substring(0, 10)
+  - const todayISODateShort = helpers.format(today)
 
 block pypData
   section.container
@@ -24,7 +24,7 @@ block pypData
         each pyp, index in pypData.data
           - const currentDate = new Date(pyp.date)
           - const currentISODate = currentDate.toISOString()
-          - const currentISODateShort = currentISODate.substring(0, 10)
+          - const currentISODateShort = helpers.format(currentDate);
           - const currentLocalDate = currentISODateShort.replace(/-/g, "/")
           - const currentLocalDay = helpers.format(currentDate, "cccc");
           - const na = pyp.categories[0].pyp === 'NA'

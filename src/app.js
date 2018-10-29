@@ -40,7 +40,7 @@ app.use((req, res, next) => {
     res.locals.helpers = helpers;
     res.locals.d = date;
     res.locals.ISODate = date.toISOString();
-    res.locals.ISODateShort = res.locals.ISODate.substring(0, 10);
+    res.locals.ISODateShort = helpers.format(date);
     res.locals.dtString = res.locals.ISODateShort.replace(/-/g, "/");
     res.locals.date = helpers.format(date, helpers.longDate);
     res.locals.pagePath = req.path;
@@ -48,6 +48,7 @@ app.use((req, res, next) => {
     res.locals.timePeriod = `${
       res.locals.semester
     } semestre del ${date.getFullYear()}`;
+    res.locals.archive = !!req.query.d;
     next();
   });
 });
