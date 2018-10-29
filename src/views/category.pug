@@ -1,13 +1,15 @@
 extends layouts/layout
 
 block variables
-  include ./includes/config
   - const cityName = pypData.name
   - const pageTitle = `Pico y placa ${pypData.data[0].categories[0].name} en ${cityName}`
   - const category = true
-  - const today = new Date()
-  - const todayLong = helpers.format(today, "dddd, D [de] MMMM [de] YYYY")
-  - const todayShort = helpers.format(today, "YYYY-MM-DD")
+  //- Debido a que esta página recibe como query una fecha, esa fecha se usa
+  //- como la fecha de base para construir la página y por lo tanto si la fecha
+  //- de la query (por ejemplo: ?d=2018-10-12) no coincide con la fecha actual,
+  //- vamos a desconocer al fecha actual, que necesitamos para validar en la
+  //- creación de la página si estamos hablando de hoy.
+  - const today = new Date().toISOString().substring(0, 10)
 
 block pypData
   section.container
@@ -19,29 +21,29 @@ block pypData
       tbody
         each pyp, index in pypData.data
           - const currentDate = new Date(pyp.date)
-          - const dateISOString = helpers.format(currentDate, "YYYY-MM-DD")
-          - const localDate = helpers.format(currentDate, "YYYY/MM/DD")
-          - const datetimeISOString = `${dateISOString}T05:00:00.000Z`
-          - const localDay = helpers.format(currentDate, "dddd");
+          - const currentISODate = currentDate.toISOString()
+          - const currentISODateShort = currentISODate.substring(0, 10)
+          - const currentLocalDate = currentISODateShort.replace(/-/g, "/")
+          - const currentLocalDay = helpers.format(currentDate, "dddd");
           - const na = pyp.categories[0].pyp === 'NA'
-          if datetimeISOString === locals.ISODate
+          if currentISODateShort === ISODateShort
             tr.active(class=na && 'table-secondary text-muted')
               td
-                time(datetime=`${dateISOString}T05:00:00.000Z`)= dateISOString === todayShort ? `hoy ${localDay}` : localDay 
+                time(datetime=currentISODate)= currentISODateShort === today ? `hoy ${currentLocalDay}` : currentLocalDay 
                 |
                 |
-                span.warning.small= localDate
+                span.warning.small= currentLocalDate
                 if archive
-                  +archiveWarning(todayLong)
+                  +archiveWarning(date)
               +tdLicensePlate(pyp.categories[0], na)
           else
             tr(class=na && 'table-secondary text-muted')
               td
-                a(href=`${pagePath}?d=${dateISOString}`)
-                  time(datetime=`${dateISOString}T05:00:00.000Z`)= localDay
+                a(href=`${pagePath}?d=${currentISODateShort}`)
+                  time(datetime=currentISODate)= currentLocalDay
                   |
                   |
-                  span.text-muted.small= localDate
+                  span.text-muted.small= currentLocalDate
               +tdLicensePlate(pyp.categories[0], na)
 block pypQuery
   +pypQuery(pagePath)

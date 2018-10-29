@@ -12,7 +12,7 @@ const router = Router();
 const api = pyptron.url();
 
 router.get("/sitemap.xml", (req, res) => {
-  const lastmod = new Date();
+  const lastmod = res.locals.dt;
   lastmod.setHours(0, 0, 0, 0);
   let urls = [
     {
@@ -23,45 +23,43 @@ router.get("/sitemap.xml", (req, res) => {
     }
   ];
   urls = urls.concat(
-    Object.keys(req.app.locals.citiesMap).reduce((paths, city) => {
+    Object.keys(res.locals.citiesMap).reduce((paths, city) => {
       paths.push({
         url: `/${city}`,
         lastmod,
         changefreq: "daily",
         priority: 0.8
       });
-      Object.keys(req.app.locals.citiesMap[city].categories).forEach(
-        category => {
-          paths.push({
-            url: `/${city}/${category}`,
-            lastmod,
-            changefreq: "daily",
-            priority: 0.6
-          });
-          if (
-            city === "manizales" &&
-            category === "transporte-publico-colectivo"
-          ) {
-            ["H", "I", "J", "A", "B", "C", "D", "E", "F", "G"].forEach(num => {
-              paths.push({
-                url: `/${city}/${category}/${num}`,
-                lastmod,
-                changefreq: "daily",
-                priority: 0.2
-              });
+      Object.keys(res.locals.citiesMap[city].categories).forEach(category => {
+        paths.push({
+          url: `/${city}/${category}`,
+          lastmod,
+          changefreq: "daily",
+          priority: 0.6
+        });
+        if (
+          city === "manizales" &&
+          category === "transporte-publico-colectivo"
+        ) {
+          ["H", "I", "J", "A", "B", "C", "D", "E", "F", "G"].forEach(num => {
+            paths.push({
+              url: `/${city}/${category}/${num}`,
+              lastmod,
+              changefreq: "daily",
+              priority: 0.2
             });
-          } else {
-            for (let i = 0; i <= 9; i += 1) {
-              paths.push({
-                url: `/${city}/${category}/${i}`,
-                lastmod,
-                changefreq: "daily",
-                priority: 0.2
-              });
-            }
+          });
+        } else {
+          for (let i = 0; i <= 9; i += 1) {
+            paths.push({
+              url: `/${city}/${category}/${i}`,
+              lastmod,
+              changefreq: "daily",
+              priority: 0.2
+            });
           }
         }
-      );
+      });
       return paths;
     }, [])
   );
@@ -82,7 +80,7 @@ router.get("/sitemap.xml", (req, res) => {
 
 /* GET home page. */
 router.get("/", async (req, res, next) => {
-  const date = format(new Date(), "YYYY-MM-DD");
+  const date = res.locals.dtString.replace(/\//g, "-");
   fetchUrl(`${api}?date=${date}`, (err, meta, body) => {
     if (err) {
       next(err);
@@ -93,16 +91,13 @@ router.get("/", async (req, res, next) => {
       return;
     }
     res.render("home", {
-      pypData: JSON.parse(body),
-      ISODate: `${date}T05:00:00.000Z`,
-      pagePath: req.path
+      pypData: JSON.parse(body)
     });
   });
 });
 
 /* GET home page. */
 router.get("/:city/exentos", async (req, res, next) => {
-  const date = format(new Date(), "YYYY-MM-DD");
   const { citiesMap } = res.locals;
   const { city } = req.params;
   // verificamos que la ciudad solicitada esté disponible
@@ -131,16 +126,14 @@ router.get("/:city/exentos", async (req, res, next) => {
     ];
     res.render("exceptions", {
       pypData: JSON.parse(body),
-      ISODate: `${date}T05:00:00.000Z`,
-      path,
-      pagePath: req.path
+      path
     });
   });
 });
 
 /* GET city page. */
 router.get("/:city", async (req, res, next) => {
-  const date = format(new Date(), "YYYY-MM-DD");
+  const date = res.locals.dtString.replace(/\//g, "-");
   const { citiesMap } = res.locals;
   const { city } = req.params;
   // verificamos que la ciudad solicitada esté disponible
@@ -165,9 +158,7 @@ router.get("/:city", async (req, res, next) => {
     }
     res.render("city", {
       pypData: JSON.parse(body),
-      ISODate: `${date}T05:00:00.000Z`,
-      path,
-      pagePath: req.path
+      path
     });
   });
 });
@@ -175,8 +166,8 @@ router.get("/:city", async (req, res, next) => {
 /* GET category page. */
 router.get("/:city/:category", async (req, res, next) => {
   const dateObject = req.query.d
-    ? new Date(`${req.query.d}T05:00:00.000Z`)
-    : new Date();
+    ? new Date(req.query.d.replace(/-/g, "/"))
+    : res.locals.d;
   const startDateObject = new Date(dateObject);
   startDateObject.setDate(dateObject.getDate() - 3);
   const formatedStartDateObject = format(startDateObject, "YYYY-MM-DD");
@@ -231,7 +222,6 @@ router.get("/:city/:category", async (req, res, next) => {
 
 /* GET Query page. */
 router.get("/:city/:category/:number", async (req, res, next) => {
-  const date = format(new Date(), "YYYY-MM-DD");
   const { citiesMap } = res.locals;
   const { city, category, number } = req.params;
   const num = number.toString().toUpperCase();
@@ -286,9 +276,7 @@ router.get("/:city/:category/:number", async (req, res, next) => {
       nextPyp,
       num,
       status,
-      ISODate: `${date}T05:00:00.000Z`,
-      path,
-      pagePath: req.path
+      path
     });
   });
 });

@@ -9,9 +9,7 @@ import { helpers, pyptron, site } from "./config";
 import indexRouter from "./routes";
 
 const log = debug("pyphoy:app");
-
 const api = pyptron.url();
-
 const app = express();
 
 // view engine setup
@@ -26,6 +24,11 @@ app.use(express.static(join(__dirname, "..", "public")));
 
 // pass variables to our templates + all requests
 app.use((req, res, next) => {
+  // La fecha con la que vamos a trabajar, si se solicita una fecha en
+  // particular, esa es la fecha con la que se va a trabajar.
+  const date = req.query.d
+    ? new Date(req.query.d.replace(/-/g, "/"))
+    : new Date();
   fetchUrl(`${api}/cities`, (err, meta, body) => {
     if (err) {
       next(err);
@@ -35,6 +38,16 @@ app.use((req, res, next) => {
     res.locals.citiesMap = JSON.parse(body);
     res.locals.site = site;
     res.locals.helpers = helpers;
+    res.locals.d = date;
+    res.locals.dtString = helpers.format(date, "YYYY/MM/DD");
+    res.locals.date = helpers.format(date, "dddd, D [de] MMMM [de] YYYY");
+    res.locals.ISODate = date.toISOString();
+    res.locals.ISODateShort = res.locals.ISODate.substring(0, 10);
+    res.locals.pagePath = req.path;
+    res.locals.semester = date.getMonth() <= 5 ? "primer" : "segundo";
+    res.locals.timePeriod = `${
+      res.locals.semester
+    } semestre del ${date.getFullYear()}`;
     next();
   });
 });

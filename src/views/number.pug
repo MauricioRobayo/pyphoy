@@ -1,7 +1,6 @@
 extends layouts/layout
 
 block variables
-  include ./includes/config
   - const category = true
 block pypData
   section.text-center
@@ -32,7 +31,7 @@ block pypData
                 td.text-center= helpers.format(new Date(date.date), "dddd, D [de] MMMM [de] YYYY")
 
 block pypQuery
-  +pypQuery('/' + pypData.data[0].categories[0].path)
+  +pypQuery(`/${pypData.data[0].categories[0].path}`)
 
 block pypInfo
   .info-container

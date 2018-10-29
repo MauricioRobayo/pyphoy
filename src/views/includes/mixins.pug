@@ -35,7 +35,7 @@ mixin selectCategory(citySlug, categoryName)
         option(value=`${citySlug}/${categorySlug}` selected=selected)= category.name
 
 mixin breadCrumbs()
-  if path.length > 1
+  if path && path.length > 1
     .breadcrumbs
       - let currentPath = ''
       each crumb, index in path
