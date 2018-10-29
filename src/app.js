@@ -39,10 +39,10 @@ app.use((req, res, next) => {
     res.locals.site = site;
     res.locals.helpers = helpers;
     res.locals.d = date;
-    res.locals.dtString = helpers.format(date, "YYYY/MM/DD");
-    res.locals.date = helpers.format(date, "dddd, D [de] MMMM [de] YYYY");
     res.locals.ISODate = date.toISOString();
     res.locals.ISODateShort = res.locals.ISODate.substring(0, 10);
+    res.locals.dtString = res.locals.ISODateShort.replace(/-/g, "/");
+    res.locals.date = helpers.format(date, helpers.longDate);
     res.locals.pagePath = req.path;
     res.locals.semester = date.getMonth() <= 5 ? "primer" : "segundo";
     res.locals.timePeriod = `${

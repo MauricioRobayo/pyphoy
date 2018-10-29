@@ -9,7 +9,9 @@ block variables
   //- de la query (por ejemplo: ?d=2018-10-12) no coincide con la fecha actual,
   //- vamos a desconocer al fecha actual, que necesitamos para validar en la
   //- creación de la página si estamos hablando de hoy.
-  - const today = new Date().toISOString().substring(0, 10)
+  - const today = new Date()
+  - const todayISODate = today.toISOString()
+  - const todayISODateShort = todayISODate.substring(0, 10)
 
 block pypData
   section.container
@@ -24,12 +26,12 @@ block pypData
           - const currentISODate = currentDate.toISOString()
           - const currentISODateShort = currentISODate.substring(0, 10)
           - const currentLocalDate = currentISODateShort.replace(/-/g, "/")
-          - const currentLocalDay = helpers.format(currentDate, "dddd");
+          - const currentLocalDay = helpers.format(currentDate, "cccc");
           - const na = pyp.categories[0].pyp === 'NA'
           if currentISODateShort === ISODateShort
             tr.active(class=na && 'table-secondary text-muted')
               td
-                time(datetime=currentISODate)= currentISODateShort === today ? `hoy ${currentLocalDay}` : currentLocalDay 
+                time(datetime=currentISODate)= currentISODateShort === todayISODateShort ? `hoy ${currentLocalDay}` : currentLocalDay 
                 |
                 |
                 span.warning.small= currentLocalDate

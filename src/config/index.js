@@ -1,56 +1,5 @@
-import fecha from "fecha";
-
-// Override fecha.i18n to support any language
-fecha.i18n = {
-  dayNamesShort: ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"],
-  dayNames: [
-    "domingo",
-    "lunes",
-    "martes",
-    "miércoles",
-    "jueves",
-    "viernes",
-    "sábado"
-  ],
-  monthNamesShort: [
-    "ene",
-    "feb",
-    "mar",
-    "abr",
-    "may",
-    "jun",
-    "jul",
-    "ago",
-    "sep",
-    "oct",
-    "nov",
-    "dic"
-  ],
-  monthNames: [
-    "enero",
-    "febrero",
-    "marzo",
-    "abril",
-    "mayo",
-    "junio",
-    "julio",
-    "agosto",
-    "septiembre",
-    "octubre",
-    "noviembre",
-    "diciembre"
-  ],
-  amPm: ["am", "pm"],
-  // D is the day of the month, function returns something like...  3rd or 11th
-  DoFn(D) {
-    return (
-      D +
-      ["th", "st", "nd", "rd"][
-        D % 10 > 3 ? 0 : ((D - (D % 10) !== 10) * D) % 10
-      ]
-    );
-  }
-};
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
 
 /**
  * Normalize a port into a number, string, or false.
@@ -88,7 +37,10 @@ export const site = {
 };
 
 export const helpers = {
-  format: fecha.format,
+  longDate: "cccc, d 'de' MMMM 'de' yyyy",
+  format(date, formatString) {
+    return format(date, formatString, { locale: es });
+  },
   cdn(path) {
     const p = path.startsWith("/") ? path : `/${path}`;
     if (env === "production") {

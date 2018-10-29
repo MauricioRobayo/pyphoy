@@ -28,7 +28,7 @@ block pypData
           tbody
             each date in nextPyp
               tr
-                td.text-center= helpers.format(new Date(date.date), "dddd, D [de] MMMM [de] YYYY")
+                td.text-center= helpers.format(new Date(date.date), helpers.longDate)
 
 block pypQuery
   +pypQuery(`/${pypData.data[0].categories[0].path}`)
