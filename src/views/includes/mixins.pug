@@ -59,8 +59,8 @@ mixin cityInfo(city)
   p.subtitle Las siguientes son las medidas de restricción vehicular vigentes para #{city.name} durante el #{timePeriod}, de acuerdo con lo establecido por la Alcaldía de #{city.name}:
 
 mixin categoryList(city)
-  each category in city.info
-    ul
+  ul.list-style-none
+    each category in city.info
       li.title
         a(href=`/${category.path}`) Pico y placa #{category.name} en #{city.name}
 
