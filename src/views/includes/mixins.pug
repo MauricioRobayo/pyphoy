@@ -61,22 +61,22 @@ mixin cityInfo(city)
 mixin categoryList(city)
   ul.list-style-none
     each category in city.info
-      li.title
-        a(href=`/${category.path}`) Pico y placa #{category.name} en #{city.name}
+      li.m-1.title
+        a(href=`/${category.path}`) Pico y placa #{category.name.toLowerCase()} en #{city.name}
 
 mixin exceptionsInfo(city)
   each category in city.info
     if category.exceptions
       header
         h2.title
-          a(href=`/${category.path}`) Exenciones Pico y Placa #{category.name} en #{city.name}
+          a(href=`/${category.path}`) Exenciones Pico y Placa #{category.name.toLowerCase()} en #{city.name}
       article !{category.exceptions}
         
 mixin categoryInfo(city)
   each category in city.info
     header
       h2.title
-        a(href=`/${category.path}`) Pico y placa #{category.name} en #{city.name}
+        a(href=`/${category.path}`) Pico y placa #{category.name.toLowerCase()} en #{city.name}
     article
       dl
         dt Horario
@@ -125,7 +125,7 @@ mixin cityTable(city)
       each cityCategory in city.data[0].categories
         - const na = cityCategory.pyp === 'NA'
         tr(class=na ? 'table-secondary text-muted' : '')
-          td(title=`Pico y placa para ${cityCategory.name.toLowerCase()}`)
+          td(title=`Pico y placa ${cityCategory.name.toLowerCase()} en ${city.name}`)
             a(href=`/${cityCategory.path}`)= cityCategory.name
             ul.list-style-none.small
               each hour in city.info[cityCategory.key].hours

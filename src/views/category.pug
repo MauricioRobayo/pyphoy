@@ -2,7 +2,7 @@ extends layouts/layout
 
 block variables
   - const cityName = pypData.name
-  - const pageTitle = `Pico y placa ${pypData.data[0].categories[0].name} en ${cityName}`
+  - const pageTitle = `Pico y placa ${pypData.data[0].categories[0].name.toLowerCase()} en ${cityName}`
   - const category = true
   //- Debido a que esta página recibe como query una fecha, esa fecha se usa
   //- como la fecha de base para construir la página y por lo tanto si la fecha
