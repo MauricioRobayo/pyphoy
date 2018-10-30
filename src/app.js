@@ -1,4 +1,3 @@
-import cookieParser from "cookie-parser";
 import debug from "debug";
 import express from "express";
 import { fetchUrl } from "fetch";
@@ -17,12 +16,8 @@ app.set("views", join(__dirname, "views"));
 app.set("view engine", "pug");
 
 app.use(logger("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(join(__dirname, "..", "public")));
 
-// pass variables to our templates + all requests
 app.use((req, res, next) => {
   // La fecha con la que vamos a trabajar, si se solicita una fecha en
   // particular, esa es la fecha con la que se va a trabajar.
@@ -34,7 +29,7 @@ app.use((req, res, next) => {
       next(err);
       return;
     }
-    log("Getting citiesMap!");
+    log("Setting variables for all templates.");
     res.locals.citiesMap = JSON.parse(body);
     res.locals.site = site;
     res.locals.helpers = helpers;
@@ -44,6 +39,7 @@ app.use((req, res, next) => {
     res.locals.dtString = res.locals.ISODateShort.replace(/-/g, "/");
     res.locals.date = helpers.format(date, helpers.longDate);
     res.locals.pagePath = req.path;
+    res.locals.url = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
     res.locals.semester = date.getMonth() <= 5 ? "primer" : "segundo";
     res.locals.timePeriod = `${
       res.locals.semester

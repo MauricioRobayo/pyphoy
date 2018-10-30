@@ -7,13 +7,13 @@ nav.navbar(role="navigation" aria-label="main navigation")
     .navbar-item
       if pypData
         +selectCity(pypData.name)
-        +selectCategory(pypData.path, category ? pypData.data[0].categories[0].name : false)
+        +selectCategory(pypData.path, categoryName ? pypData.data[0].categories[0].name : false)
       else
         +selectCity()
 
     
 header.header.container.text-center
-  h1.title= pageTitle || site.name
+  h1.title= title || site.name
   .subtitle(class=archive && 'archive')
     time(datetime=ISODate)= date
     if archive

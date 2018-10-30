@@ -1,27 +1,23 @@
 import debug from "debug";
 import http from "http";
 import app from "../app";
-import { serverConfig } from "../config";
 
 const log = debug("pyphoy:server");
-
-/**
- * Get port from environment and store in Express.
- */
-
-app.set("port", serverConfig.port);
-
-app.locals.env = process.env.NODE_ENV;
-
-/**
- * Create HTTP server.
- */
-
 const server = http.createServer(app);
 
-/**
- * Event listener for HTTP server "error" event.
- */
+function normalizePort(val) {
+  const port = parseInt(val, 10);
+  if (Number.isNaN(port)) {
+    // named pipe
+    return val;
+  }
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+  return false;
+}
+app.set("port", normalizePort(process.env.PORT || 3000));
 
 function onError(error) {
   if (error.syscall !== "listen") {
@@ -30,8 +26,8 @@ function onError(error) {
 
   const bind =
     typeof port === "string"
-      ? `Pipe ${serverConfig.port}`
-      : `Port ${serverConfig.port}`;
+      ? `Pipe ${app.get("port")}`
+      : `Port ${app.get("port")}`;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -50,20 +46,12 @@ function onError(error) {
   }
 }
 
-/**
- * Event listener for HTTP server "listening" event.
- */
-
 function onListening() {
   const addr = server.address();
   const bind = typeof addr === "string" ? `pipe ${addr}` : `port ${addr.port}`;
   log(`Listening on ${bind}`);
 }
 
-/**
- * Listen on provided port, on all network interfaces.
- */
-
-server.listen(serverConfig.port);
+server.listen(app.get("port"));
 server.on("error", onError);
 server.on("listening", onListening);

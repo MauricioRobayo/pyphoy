@@ -76,7 +76,7 @@ mixin categoryInfo(city)
   each category in city.info
     header
       h2.title
-        a(href=`/${category.path}`) Pico y placa #{category.name.toLowerCase()} en #{city.name}
+        a(href=`/${category.path}`)= title
     article
       dl
         dt Horario

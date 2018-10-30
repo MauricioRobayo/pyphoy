@@ -77,7 +77,6 @@ router.get("/sitemap.xml", (req, res) => {
   });
 });
 
-/* GET home page. */
 router.get("/", async (req, res, next) => {
   const date = res.locals.dtString.replace(/\//g, "-");
   fetchUrl(`${api}?date=${date}`, (err, meta, body) => {
@@ -90,16 +89,16 @@ router.get("/", async (req, res, next) => {
       return;
     }
     res.render("home", {
-      pypData: JSON.parse(body)
+      pypData: JSON.parse(body),
+      title: site.title,
+      home: true
     });
   });
 });
 
-/* GET home page. */
 router.get("/:city/exentos", async (req, res, next) => {
   const { citiesMap } = res.locals;
   const { city } = req.params;
-  // verificamos que la ciudad solicitada esté disponible
   if (!citiesMap.hasOwnProperty(city)) {
     next();
     return;
@@ -113,10 +112,13 @@ router.get("/:city/exentos", async (req, res, next) => {
       next();
       return;
     }
+    const pypData = JSON.parse(body);
+    const cityName = pypData.name;
+    const title = `Vehículos exentos de pico y placa en ${cityName}`;
     const path = [
       {
         path: city,
-        name: citiesMap[city].name
+        name: cityName
       },
       {
         path: "exentos",
@@ -124,29 +126,23 @@ router.get("/:city/exentos", async (req, res, next) => {
       }
     ];
     res.render("exceptions", {
-      pypData: JSON.parse(body),
+      pypData,
+      cityName,
+      title,
       path
     });
   });
 });
 
-/* GET city page. */
 router.get("/:city", async (req, res, next) => {
   const date = res.locals.dtString.replace(/\//g, "-");
   const { citiesMap } = res.locals;
   const { city } = req.params;
-  // verificamos que la ciudad solicitada esté disponible
   if (!citiesMap.hasOwnProperty(city)) {
     log("La ciudad solicitada no existe.");
     next();
     return;
   }
-  const path = [
-    {
-      path: city,
-      name: citiesMap[city].name
-    }
-  ];
   fetchUrl(`${api}/${city}?date=${date}`, (err, meta, body) => {
     if (err) {
       next(err);
@@ -154,15 +150,28 @@ router.get("/:city", async (req, res, next) => {
     }
     if (meta.status !== 200) {
       next();
+      return;
     }
+    const pypData = JSON.parse(body);
+    const cityName = pypData.name;
+    const title = site.title({ city: cityName });
+    const description = site.description({ city: cityName });
+    const path = [
+      {
+        path: city,
+        name: cityName
+      }
+    ];
     res.render("city", {
-      pypData: JSON.parse(body),
-      path
+      pypData,
+      path,
+      cityName,
+      title,
+      description
     });
   });
 });
 
-/* GET category page. */
 router.get("/:city/:category", async (req, res, next) => {
   const daysBack = req.query.b ? parseInt(req.query.b, 10) : 3;
   const daysForward = req.query.f ? parseInt(req.query.f, 10) : 6;
@@ -185,16 +194,6 @@ router.get("/:city/:category", async (req, res, next) => {
     next();
     return;
   }
-  const path = [
-    {
-      path: city,
-      name: citiesMap[city].name
-    },
-    {
-      path: category,
-      name: citiesMap[city].categories[category].name
-    }
-  ];
   fetchUrl(
     `${api}/${city}/${category}?days=${totalDays}&date=${startISODateShort}`,
     (err, meta, body) => {
@@ -206,8 +205,48 @@ router.get("/:city/:category", async (req, res, next) => {
         next(err);
         return;
       }
+      const pypData = JSON.parse(body);
+      const cityName = pypData.name;
+      const categoryName = citiesMap[city].categories[category].name;
+      const title = site.title({ city: cityName, category: categoryName });
+      const SEOTitle = site.title({
+        city: cityName,
+        category: categoryName,
+        date: (res.locals.archive && res.locals.date) || ""
+      });
+      const description = site.description({
+        city: cityName,
+        category: categoryName,
+        date: (res.locals.archive && res.locals.date) || ""
+      });
+      const path = [
+        {
+          path: city,
+          name: cityName
+        },
+        {
+          path: category,
+          name: categoryName
+        }
+      ];
+      // Como la fecha de base para construir la página y por lo tanto si la fecha
+      // de la query (por ejemplo: ?d=2018-10-12) no coincide con la fecha actual,
+      // vamos a desconocer al fecha actual, que necesitamos para validar en la
+      // creación de la página si estamos hablando de hoy.
+      // Debido a que esta página recibe como query una fecha, esa fecha se usa
+      const today = new Date();
+      const todayISODate = today.toISOString();
+      const todayISODateShort = helpers.format(today);
       res.render("category", {
-        pypData: JSON.parse(body),
+        pypData,
+        cityName,
+        categoryName,
+        title,
+        SEOTitle,
+        description,
+        today,
+        todayISODate,
+        todayISODateShort,
         path
       });
     }
@@ -241,31 +280,47 @@ router.get("/:city/:category/:number", async (req, res, next) => {
     next();
     return;
   }
-  const path = [
-    {
-      path: city,
-      name: citiesMap[city].name
-    },
-    {
-      path: category,
-      name: citiesMap[city].categories[category].name
-    },
-    {
-      path: number,
-      name: number
-    }
-  ];
   fetchUrl(`${api}/${city}/${category}?days=30`, (err, meta, body) => {
     if (err) {
       next(err);
       return;
     }
     const pypData = JSON.parse(body);
+    const cityName = pypData.name;
+    const categoryName = citiesMap[city].categories[category].name;
+    const title = site.title({
+      city: cityName,
+      category: categoryName,
+      number: num
+    });
+    const description = site.description({
+      city: cityName,
+      category: categoryName,
+      number: num
+    });
     const status = pypData.data[0].categories[0].pyp.split("-").includes(num);
     const nextPyp = pypData.data.filter(val =>
       val.categories[0].pyp.split("-").includes(num)
     );
+    const path = [
+      {
+        path: city,
+        name: cityName
+      },
+      {
+        path: category,
+        name: categoryName
+      },
+      {
+        path: number,
+        name: number
+      }
+    ];
     res.render("number", {
+      cityName,
+      categoryName,
+      title,
+      description,
       pypData,
       nextPyp,
       num,
