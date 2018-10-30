@@ -30,7 +30,7 @@
     }
   },
   "dependencies": {
-    "autoprefixer": "^9.2.1",
+    "autoprefixer": "^9.3.1",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "cssnano": "^4.1.7",
@@ -52,14 +52,14 @@
     "@commitlint/config-conventional": "^7.1.2",
     "browser-sync": "^2.26.3",
     "cross-env": "^5.2.0",
-    "eslint": "^5.7.0",
+    "eslint": "^5.8.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-prettier": "^3.1.0",
     "eslint-plugin-import": "^2.14.0",
     "husky": "^1.1.2",
     "jest": "^23.6.0",
-    "lint-staged": "^7.3.0",
-    "nodemon": "^1.18.4",
+    "lint-staged": "^8.0.3",
+    "nodemon": "^1.18.5",
     "pm2": "^3.2.2",
     "prettier": "^1.14.3",
     "supertest": "^3.3.0"
