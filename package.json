@@ -16,10 +16,7 @@
     "css:minify": "postcss public/css/main.css --use cssnano --output public/css/main.min.css --no-map",
     "css:watch": "nodemon --ext scss -x npm run css:build",
     "css:build": "npm-run-all css:sass css:postcss css:minify",
-    "test": "jest",
-    "test:watch": "jest --watch --notify",
     "lint": "eslint src",
-    "commit": "git-cz",
     "deploy:site": "pm2 deploy production",
     "deploy:assets": "aws s3 sync public/ s3://pyphoy/ --acl public-read"
   },
@@ -57,12 +54,10 @@
     "eslint-config-prettier": "^3.1.0",
     "eslint-plugin-import": "^2.14.0",
     "husky": "^1.1.2",
-    "jest": "^23.6.0",
     "lint-staged": "^8.0.3",
     "nodemon": "^1.18.5",
     "pm2": "^3.2.2",
-    "prettier": "^1.14.3",
-    "supertest": "^3.3.0"
+    "prettier": "^1.14.3"
   },
   "description": "El pico y placa en Colombia es una medida de restricción vehicular que se aplica en las principales ciudades con el fin de descongestionar el tráfico de automóviles en las vías.",
   "main": "app.js",
