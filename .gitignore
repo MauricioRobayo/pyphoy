@@ -1,4 +1,4 @@
-config/production.json
+.envrc
 dist
 public/css/
 

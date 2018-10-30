@@ -1,7 +1,3 @@
-const production = require("./config/production.json");
-
-console.log(production);
-
 module.exports = {
   apps: [
     {
@@ -15,9 +11,9 @@ module.exports = {
   ],
   deploy: {
     production: {
-      user: production.USER,
-      host: production.HOST,
-      port: production.PORT,
+      user: process.env.PYPHOY_PRODUCTION_USER,
+      host: process.env.PYPHOY_PRODUCTION_HOST,
+      port: process.env.PYPHOY_PRODUCTION_PORT,
       ref: "origin/master",
       repo: "git@github.com:archemiro/pyphoy.git",
       path: "/home/pyphoy/pyphoy",
