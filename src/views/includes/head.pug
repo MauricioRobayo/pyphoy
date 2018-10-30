@@ -1,14 +1,17 @@
+- const siteTitle = SEOTitle || `${title || site.title({})} | ${site.name}`
+- const siteDescription = description || site.description({})
+
 head
   meta(charset='utf-8')
   script(async src='https://cdn.ampproject.org/v0.js')
   meta(http-equiv='X-UA-Compatible' content='IE=edge')
   meta(name='viewport' content='width=device-width,minimum-scale=1,initial-scale=1')
-  title= SEOTitle || `${title} | ${site.name}`
-  meta(name='description' content=description)
+  title= siteTitle
+  meta(name='description' content=siteDescription)
   link(rel='canonical' href=url)
 
-  meta(itemprop="name" content=title)
-  meta(itemprop="Description" content=description)
+  meta(itemprop="name" content=siteTitle)
+  meta(itemprop="Description" content=siteDescription)
   meta(itemprop="url" content=url)
   meta(itemprop="startDate" content=ISODate)
 

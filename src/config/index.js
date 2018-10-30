@@ -22,9 +22,9 @@ export const site = {
   description({ city, category, number, date = "" }) {
     const base = `Horarios, días, fechas, ${
       number ? "" : "placas, números, "
-    }decretos, exensiones, sanciones y toda la información vigente por pico y placa`;
+    }decretos, exensiones, sanciones y toda la información vigente del pico y placa`;
     if (!city) {
-      return base;
+      return `${base} en Colombia.`;
     }
     if (!category) {
       return `${base} en ${city}`;

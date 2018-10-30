@@ -90,7 +90,6 @@ router.get("/", async (req, res, next) => {
     }
     res.render("home", {
       pypData: JSON.parse(body),
-      title: site.title({}),
       home: true
     });
   });
