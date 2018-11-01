@@ -1,8 +1,8 @@
 nav.navbar(role="navigation" aria-label="main navigation")
-  a.navbar-item(title='Pico y placa para hoy' href=site.url)
+  a.navbar-item(title=site.name href=url)
     include ../../../public/imgs/pyphoy.svg
   if home
-    a.navbar-item.site-name(title=site.name href=site.url)= site.name
+    a.navbar-item.site-name(title=site.name href=url)= site.name
   else
     .navbar-item
       if pypData

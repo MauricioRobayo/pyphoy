@@ -39,7 +39,10 @@ app.use((req, res, next) => {
     res.locals.dtString = res.locals.ISODateShort.replace(/-/g, "/");
     res.locals.date = helpers.format(date, helpers.longDate);
     res.locals.pagePath = req.path;
-    res.locals.url = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
+    res.locals.url = `${req.protocol}://${req.get("host")}`;
+    res.locals.fullUrl = `${req.protocol}://${req.get("host")}${
+      req.originalUrl
+    }`;
     res.locals.semester = date.getMonth() <= 5 ? "primer" : "segundo";
     res.locals.timePeriod = `${
       res.locals.semester
