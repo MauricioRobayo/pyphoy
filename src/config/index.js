@@ -50,6 +50,15 @@ export const helpers = {
     }
     return `${p}`;
   },
+  convert24toAMPM(hour24) {
+    if (hour24 === "12:00") return `${hour24}m.`;
+    const [hours, minutes] = hour24.split(":");
+    const hoursNumber = parseInt(hours, 10);
+    if (hoursNumber === 12) return `${hour24}pm`;
+    return hoursNumber > 12
+      ? `${hoursNumber - 12}:${minutes}pm`
+      : `${hour24}am`;
+  },
   dump(obj) {
     return JSON.stringify(obj, null, 2);
   }

@@ -81,9 +81,7 @@ mixin categoryInfo(city)
       dl
         dt Horario
         dd
-          ul.list-style-none
-            each hour in category.hours
-              li= hour
+          +hours(category.hours, ["list-style-none"])
         dt Clase de vehículos
         dd= category.vehicleClasses
         dt Decreto
@@ -115,6 +113,14 @@ mixin categoryInfo(city)
         dt Sanciones
         dd Los infractores a lo dispuesto serán sancionados con multa equivalente a quince (15) salarios mínimos diarios legales vigentes e inmovilización del vehículo, según lo consagrado por el artículo 131 literal C numeral 14 de la #[a(href="https://www.mintransporte.gov.co/descargar.php?idFile=13114") Ley 769 de 2002].
 
+mixin hours(hours, classes)
+  ul(class=classes)
+    each hour in hours
+      if hour.hours
+        each h in hour.hours
+          li= `${hour.comment} ${h.map(h => helpers.convert24toAMPM(h)).join(' a ')}`
+      else
+        li= hour
 mixin cityTable(city)
   table.table
     thead.dark
@@ -127,9 +133,7 @@ mixin cityTable(city)
         tr(class=na ? 'table-secondary text-muted' : '')
           td(title=`Pico y placa ${cityCategory.name.toLowerCase()} en ${city.name}`)
             a(href=`/${cityCategory.path}`)= cityCategory.name
-            ul.list-style-none.small
-              each hour in city.info[cityCategory.key].hours
-                li= hour
+            +hours(city.info[cityCategory.key].hours, ["list-style-none", "small"])
           +tdLicensePlate(cityCategory, na)
 
 mixin tdLicensePlate(data, na)

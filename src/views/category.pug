@@ -25,9 +25,7 @@ block pypData
                 if currentISODateShort !== todayISODateShort
                   +archiveWarning(date)
                 else
-                  ul.list-style-none.small
-                    each hour in pypData.info[pypData.data[0].categories[0].key].hours
-                      li= hour
+                  +hours(pypData.info[pypData.data[0].categories[0].key].hours, ["list-style-none", "small"])
               +tdLicensePlate(pyp.categories[0], na)
           else
             tr(class=na && 'table-secondary text-muted')
