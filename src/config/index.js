@@ -57,7 +57,7 @@ export const helpers = {
     if (hoursNumber === 12) return `${hour24}pm`;
     return hoursNumber > 12
       ? `${hoursNumber - 12}:${minutes}pm`
-      : `${hour24}am`;
+      : `${hoursNumber}:${minutes}am`;
   },
   dump(obj) {
     return JSON.stringify(obj, null, 2);
