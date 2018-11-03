@@ -4,7 +4,7 @@ import { es } from "date-fns/locale";
 export const site = {
   env: process.env.NODE_ENV || "development",
   name: "Pico y placa hoy",
-  title({ city, category, number, date = "" }) {
+  title({ city, category, number, date = "" } = {}) {
     if (!city) {
       return "Toda la información sobre el pico y placa en Colombia";
     }
@@ -19,7 +19,7 @@ export const site = {
     return `${base} ${category.toLowerCase()} en ${city} placas número ${number}${date &&
       ` ${date.replace(",", "")}`}`;
   },
-  description({ city, category, number, date = "" }) {
+  description({ city, category, number, date = "" } = {}) {
     const base = `Horarios, días, fechas, ${
       number ? "" : "placas, números, "
     }decretos, exensiones, sanciones y toda la información vigente del pico y placa`;
