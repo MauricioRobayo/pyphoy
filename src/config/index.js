@@ -1,7 +1,17 @@
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 
+const emojis = {
+  taxis: "🚕",
+  particulares: "🚗",
+  tpc: "🚌",
+  motos: "🛵",
+  especial: "🚐",
+  ambiental: "🌻"
+};
+
 export const site = {
+  emojis,
   env: process.env.NODE_ENV || "development",
   name: "Pico y placa hoy",
   title({ city, category, number, date = "" } = {}) {

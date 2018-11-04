@@ -132,7 +132,11 @@ mixin cityTable(city)
         - const na = cityCategory.pyp === 'NA'
         tr(class=na ? 'table-secondary text-muted' : '')
           td(title=`Pico y placa ${cityCategory.name.toLowerCase()} en ${city.name}`)
-            a(href=`/${cityCategory.path}`)= cityCategory.name
+            a(href=`/${cityCategory.path}`)
+              span= site.emojis[cityCategory.key]
+              |
+              |
+              = cityCategory.name
             +hours(city.info[cityCategory.key].hours, ["list-style-none", "small"])
           +tdLicensePlate(cityCategory, na)
 
