@@ -76,3 +76,32 @@ pre {
   padding: 1em;
   overflow: auto;
 }
+
+.lapse {
+  color: $white;
+  padding: 0 0.25em;
+  border-radius: 3px;
+  display: inline-block;
+  font-size: 0.9em;
+}
+
+.hour-active {
+  color: $dark;
+  &::before {
+    content: "🛑";
+    display: inline-block;
+  }
+  .lapse {
+    background-color: $danger;
+  }
+}
+
+.hour-warning {
+  &::before {
+    content: "⚠️";
+    display: inline-block;
+  }
+  .lapse {
+    background-color: $success;
+  }
+}

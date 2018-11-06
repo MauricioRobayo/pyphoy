@@ -12,7 +12,7 @@ block pypData
       dt Horario
         dd
           each category in pypData.info
-            +hours(category.hours, ["list-style-none"])
+            +hours(category.hours, ["list-style-none"], status)
     .container
       table.table
           caption

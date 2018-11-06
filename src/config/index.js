@@ -50,6 +50,11 @@ export const site = {
 
 export const helpers = {
   longDate: "cccc, d 'de' MMMM 'de' yyyy",
+  timeString(time) {
+    const hours = Math.floor(time / (1000 * 60 * 60));
+    const minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
+    return `${hours ? `${hours}h` : ""}${minutes ? ` ${minutes}m` : ""}`;
+  },
   format(date, formatString) {
     return format(date, formatString || "yyyy-MM-dd", { locale: es });
   },

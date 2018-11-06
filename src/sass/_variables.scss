@@ -25,14 +25,14 @@ $white-ter: hsl(0, 0%, 96%) !default;
 $white-bis: hsl(0, 0%, 98%) !default;
 $white: hsl(0, 0%, 100%) !default;
 
-$orange: hsl(14, 100%, 53%) !default;
+$orange: hsl(39, 100%, 49%) !default;
 $yellow: hsl(45, 100%, 51%) !default;
-$green: hsl(141, 71%, 48%) !default;
+$green: #03cf0d !default;
 $turquoise: hsl(171, 100%, 41%) !default;
 $cyan: hsl(204, 86%, 53%) !default;
 $blue: hsl(217, 71%, 53%) !default;
 $purple: hsl(271, 100%, 71%) !default;
-$red: hsl(348, 100%, 61%) !default;
+$red: #ff2b2b !default;
 
 // Typography
 
@@ -87,7 +87,7 @@ $primary: $turquoise !default;
 
 $info: $cyan !default;
 $success: $green !default;
-$warning: $yellow !default;
+$warning: $orange !default;
 $danger: $red !default;
 
 $light: $white-ter !default;

@@ -113,14 +113,32 @@ mixin categoryInfo(city)
         dt Sanciones
         dd Los infractores a lo dispuesto serán sancionados con multa equivalente a quince (15) salarios mínimos diarios legales vigentes e inmovilización del vehículo, según lo consagrado por el artículo 131 literal C numeral 14 de la #[a(href="https://www.mintransporte.gov.co/descargar.php?idFile=13114") Ley 769 de 2002].
 
-mixin hours(hours, classes)
-  ul(class=classes)
+mixin hours(hours, classes, interactive=false)
+  ul.hours(class=classes)
     each hour in hours
-      if hour.hours
-        each h in hour.hours
-          li= `${hour.comment} ${h.map(h => helpers.convert24toAMPM(h)).join(' a ')}`
-      else
-        li= hour
+      each h in hour.hours
+        -
+          const now = new Date().getTime()
+          const startTime = new Date(`${dtString} ${hour.comment === "Todo el día" ? "0:00" : h[0]}`)
+          const endTime = new Date(`${dtString} ${hour.comment === "Todo el día" ? "0:00" : h[1]}`)
+          if (endTime <= startTime) endTime.setDate(endTime.getDate() + 1)
+          const hourActive = (now >= startTime) && (now <= endTime)
+          const hourWarning = now < startTime
+        li(class=(hourActive && interactive) && 'hour-active' class=(hourWarning && interactive) && 'hour-warning')= hour.comment
+          |
+          |
+          = h.map(h => helpers.convert24toAMPM(h)).join(' a ')
+          if interactive
+            |
+            |
+            if hourActive
+              span.lapse(data-start=startTime.getTime() data-end=endTime.getTime())= helpers.timeString(endTime - now)
+            else
+              if hourWarning
+                span.lapse(data-start=startTime.getTime() data-end=endTime.getTime())= helpers.timeString(startTime - now)
+              else
+                span.lapse(data-start=startTime.getTime() data-end=endTime.getTime())
+
 mixin cityTable(city)
   table.table
     thead.dark
@@ -137,7 +155,7 @@ mixin cityTable(city)
               |
               |
               = cityCategory.name
-            +hours(city.info[cityCategory.key].hours, ["list-style-none", "small"])
+            +hours(city.info[cityCategory.key].hours, ["list-style-none", "small"], true)
           +tdLicensePlate(cityCategory, na)
 
 mixin tdLicensePlate(data, na)
