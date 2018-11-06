@@ -30,13 +30,6 @@
         transform: scale(1);
         td:first-child {
           padding-left: 0.75em;
-          &::before {
-            content: "▶";
-            font-weight: bold;
-            color: $danger;
-            font-size: 90%;
-            margin-right: 0.25em;
-          }
         }
         td:last-child {
           padding-right: 0.75em;
