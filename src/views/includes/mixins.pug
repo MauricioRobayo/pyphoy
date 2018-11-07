@@ -116,10 +116,11 @@ mixin categoryInfo(city)
 mixin hours(hours, classes, interactive=false)
   ul.hours(class=classes)
     each hour in hours
+      - let done = false
       each h in hour.hours
         -
           const today = new Date()
-          const apply = interactive && (hour.days.length === 0 || hour.days.includes(today.getDay()))
+          const apply = interactive && !done && (hour.days.length === 0 || hour.days.includes(today.getDay()))
           const now = today.getTime()
           const startTime = new Date(`${dtString} ${hour.comment === "Todo el día" ? "0:00" : h[0]}`)
           const endTime = new Date(`${dtString} ${hour.comment === "Todo el día" ? "0:00" : h[1]}`)
