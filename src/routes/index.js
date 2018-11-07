@@ -172,7 +172,7 @@ router.get("/:city", async (req, res, next) => {
 });
 
 router.get("/:city/:category", async (req, res, next) => {
-  const daysBack = req.query.b ? parseInt(req.query.b, 10) : 3;
+  const daysBack = req.query.b ? parseInt(req.query.b, 10) : 2;
   const daysForward = req.query.f ? parseInt(req.query.f, 10) : 6;
   const totalDays = daysBack + daysForward + 1;
   if (totalDays > 31) {
