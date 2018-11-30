@@ -1,5 +1,6 @@
 - const siteTitle = SEOTitle || `${title || site.title()} | ${site.name}`
 - const siteDescription = description || site.description()
+- const canonicalUrl = `${url}${pagePath}`
 
 head
   meta(charset='utf-8')
@@ -8,11 +9,11 @@ head
   meta(name='viewport' content='width=device-width,minimum-scale=1,initial-scale=1')
   title= siteTitle
   meta(name='description' content=siteDescription)
-  link(rel='canonical' href=fullUrl)
+  link(rel='canonical' href=canonicalUrl)
 
   meta(itemprop="name" content=siteTitle)
   meta(itemprop="Description" content=siteDescription)
-  meta(itemprop="url" content=fullUrl)
+  meta(itemprop="url" content=canonicalUrl)
   meta(itemprop="startDate" content=ISODate)
 
   include ./social
