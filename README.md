@@ -8,13 +8,11 @@ Cada ciudad reglamenta la medida de acuerdo con sus necesidades y publica la
 información en diferentes medios. Sin embargo, en muchos casos esta información
 resulta de dificil acceso y consulta, por lo que el objectivo de [pyphoy](https://www.pyphoy.com) es mantener un fuente de información organizada, clara y estructurada sobre la medida del pico y placa.
 
-## Estructura de la página
+## Recursos de la página
 
-La información se encuentra estructurada por ciudades y cada ciudad implementa el pico y placa de acuerdo con categorías establecidas por la alcaldía correspondiente. Cada implementación de cada categoría del pico y placa aplica de acuerdo al número de la placa de los vehículos correspondientes a la categoría. De esta forma, se puede acceder a la información usando la estructura:
+La información se encuentra estructurada por ciudades y cada ciudad implementa el pico y placa de acuerdo con categorías establecidas por la alcaldía correspondiente. Cada implementación de cada categoría del pico y placa aplica de acuerdo al número de la placa de los vehículos correspondientes a la categoría. De esta forma, los recursos disponibles en la página son:
 
-    / {ciudad}
-    / {ciudad} / {categoría}
-    / {ciudad} / {categoría} / {número}
+    ciudad : categoría : número
 
 ### Ciudades
 
@@ -41,7 +39,7 @@ https://www.pyphoy.com/ibague/particulares?d=2018-02-27
 El argumento `d` (fecha) debe ser dado en el formato `yyyy-mm-dd`. Si no se cuenta con la información solicitada la página devolverá un código de respuesta `404`. Si no se ingresa este argumento el valor por defecto que se asumirá será la fecha actual.
 
 Adicionalmente, se puede solicitar los días que se desean consultar hacia adelante o hacia atrás de la fecha especificada. Para ellos se usan los argumentos `f` y `b`. Estos argumentos por defecto corresponden a `6` días hacia adelante y `2` días hacia atrás:
-
+exit
 https://www.pyphoy.com/ibague/particulares?d=2018-02-27&f=6&b=2
 
 De esta forma, si se desea consultar la información treinta días hacia adelante, sin incluir ningún día hacia atrás, se usaría:
@@ -61,3 +59,7 @@ Finalmente, se puede consultar la información de acuerdo con el número de la p
 https://www.pyphoy.com/medellin/taxis/7
 
 Esta ruta muestra una tabla de los próximos treinta días con las fechas en que aplica el pico y placa en Medellín para taxis con placas terminadas en 7.
+
+## Licencia
+
+[MIT](LICENSE)
