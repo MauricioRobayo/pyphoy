@@ -10,12 +10,12 @@ const log = debugFunc("pyphoy:routes");
 const router = Router();
 const api = pyptron.url();
 
-router.get("/sitemap.xml", (req, res) => {
-  const lastmod = res.locals.dt;
+router.get("/sitemap.xml", (req, res, next) => {
+  const lastmod = res.locals.d;
   lastmod.setHours(0, 0, 0, 0);
   let urls = [
     {
-      url: site.url,
+      url: res.locals.url,
       lastmod,
       changefreq: "daily",
       priority: 1
@@ -62,6 +62,7 @@ router.get("/sitemap.xml", (req, res) => {
       return paths;
     }, [])
   );
+  console.log(urls);
   const sitemap = sm.createSitemap({
     hostname: site.url,
     cacheTime: 600000, // 600 sec - cache purge period
@@ -69,7 +70,7 @@ router.get("/sitemap.xml", (req, res) => {
   });
   sitemap.toXML((err, xml) => {
     if (err) {
-      res.status(500).end();
+      next(err);
       return;
     }
     res.header("Content-Type", "application/xml");
