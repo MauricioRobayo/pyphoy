@@ -69,11 +69,8 @@ app.use((req, res, next) => {
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   // set locals, only providing error in development
-  console.log(err);
-  res.locals.env = process.env.NODE_ENV;
   res.locals.message = err.message;
-  // res.locals.error = app.get("env") === "development" ? err : {};
-  res.locals.error = err;
+  res.locals.error = req.app.get("env") === "development" ? err : {};
 
   // render the error page
   res.status(err.status || 500);
