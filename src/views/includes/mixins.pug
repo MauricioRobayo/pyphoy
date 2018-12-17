@@ -1,10 +1,6 @@
 mixin archiveWarning()
-  p
-    em.small.t1 Esta página no corresponde con la fecha actual.
-    a.t1.hyperlink(href=pagePath)
-      p Consulte acá el pico y placa para hoy:
-      p
-        strong= helpers.format(today || new Date(),  helpers.longDate)
+  p.t1.small Esta página no corresponde con la fecha actual.
+  a.t1.small.hyperlink(href=pagePath) Consulte acá el pico y placa para hoy.
 
 mixin ad(filter)
   if pypData.data[0].categories[0].path === filter
