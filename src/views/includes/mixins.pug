@@ -95,7 +95,7 @@ mixin categoryInfo(city)
             each day in category.days
               li= day
         dt Esquema
-        dd= category.scheme
+        dd !{category.scheme}
         if category.observations
           dt Observaciones
           dd !{category.observations}
