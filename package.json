@@ -17,7 +17,7 @@
     "css:watch": "nodemon --ext scss -x npm run css:build",
     "css:build": "npm-run-all css:sass css:postcss css:minify",
     "lint": "eslint src",
-    "deploy:site": "pm2 deploy production",
+    "deploy:site": "run.env pm2 deploy production",
     "deploy:assets": "aws s3 sync public/ s3://pyphoy/ --acl public-read"
   },
   "husky": {
@@ -57,7 +57,8 @@
     "lint-staged": "^8.1.0",
     "nodemon": "^1.18.9",
     "pm2": "^3.2.3",
-    "prettier": "^1.15.3"
+    "prettier": "^1.15.3",
+    "run.env": "^1.1.0"
   },
   "description": "El pico y placa en Colombia es una medida de restricción vehicular que se aplica en las principales ciudades con el fin de descongestionar el tráfico de automóviles en las vías.",
   "main": "app.js",
