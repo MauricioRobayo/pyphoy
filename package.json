@@ -19,7 +19,7 @@
     "lint": "eslint src",
     "validate:circleci": "circleci config validate",
     "deploy:site": "run.env pm2 deploy production",
-    "deploy:assets": "aws s3 sync public/ s3://pyphoy/ --acl public-read",
+    "sync:assets": "aws s3 sync public/ s3://pyphoy/ --acl public-read",
     "deploy": "run-p deploy:*"
   },
   "husky": {
