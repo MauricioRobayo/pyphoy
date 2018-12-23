@@ -65,16 +65,16 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/archemiro/pyphoy.git"
+    "url": "https://github.com/picoyplaca/pyphoy.git"
   },
   "keywords": [
     "Colombia",
     "Pico y placa"
   ],
-  "author": "Mauricio Robayo <archemiro@gmail.com> (https://server.js.archemiro.com)",
+  "author": "Mauricio Robayo <archemiro@gmail.com> (https://www.archemiro.com)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/archemiro/pyphoy/issues"
+    "url": "https://github.com/picoyplaca/pyphoy/issues"
   },
-  "homepage": "https://github.com/archemiro/pyphoy#readme"
+  "homepage": "https://www.pyphoy.com"
 }
