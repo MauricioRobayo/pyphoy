@@ -17,6 +17,7 @@
     "css:watch": "nodemon --ext scss -x npm run css:build",
     "css:build": "npm-run-all css:sass css:postcss css:minify",
     "lint": "eslint src",
+    "validate:circleci": "circleci config validate",
     "deploy:site": "run.env pm2 deploy production",
     "deploy:assets": "aws s3 sync public/ s3://pyphoy/ --acl public-read",
     "deploy": "run-p deploy:*"
