@@ -164,7 +164,7 @@ mixin tdLicensePlate(data, na)
 
 mixin licensePlate(data)
     - const public = data.name === 'Taxis' || data.name === 'Transporte Público Colectivo' || data.name === 'Transporte Público de Carga'
-    span(class=na ? '' : `plate is-${public ? 'public' : 'particular'}`) #{data.pyp}
+    span(class=na ? '' : `plate is-${public ? 'public' : 'particular'}`)= data.pyp === "0-1-2-3-4-5-6-7-8-9" ? "TODOS" : data.pyp
 
 mixin pypQuery(path)
   - letters = ["H", "I", "J", "A", "B", "C", "D", "E", "F", "G"]
