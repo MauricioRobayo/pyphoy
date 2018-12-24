@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node src/bin/server.js",
-    "start:server": "cross-env DEBUG=pyphoy:* nodemon --exec babel-node src/bin/server.js",
+    "start:server": "cross-env DEBUG=pyphoy:* nodemon src/bin/server.js",
     "start:browser-sync": "browser-sync start --port 3001 --proxy localhost:3000 --files assets/css src/views/ --no-open ",
     "start:dev": "npm-run-all build:css -l -p start:server css:watch start:browser-sync",
     "css:sass": "node-sass src/sass/main.scss assets/css/main.css",
@@ -27,8 +27,6 @@
   },
   "dependencies": {
     "autoprefixer": "^9.4.3",
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
     "cssnano": "^4.1.7",
     "date-fns": "^2.0.0-alpha.26",
     "debug": "^4.1.0",
