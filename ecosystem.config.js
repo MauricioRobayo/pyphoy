@@ -14,6 +14,7 @@ module.exports = {
       user: process.env.PYPHOY_PRODUCTION_USER,
       host: process.env.PYPHOY_PRODUCTION_HOST,
       port: process.env.PYPHOY_PRODUCTION_PORT,
+      ssh_options: "StrictHostKeyChecking=no",
       ref: "origin/master",
       repo: "git@github.com:picoyplaca/pyphoy.git",
       path: "/home/pyphoy/pyphoy",
