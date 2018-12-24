@@ -81,7 +81,7 @@ jobs:
             - v1-dependencies-
       - add_ssh_keys:
           fingerprints:
-            - "10:27:4f:6b:3a:d7:0f:2f:bc:53:77:5b:88:bd:7a:e3"
+            - "9e:3f:ef:64:be:36:57:51:9d:44:fb:a0:05:2f:89:fd"
       - run: npm run deploy:site
 
 workflows:
