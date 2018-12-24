@@ -1,6 +1,6 @@
-import debug from "debug";
-import http from "http";
-import app from "../app";
+const debug = require("debug");
+const http = require("http");
+const app = require("../app");
 
 const log = debug("pyphoy:server");
 const server = http.createServer(app);

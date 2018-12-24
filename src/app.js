@@ -1,11 +1,11 @@
-import debug from "debug";
-import express from "express";
-import { fetchUrl } from "fetch";
-import createError from "http-errors";
-import logger from "morgan";
-import { join } from "path";
-import { helpers, pyptron, site } from "./config";
-import indexRouter from "./routes";
+const debug = require("debug");
+const express = require("express");
+const { fetchUrl } = require("fetch");
+const createError = require("http-errors");
+const logger = require("morgan");
+const { join } = require("path");
+const { helpers, pyptron, site } = require("./config");
+const indexRouter = require("./routes");
 
 const log = debug("pyphoy:app");
 const api = pyptron.url();
@@ -77,4 +77,4 @@ app.use((err, req, res, next) => {
   res.render("error");
 });
 
-export default app;
+module.exports = app;
