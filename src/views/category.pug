@@ -28,8 +28,7 @@ block pypData
                 if currentISODateShort !== todayISODateShort
                   +archiveWarning(date)
                 else
-                  - console.log(currentDate)
-                  +hours(pypData.info[pypData.data[0].categories[0].key].hours, ["list-style-none", "small"], true)
+                  +hours(pypData.info[pypData.data[0].categories[0].key].hours, ["list-style-none", "small"],  pyp.categories[0].pyp !== "NA")
               +tdLicensePlate(pyp.categories[0], na)
           else
             tr(class=na && 'table-secondary text-muted')
