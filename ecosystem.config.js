@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: "pyphoy",
-      script: "dist/bin/server.js",
+      script: "src/bin/server.js",
       env_production: {
         NODE_ENV: "production",
         PORT: 3246
