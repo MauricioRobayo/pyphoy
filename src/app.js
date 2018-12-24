@@ -16,7 +16,7 @@ app.set("views", join(__dirname, "views"));
 app.set("view engine", "pug");
 
 app.use(logger("dev"));
-app.use(express.static(join(__dirname, "..", "public")));
+app.use(express.static(join(__dirname, "..", "assets")));
 
 app.use((req, res, next) => {
   // La fecha con la que vamos a trabajar, si se solicita una fecha en
