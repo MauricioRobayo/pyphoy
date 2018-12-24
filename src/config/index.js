@@ -61,7 +61,7 @@ export const helpers = {
   cdn(path) {
     const p = path.startsWith("/") ? path : `/${path}`;
     if (site.env === "production") {
-      return `https://cdn.pyphoy.com${p}`;
+      return `https://cdn.pyphoy.com/assets${p}`;
     }
     return `${p}`;
   },
