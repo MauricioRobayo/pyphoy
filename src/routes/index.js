@@ -1,10 +1,10 @@
 /* eslint no-prototype-builtins: 0 */
 
-import debugFunc from "debug";
-import { Router } from "express";
-import { fetchUrl } from "fetch";
-import sm from "sitemap";
-import { helpers, pyptron, site } from "../config";
+const debugFunc = require("debug");
+const { Router } = require("express");
+const { fetchUrl } = require("fetch");
+const sm = require("sitemap");
+const { helpers, pyptron, site } = require("../config");
 
 const log = debugFunc("pyphoy:routes");
 const router = Router();
@@ -330,4 +330,4 @@ router.get("/:city/:category/:number", async (req, res, next) => {
   });
 });
 
-export default router;
+module.exports = router;

@@ -1,5 +1,5 @@
-import { format } from "date-fns";
-import { es } from "date-fns/locale";
+const { format } = require("date-fns");
+const { es } = require("date-fns/locale");
 
 const emojis = {
   taxis: "🚕",
@@ -10,7 +10,7 @@ const emojis = {
   ambiental: "🌻"
 };
 
-export const site = {
+const site = {
   emojis,
   env: process.env.NODE_ENV || "development",
   name: "Pico y placa hoy",
@@ -48,7 +48,7 @@ export const site = {
   }
 };
 
-export const helpers = {
+const helpers = {
   longDate: "cccc, d 'de' MMMM 'de' yyyy",
   timeString(time) {
     const hours = Math.floor(time / (1000 * 60 * 60));
@@ -79,10 +79,16 @@ export const helpers = {
   }
 };
 
-export const pyptron = {
+const pyptron = {
   host: "127.0.0.1:3245",
   protocol: "http",
   url() {
     return `${this.protocol}://${this.host}`;
   }
+};
+
+module.exports = {
+  site,
+  helpers,
+  pyptron
 };
