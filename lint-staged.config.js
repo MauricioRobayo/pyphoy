@@ -10,5 +10,5 @@ module.exports = {
       "git add"
     ]
   },
-  ignore: ["dist"]
+  ignore: ["assets"]
 };

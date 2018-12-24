@@ -1,6 +1,4 @@
-.envrc
-dist
-public/css/
+assets/css/
 
 # Created by https://www.gitignore.io/api/node
 
