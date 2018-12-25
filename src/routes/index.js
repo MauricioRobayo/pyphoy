@@ -62,7 +62,6 @@ router.get("/sitemap.xml", (req, res, next) => {
       return paths;
     }, [])
   );
-  console.log(urls);
   const sitemap = sm.createSitemap({
     hostname: site.url,
     cacheTime: 600000, // 600 sec - cache purge period
