@@ -24,7 +24,7 @@ app.use((req, res, next) => {
   const date = req.query.d
     ? new Date(req.query.d.replace(/-/g, "/"))
     : new Date();
-  fetchUrl(`${api}/`, (err, meta, body) => {
+  fetchUrl(api, (err, meta, body) => {
     if (err) {
       next(err);
       return;
