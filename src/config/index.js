@@ -80,10 +80,11 @@ const helpers = {
 };
 
 const pyptron = {
-  host: "127.0.0.1:3245",
+  host: site.env === "production" ? "172.31.93.234" : "127.0.0.1",
+  port: 3245,
   protocol: "http",
   url() {
-    return `${this.protocol}://${this.host}`;
+    return `${this.protocol}://${this.host}:${this.port}`;
   }
 };
 
