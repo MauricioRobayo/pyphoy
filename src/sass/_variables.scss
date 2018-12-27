@@ -1,9 +1,12 @@
+$assets-path: "https://cdn.pyphoy.com/assets";
+
 @font-face {
   font-family: "LicensePlate";
-  src: url("/fonts/LicensePlate.eot?#iefix") format("embedded-opentype"),
-    url("/fonts/LicensePlate.woff") format("woff"),
-    url("/fonts/LicensePlate.ttf") format("truetype"),
-    url("/fonts/LicensePlate.svg#LicensePlate") format("svg");
+  src: url("#{$assets-path}/fonts/LicensePlate.eot?#iefix")
+      format("embedded-opentype"),
+    url("#{$assets-path}/fonts/LicensePlate.woff") format("woff"),
+    url("#{$assets-path}/fonts/LicensePlate.ttf") format("truetype"),
+    url("#{$assets-path}/fonts/LicensePlate.svg#LicensePlate") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
