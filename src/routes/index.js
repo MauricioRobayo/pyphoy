@@ -8,7 +8,6 @@ const { helpers, pyptron, site } = require("../config");
 
 const log = debugFunc("pyphoy:routes");
 const router = Router();
-const api = pyptron.url();
 
 router.get("/sitemap.xml", (req, res, next) => {
   const lastmod = res.locals.d;
@@ -79,7 +78,7 @@ router.get("/sitemap.xml", (req, res, next) => {
 
 router.get("/", async (req, res, next) => {
   const date = res.locals.dtString.replace(/\//g, "-");
-  fetchUrl(`${api}?date=${date}`, (err, meta, body) => {
+  fetchUrl(`${pyptron}?date=${date}`, (err, meta, body) => {
     if (err) {
       next(err);
       return;
@@ -102,7 +101,7 @@ router.get("/:city/exentos", async (req, res, next) => {
     next();
     return;
   }
-  fetchUrl(`${api}/${city}`, (err, meta, body) => {
+  fetchUrl(`${pyptron}/${city}`, (err, meta, body) => {
     if (err) {
       next(err);
       return;
@@ -142,7 +141,7 @@ router.get("/:city", async (req, res, next) => {
     next();
     return;
   }
-  fetchUrl(`${api}/${city}?date=${date}`, (err, meta, body) => {
+  fetchUrl(`${pyptron}/${city}?date=${date}`, (err, meta, body) => {
     if (err) {
       next(err);
       return;
@@ -194,7 +193,7 @@ router.get("/:city/:category", async (req, res, next) => {
     return;
   }
   fetchUrl(
-    `${api}/${city}/${category}?days=${totalDays}&date=${startISODateShort}`,
+    `${pyptron}/${city}/${category}?days=${totalDays}&date=${startISODateShort}`,
     (err, meta, body) => {
       if (meta.status === 404) {
         next();
@@ -279,7 +278,7 @@ router.get("/:city/:category/:number", async (req, res, next) => {
     next();
     return;
   }
-  fetchUrl(`${api}/${city}/${category}?days=30`, (err, meta, body) => {
+  fetchUrl(`${pyptron}/${city}/${category}?days=30`, (err, meta, body) => {
     if (err) {
       next(err);
       return;

@@ -80,12 +80,10 @@ const helpers = {
 };
 
 const pyptron = {
-  host: site.env === "production" ? "172.31.93.234" : "127.0.0.1",
-  port: 3245,
-  protocol: "http",
-  url() {
-    return `${this.protocol}://${this.host}:${this.port}`;
-  }
+  url:
+    site.env === "production"
+      ? "https://sgf45eqxhg.execute-api.us-east-1.amazonaws.com/Prod"
+      : "http://127.0.0.1:3245"
 };
 
 module.exports = {
