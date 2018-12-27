@@ -1,12 +1,10 @@
 /* eslint no-prototype-builtins: 0 */
 
-const debugFunc = require("debug");
 const { Router } = require("express");
 const { fetchUrl } = require("fetch");
 const sm = require("sitemap");
 const { helpers, pyptron, site } = require("../config");
 
-const log = debugFunc("pyphoy:routes");
 const router = Router();
 
 router.get("/sitemap.xml", (req, res, next) => {
@@ -78,7 +76,7 @@ router.get("/sitemap.xml", (req, res, next) => {
 
 router.get("/", async (req, res, next) => {
   const date = res.locals.dtString.replace(/\//g, "-");
-  fetchUrl(`${pyptron}?date=${date}`, (err, meta, body) => {
+  fetchUrl(`${pyptron.url}?date=${date}`, (err, meta, body) => {
     if (err) {
       next(err);
       return;
@@ -101,7 +99,7 @@ router.get("/:city/exentos", async (req, res, next) => {
     next();
     return;
   }
-  fetchUrl(`${pyptron}/${city}`, (err, meta, body) => {
+  fetchUrl(`${pyptron.url}/${city}`, (err, meta, body) => {
     if (err) {
       next(err);
       return;
@@ -137,11 +135,10 @@ router.get("/:city", async (req, res, next) => {
   const { citiesMap } = res.locals;
   const { city } = req.params;
   if (!citiesMap.hasOwnProperty(city)) {
-    log("La ciudad solicitada no existe.");
     next();
     return;
   }
-  fetchUrl(`${pyptron}/${city}?date=${date}`, (err, meta, body) => {
+  fetchUrl(`${pyptron.url}/${city}?date=${date}`, (err, meta, body) => {
     if (err) {
       next(err);
       return;
@@ -183,17 +180,17 @@ router.get("/:city/:category", async (req, res, next) => {
   const { citiesMap } = res.locals;
   const { city, category } = req.params;
   if (!citiesMap.hasOwnProperty(city)) {
-    log("La ciudad solicitada no existe.");
     next();
     return;
   }
   if (!citiesMap[city].categories.hasOwnProperty(category)) {
-    log("La categoría solicitada no existe.");
     next();
     return;
   }
   fetchUrl(
-    `${pyptron}/${city}/${category}?days=${totalDays}&date=${startISODateShort}`,
+    `${
+      pyptron.url
+    }/${city}/${category}?days=${totalDays}&date=${startISODateShort}`,
     (err, meta, body) => {
       if (meta.status === 404) {
         next();
@@ -278,7 +275,7 @@ router.get("/:city/:category/:number", async (req, res, next) => {
     next();
     return;
   }
-  fetchUrl(`${pyptron}/${city}/${category}?days=30`, (err, meta, body) => {
+  fetchUrl(`${pyptron.url}/${city}/${category}?days=30`, (err, meta, body) => {
     if (err) {
       next(err);
       return;
