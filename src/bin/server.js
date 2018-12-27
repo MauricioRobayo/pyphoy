@@ -1,8 +1,7 @@
-const debug = require("debug");
+const debug = require("debug")("pyphoy:server");
 const http = require("http");
 const app = require("../app");
 
-const log = debug("pyphoy:server");
 const server = http.createServer(app);
 
 function normalizePort(val) {
@@ -49,7 +48,7 @@ function onError(error) {
 function onListening() {
   const addr = server.address();
   const bind = typeof addr === "string" ? `pipe ${addr}` : `port ${addr.port}`;
-  log(`Listening on ${bind}`);
+  debug(`Listening on ${bind}`);
 }
 
 server.listen(app.get("port"));

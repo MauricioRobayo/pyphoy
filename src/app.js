@@ -1,4 +1,3 @@
-const debug = require("debug");
 const express = require("express");
 const { fetchUrl } = require("fetch");
 const createError = require("http-errors");
@@ -7,8 +6,6 @@ const { join } = require("path");
 const { helpers, pyptron, site } = require("./config");
 const indexRouter = require("./routes");
 
-const log = debug("pyphoy:app");
-const api = pyptron.url();
 const app = express();
 
 // view engine setup
@@ -24,12 +21,11 @@ app.use((req, res, next) => {
   const date = req.query.d
     ? new Date(req.query.d.replace(/-/g, "/"))
     : new Date();
-  fetchUrl(api, (err, meta, body) => {
+  fetchUrl(pyptron.url, (err, meta, body) => {
     if (err) {
       next(err);
       return;
     }
-    log("Setting variables for all templates.");
     res.locals.citiesMap = JSON.parse(body);
     res.locals.site = site;
     res.locals.helpers = helpers;
@@ -56,7 +52,6 @@ app.use("/", indexRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  log("No existe la URI solicitada, creamos el error y continuamos.");
   next(
     createError(
       404,
