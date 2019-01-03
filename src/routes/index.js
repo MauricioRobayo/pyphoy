@@ -1,9 +1,9 @@
 /* eslint no-prototype-builtins: 0 */
 
 const { Router } = require("express");
-const { fetchUrl } = require("fetch");
 const sm = require("sitemap");
-const { helpers, pyptron, site } = require("../config");
+const { helpers, site } = require("../config");
+const pyptron = require("../utils/pyptron");
 
 const router = Router();
 
@@ -76,56 +76,51 @@ router.get("/sitemap.xml", (req, res, next) => {
 
 router.get("/", async (req, res, next) => {
   const date = res.locals.dtString.replace(/\//g, "-");
-  fetchUrl(`${pyptron.url}?date=${date}`, (err, meta, body) => {
-    if (err) {
-      next(err);
-      return;
-    }
-    if (meta.status !== 200) {
-      next();
-      return;
-    }
-    res.render("home", {
-      pypData: JSON.parse(body),
-      home: true
-    });
+  const queryParams = { date };
+  let pypData;
+  try {
+    pypData = await pyptron({ queryParams });
+  } catch (err) {
+    next(err);
+    return;
+  }
+  res.render("home", {
+    pypData,
+    home: true
   });
 });
 
 router.get("/:city", async (req, res, next) => {
   const date = res.locals.dtString.replace(/\//g, "-");
+  const queryParams = { date };
   const { citiesMap } = res.locals;
   const { city } = req.params;
+  let pypData;
   if (!citiesMap.hasOwnProperty(city)) {
     next();
     return;
   }
-  fetchUrl(`${pyptron.url}/${city}?date=${date}`, (err, meta, body) => {
-    if (err) {
-      next(err);
-      return;
+  try {
+    pypData = await pyptron({ city, queryParams });
+  } catch (err) {
+    next(err);
+    return;
+  }
+  const cityName = pypData.name;
+  const title = site.title({ city: cityName });
+  const description = site.description({ city: cityName });
+  const path = [
+    {
+      path: city,
+      name: cityName
     }
-    if (meta.status !== 200) {
-      next();
-      return;
-    }
-    const pypData = JSON.parse(body);
-    const cityName = pypData.name;
-    const title = site.title({ city: cityName });
-    const description = site.description({ city: cityName });
-    const path = [
-      {
-        path: city,
-        name: cityName
-      }
-    ];
-    res.render("city", {
-      pypData,
-      path,
-      cityName,
-      title,
-      description
-    });
+  ];
+  res.render("city", {
+    pypData,
+    path,
+    cityName,
+    title,
+    description
   });
 });
 
@@ -139,8 +134,10 @@ router.get("/:city/:category", async (req, res, next) => {
   }
   res.locals.d.setDate(res.locals.d.getDate() - daysBack);
   const startISODateShort = helpers.format(res.locals.d);
+  const queryParams = { date: startISODateShort, days: totalDays };
   const { citiesMap } = res.locals;
   const { city, category } = req.params;
+  let pypData;
   if (!citiesMap.hasOwnProperty(city)) {
     next();
     return;
@@ -149,65 +146,55 @@ router.get("/:city/:category", async (req, res, next) => {
     next();
     return;
   }
-  fetchUrl(
-    `${
-      pyptron.url
-    }/${city}/${category}?days=${totalDays}&date=${startISODateShort}`,
-    (err, meta, body) => {
-      if (meta.status === 404) {
-        next();
-        return;
-      }
-      if (err) {
-        next(err);
-        return;
-      }
-      const pypData = JSON.parse(body);
-      const cityName = pypData.name;
-      const categoryName = citiesMap[city].categories[category].name;
-      const title = site.title({ city: cityName, category: categoryName });
-      const SEOTitle = site.title({
-        city: cityName,
-        category: categoryName,
-        date: (res.locals.archive && res.locals.date) || ""
-      });
-      const description = site.description({
-        city: cityName,
-        category: categoryName,
-        date: (res.locals.archive && res.locals.date) || ""
-      });
-      const path = [
-        {
-          path: city,
-          name: cityName
-        },
-        {
-          path: category,
-          name: categoryName
-        }
-      ];
-      // Como la fecha de base para construir la página y por lo tanto si la fecha
-      // de la query (por ejemplo: ?d=2018-10-12) no coincide con la fecha actual,
-      // vamos a desconocer al fecha actual, que necesitamos para validar en la
-      // creación de la página si estamos hablando de hoy.
-      // Debido a que esta página recibe como query una fecha, esa fecha se usa
-      const today = new Date();
-      const todayISODate = today.toISOString();
-      const todayISODateShort = helpers.format(today);
-      res.render("category", {
-        pypData,
-        cityName,
-        categoryName,
-        title,
-        SEOTitle,
-        description,
-        today,
-        todayISODate,
-        todayISODateShort,
-        path
-      });
+  try {
+    pypData = await pyptron({ city, category, queryParams });
+  } catch (err) {
+    next(err);
+    return;
+  }
+  const cityName = pypData.name;
+  const categoryName = citiesMap[city].categories[category].name;
+  const title = site.title({ city: cityName, category: categoryName });
+  const SEOTitle = site.title({
+    city: cityName,
+    category: categoryName,
+    date: (res.locals.archive && res.locals.date) || ""
+  });
+  const description = site.description({
+    city: cityName,
+    category: categoryName,
+    date: (res.locals.archive && res.locals.date) || ""
+  });
+  const path = [
+    {
+      path: city,
+      name: cityName
+    },
+    {
+      path: category,
+      name: categoryName
     }
-  );
+  ];
+  // Como la fecha de base para construir la página y por lo tanto si la fecha
+  // de la query (por ejemplo: ?d=2018-10-12) no coincide con la fecha actual,
+  // vamos a desconocer al fecha actual, que necesitamos para validar en la
+  // creación de la página si estamos hablando de hoy.
+  // Debido a que esta página recibe como query una fecha, esa fecha se usa
+  const today = new Date();
+  const todayISODate = today.toISOString();
+  const todayISODateShort = helpers.format(today);
+  res.render("category", {
+    pypData,
+    cityName,
+    categoryName,
+    title,
+    SEOTitle,
+    description,
+    today,
+    todayISODate,
+    todayISODateShort,
+    path
+  });
 });
 
 /* GET Query page. */
@@ -215,6 +202,8 @@ router.get("/:city/:category/:number", async (req, res, next) => {
   const { citiesMap } = res.locals;
   const { city, category, number } = req.params;
   const num = number.toString().toUpperCase();
+  const queryParams = { days: 30 };
+  let pypData;
   if (city === "manizales" && category === "transporte-publico-colectivo") {
     if (!["H", "I", "J", "A", "B", "C", "D", "E", "F", "G"].includes(num)) {
       next();
@@ -237,53 +226,52 @@ router.get("/:city/:category/:number", async (req, res, next) => {
     next();
     return;
   }
-  fetchUrl(`${pyptron.url}/${city}/${category}?days=30`, (err, meta, body) => {
-    if (err) {
-      next(err);
-      return;
+  try {
+    pypData = await pyptron({ city, category, queryParams });
+  } catch (err) {
+    next(err);
+    return;
+  }
+  const cityName = pypData.name;
+  const categoryName = citiesMap[city].categories[category].name;
+  const title = site.title({
+    city: cityName,
+    category: categoryName,
+    number: num
+  });
+  const description = site.description({
+    city: cityName,
+    category: categoryName,
+    number: num
+  });
+  const status = pypData.data[0].categories[0].pyp.split("-").includes(num);
+  const nextPyp = pypData.data.filter(val =>
+    val.categories[0].pyp.split("-").includes(num)
+  );
+  const path = [
+    {
+      path: city,
+      name: cityName
+    },
+    {
+      path: category,
+      name: categoryName
+    },
+    {
+      path: number,
+      name: number
     }
-    const pypData = JSON.parse(body);
-    const cityName = pypData.name;
-    const categoryName = citiesMap[city].categories[category].name;
-    const title = site.title({
-      city: cityName,
-      category: categoryName,
-      number: num
-    });
-    const description = site.description({
-      city: cityName,
-      category: categoryName,
-      number: num
-    });
-    const status = pypData.data[0].categories[0].pyp.split("-").includes(num);
-    const nextPyp = pypData.data.filter(val =>
-      val.categories[0].pyp.split("-").includes(num)
-    );
-    const path = [
-      {
-        path: city,
-        name: cityName
-      },
-      {
-        path: category,
-        name: categoryName
-      },
-      {
-        path: number,
-        name: number
-      }
-    ];
-    res.render("number", {
-      cityName,
-      categoryName,
-      title,
-      description,
-      pypData,
-      nextPyp,
-      num,
-      status,
-      path
-    });
+  ];
+  res.render("number", {
+    cityName,
+    categoryName,
+    title,
+    description,
+    pypData,
+    nextPyp,
+    num,
+    status,
+    path
   });
 });
 
