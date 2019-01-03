@@ -92,44 +92,6 @@ router.get("/", async (req, res, next) => {
   });
 });
 
-router.get("/:city/exentos", async (req, res, next) => {
-  const { citiesMap } = res.locals;
-  const { city } = req.params;
-  if (!citiesMap.hasOwnProperty(city)) {
-    next();
-    return;
-  }
-  fetchUrl(`${pyptron.url}/${city}`, (err, meta, body) => {
-    if (err) {
-      next(err);
-      return;
-    }
-    if (meta.status !== 200) {
-      next();
-      return;
-    }
-    const pypData = JSON.parse(body);
-    const cityName = pypData.name;
-    const title = `Vehículos exentos de pico y placa en ${cityName}`;
-    const path = [
-      {
-        path: city,
-        name: cityName
-      },
-      {
-        path: "exentos",
-        name: "Exentos"
-      }
-    ];
-    res.render("exceptions", {
-      pypData,
-      cityName,
-      title,
-      path
-    });
-  });
-});
-
 router.get("/:city", async (req, res, next) => {
   const date = res.locals.dtString.replace(/\//g, "-");
   const { citiesMap } = res.locals;
