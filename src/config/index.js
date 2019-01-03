@@ -80,7 +80,7 @@ const helpers = {
 };
 
 const pyptron = {
-  url: process.env.PYPTRON_API_ENDPOINT
+  url: "https://sgf45eqxhg.execute-api.us-east-1.amazonaws.com/Prod" // process.env.PYPTRON_API_ENDPOINT
 };
 
 module.exports = {
