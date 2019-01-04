@@ -21,14 +21,6 @@ app.use(async (req, res, next) => {
   const date = req.query.d
     ? new Date(req.query.d.replace(/-/g, "/"))
     : new Date();
-  let citiesMap;
-  try {
-    citiesMap = await pyptron();
-  } catch (err) {
-    next(err);
-    return;
-  }
-  res.locals.citiesMap = citiesMap;
   res.locals.site = site;
   res.locals.helpers = helpers;
   res.locals.d = date;
@@ -44,6 +36,14 @@ app.use(async (req, res, next) => {
     res.locals.semester
   } semestre del ${date.getFullYear()}`;
   res.locals.archive = !!req.query.d;
+  let citiesMap;
+  try {
+    citiesMap = await pyptron();
+  } catch (err) {
+    next(err);
+    return;
+  }
+  res.locals.citiesMap = citiesMap;
   next();
 });
 
