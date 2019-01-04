@@ -61,14 +61,6 @@ mixin categoryList(city)
     each category in city.info
       li.m-1.title
         a(href=`/${category.path}` title=`Pico y placa ${category.name.toLowerCase()} en ${city.name}`) Pico y placa #{category.name.toLowerCase()}
-
-mixin exceptionsInfo(city)
-  each category in city.info
-    if category.exceptions
-      header
-        h2.title
-          a(href=`/${category.path}`) Exenciones Pico y Placa #{category.name.toLowerCase()} en #{city.name}
-      article !{category.exceptions}
         
 mixin categoryInfo(city)
   each category in city.info
@@ -112,34 +104,13 @@ mixin categoryInfo(city)
         dd Los infractores a lo dispuesto serán sancionados con multa equivalente a quince (15) salarios mínimos diarios legales vigentes e inmovilización del vehículo, según lo consagrado por el artículo 131 literal C numeral 14 de la #[a(href="http://www.secretariasenado.gov.co/senado/basedoc/ley_0769_2002.html") Ley 769 de 2002].
 
 mixin hours(hours, classes, interactive=false)
-  ul.hours(class=classes)
-    each hour in hours
-      - let done = false
+  each hour in hours
+    - let done = false
+    if hour.comment
+      div.hour-category(class=classes) #{hour.comment}:
+    ul.hours(class=classes class=interactive && "hours-interactive" data-comment=hour.comment data-days=hour.days.join())
       each h in hour.hours
-        -
-          const today = new Date()
-          const apply = interactive && !done && (hour.days.length === 0 || hour.days.includes(today.getDay()))
-          const now = today.getTime()
-          const startTime = new Date(`${dtString} ${hour.comment === "Todo el día" ? "0:00" : h[0]}`)
-          const endTime = new Date(`${dtString} ${hour.comment === "Todo el día" ? "0:00" : h[1]}`)
-          if (endTime <= startTime) endTime.setDate(endTime.getDate() + 1)
-          const hourActive = (now >= startTime) && (now <= endTime)
-          const hourWarning = now < startTime
-          done = hourActive ||hourWarning
-        li(class=(hourActive && apply) && 'hour-active' class=(hourWarning && apply) && 'hour-warning')= hour.comment
-          |
-          |
-          = h.map(h => helpers.convert24toAMPM(h)).join(' a ')
-          if apply
-            |
-            |
-            if hourActive
-              span.lapse(data-start=startTime.getTime() data-end=endTime.getTime())= helpers.timeString(endTime - now)
-            else
-              if hourWarning
-                span.lapse(data-start=startTime.getTime() data-end=endTime.getTime())= helpers.timeString(startTime - now)
-              else
-                span.lapse(data-start=startTime.getTime() data-end=endTime.getTime())
+        li.hour(data-start=h[0] data-end=h[1])= h.map(h => helpers.convert24toAMPM(h)).join(' a ')
 
 mixin cityTable(city)
   table.table
