@@ -75,12 +75,12 @@ mixin categoryInfo(city)
         a(href=`/${category.path}`)= title
     article
       dl
-        dt Horario
+        dt#horario Horario
         dd
           +hours(category.hours, ["list-style-none"])
-        dt Clase de vehículos
+        dt#clase-de-vehiculos Clase de vehículos
         dd= category.vehicleClasses
-        dt Decreto
+        dt#decreto Decreto
         dd
           ul.list-style-none
             each decree in category.decrees
@@ -89,24 +89,24 @@ mixin categoryInfo(city)
                   a(href=decree.url)= decree.name
                 else
                   |= decree.name
-        dt Días de apliación
+        dt#dias-de-aplicacion Días de apliación
         dd
           ul.list-style-none
             each day in category.days
               li= day
-        dt Esquema
+        dt#esquema Esquema
         dd !{category.scheme}
         if category.observations
-          dt Observaciones
+          dt#observaciones Observaciones
           dd !{category.observations}
         if category.map
-          dt Mapa
+          dt#mapa Mapa
           dd 
             amp-img(src=category.map alt=`Mapa Pico y Placa en ${city.name}` height="612" width="906")
         if category.exceptions
-          dt Excepciones
+          dt#excepciones Excepciones
           dd !{category.exceptions}
-        dt Sanciones
+        dt#sanciones Sanciones
         dd Los infractores a lo dispuesto serán sancionados con multa equivalente a quince (15) salarios mínimos diarios legales vigentes e inmovilización del vehículo, según lo consagrado por el artículo 131 literal C numeral 14 de la #[a(href="http://www.secretariasenado.gov.co/senado/basedoc/ley_0769_2002.html") Ley 769 de 2002].
 
 mixin hours(hours, classes, interactive=false)
