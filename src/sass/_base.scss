@@ -83,10 +83,22 @@ pre {
   border-radius: 3px;
   display: inline-block;
   font-size: 0.9em;
+  margin-left: 0.25em;
+}
+
+.hour {
+  margin-left: 1em;
+}
+
+div.hour-category {
+  color: $dark;
 }
 
 .hour-active {
   color: $dark;
+  &::before {
+    margin-right: 0.25em;
+  }
   &::before {
     content: "🛑";
     display: inline-block;
