@@ -75,11 +75,9 @@ router.get("/sitemap.xml", (req, res, next) => {
 });
 
 router.get("/", async (req, res, next) => {
-  const date = res.locals.dtString.replace(/\//g, "-");
-  const queryParams = { date };
   let pypData;
   try {
-    pypData = await pyptron({ queryParams });
+    pypData = await pyptron();
   } catch (err) {
     next(err);
     return;
