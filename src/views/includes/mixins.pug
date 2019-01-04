@@ -13,22 +13,24 @@ mixin email(hyperlink = false)
   span(class=hyperlink ? 'hyperlink' : '') &#105;&#110;&#102;&#111;&#064;&#112;&#121;&#112;&#104;&#111;&#121;&#046;&#099;&#111;&#109;
 
 mixin selectCity(cityName, main=false)
-  .select
-    select#cities(class=main && 'main' required onchange="window.location.href = '/' + this.options[this.selectedIndex].value")
-      if !city
-        option(value="" disabled selected hidden) Ciudad...
-      each city, citySlug in citiesMap
-        - const selected = city.name === cityName
-        option(value=citySlug selected=selected)= city.name
+  if citiesMap
+    .select
+      select#cities(class=main && 'main' required onchange="window.location.href = '/' + this.options[this.selectedIndex].value")
+        if !city
+          option(value="" disabled selected hidden) Ciudad...
+        each city, citySlug in citiesMap
+          - const selected = city.name === cityName
+          option(value=citySlug selected=selected)= city.name
 
 mixin selectCategory(citySlug, categoryName)
-  .select
-    select#categories(required onchange="window.location.href = '/' + this.options[this.selectedIndex].value")
-      if !categoryName
-        option(value="" disabled selected hidden) Categoría...
-      each category, categorySlug in citiesMap[citySlug].categories
-        - const selected = category.name === categoryName
-        option(value=`${citySlug}/${categorySlug}` selected=selected)= category.name
+  if citiesMap
+    .select
+      select#categories(required onchange="window.location.href = '/' + this.options[this.selectedIndex].value")
+        if !categoryName
+          option(value="" disabled selected hidden) Categoría...
+        each category, categorySlug in citiesMap[citySlug].categories
+          - const selected = category.name === categoryName
+          option(value=`${citySlug}/${categorySlug}` selected=selected)= category.name
 
 mixin breadCrumbs()
   if path && path.length > 1
