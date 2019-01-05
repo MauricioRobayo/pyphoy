@@ -123,16 +123,13 @@ router.get("/:city", async (req, res, next) => {
 });
 
 router.get("/:city/:category", async (req, res, next) => {
-  const daysBack = req.query.b ? parseInt(req.query.b, 10) : 2;
-  const daysForward = req.query.f ? parseInt(req.query.f, 10) : 6;
-  const totalDays = daysBack + daysForward + 1;
-  if (totalDays > 31) {
+  const days = req.query.f ? parseInt(req.query.f, 10) : 8;
+  if (days > 30) {
     next();
     return;
   }
-  res.locals.d.setDate(res.locals.d.getDate() - daysBack);
-  const startISODateShort = helpers.format(res.locals.d);
-  const queryParams = { date: startISODateShort, days: totalDays };
+  const date = helpers.format(res.locals.d);
+  const queryParams = { date, days };
   const { citiesMap } = res.locals;
   const { city, category } = req.params;
   let pypData;
