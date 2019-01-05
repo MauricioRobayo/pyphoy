@@ -14,9 +14,10 @@ nav.navbar(role="navigation" aria-label="main navigation")
     
 header.header.container.text-center
   h1.title= title || site.name
-  .subtitle(class=archive && 'archive')
+  .subtitle
     time(datetime=ISODate)= date
-    if archive
+  if archive
+    div.archive
       +archiveWarning()
 .container.text-center
   if pagePath
