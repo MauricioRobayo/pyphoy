@@ -12,7 +12,7 @@
     "css:minify": "postcss assets/css/main.css --use cssnano --output assets/css/main.min.css --no-map",
     "css:watch": "nodemon --ext scss -x npm run build:css",
     "build:css": "npm-run-all css:sass css:postcss css:minify",
-    "build:js": "babel src/views/includes/js/hours.js -d src/views/includes/js/min",
+    "build:js": "babel src/scripts/ -d assets/js/",
     "build": "run-p build:*",
     "lint": "eslint src",
     "validate:circleci": "circleci config validate",
