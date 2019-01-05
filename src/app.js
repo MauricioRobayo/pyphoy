@@ -16,6 +16,7 @@ app.use(logger("dev"));
 app.use(express.static(join(__dirname, "..", "assets")));
 
 app.use(async (req, res, next) => {
+  res.removeHeader("X-Powered-By");
   // La fecha con la que vamos a trabajar, si se solicita una fecha en
   // particular, esa es la fecha con la que se va a trabajar.
   const date = req.query.d
