@@ -87,7 +87,8 @@ mixin categoryInfo(city)
                 if decree.url
                   a(href=decree.url)= decree.name
                 else
-                  |= decree.name
+                  |
+                  = decree.name
         dt#esquema Esquema
         dd !{category.scheme}
         if category.observations
