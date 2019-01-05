@@ -69,6 +69,11 @@ mixin categoryInfo(city)
         a(href=`/${category.path}`)= title
     article
       dl
+        dt#dias-de-aplicacion Días de apliación
+        dd
+          ul.list-style-none
+            each day in category.days
+              li= day
         dt#horario Horario
         dd
           +hours(category.hours, ["list-style-none"])
@@ -83,11 +88,6 @@ mixin categoryInfo(city)
                   a(href=decree.url)= decree.name
                 else
                   |= decree.name
-        dt#dias-de-aplicacion Días de apliación
-        dd
-          ul.list-style-none
-            each day in category.days
-              li= day
         dt#esquema Esquema
         dd !{category.scheme}
         if category.observations
