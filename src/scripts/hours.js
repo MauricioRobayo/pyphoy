@@ -21,7 +21,6 @@ for (let i = 0; i < uls.length; i += 1) {
 
     const today = new Date();
     const dtString = today.toDateString();
-    const now = today.getTime();
     const startTime = new Date(
       `${dtString} ${comment === "Todo el día" ? "0:00" : start}`
     );
@@ -29,8 +28,8 @@ for (let i = 0; i < uls.length; i += 1) {
       `${dtString} ${comment === "Todo el día" ? "0:00" : end}`
     );
     if (endTime <= startTime) endTime.setDate(endTime.getDate() + 1);
-    const hourActive = now >= startTime && now <= endTime;
-    const hourWarning = now < startTime;
+    const hourActive = today >= startTime && today <= endTime;
+    const hourWarning = today < startTime;
 
     if (
       (hourActive || hourWarning) &&
@@ -38,7 +37,7 @@ for (let i = 0; i < uls.length; i += 1) {
     ) {
       const span = document.createElement("span");
       const textNode = document.createTextNode(
-        hourActive ? timeString(endTime - now) : timeString(startTime - now)
+        hourActive ? timeString(endTime - today) : timeString(startTime - today)
       );
 
       span.classList.add("lapse");
