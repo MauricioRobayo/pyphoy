@@ -96,7 +96,7 @@ mixin categoryInfo(city)
         if category.map
           dt#mapa Mapa
           dd 
-            amp-img(src=category.map alt=`Mapa Pico y Placa en ${city.name}` height="612" width="906")
+            img(src=category.map alt=`Mapa Pico y Placa en ${city.name}` height="612" width="906")
         if category.exceptions
           dt#excepciones Excepciones
           dd !{category.exceptions}
