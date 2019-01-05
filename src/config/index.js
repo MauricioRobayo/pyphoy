@@ -83,7 +83,7 @@ const pyptron = {
   url:
     site.env === "production"
       ? process.env.PYPTRON_API_ENDPOINT
-      : "http://localhost:3245"
+      : "http://localhost:3246"
 };
 
 module.exports = {
