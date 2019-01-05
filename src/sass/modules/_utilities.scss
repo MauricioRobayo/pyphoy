@@ -11,6 +11,8 @@
 
 .archive {
   background-color: lighten($warning, 45%);
+  max-width: 560px;
+  margin: auto;
   padding: 0.25em 0.5em;
   border-radius: 5px;
   border: 1px solid $warning;
