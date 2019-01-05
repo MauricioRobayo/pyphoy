@@ -8,9 +8,7 @@ module.exports = async (options = {}) => {
   const pyptronApiEndpoint = url;
   const urlObject = new URL(pyptronApiEndpoint);
   urlObject.search = new URLSearchParams(queryParams);
-  urlObject.pathname += `${city ? `/${city}` : ""}${
-    category ? `/${category}` : ""
-  }`;
+  urlObject.pathname += `${city}${category ? `/${category}` : ""}`;
   debug("Using API URL: '%s'.", urlObject.href);
   return request(urlObject);
 };
