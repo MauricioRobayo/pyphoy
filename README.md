@@ -34,25 +34,25 @@ La información por categoría muestra por defecto la información corresondient
 
 #### Argumentos por categoría
 
-La información por categoría se puede solicitar especificando una fecha en particular, por ejemplo, si se desea consultar la información del pico y placa para particulares en Ibagué que aplicó el 27 de febrero de 2018, se haría usando la estructura:
+La información por categoría se puede solicitar especificando una fecha en particular. Por ejemplo, si se desea consultar la información del pico y placa para particulares en Ibagué que aplicó el 27 de febrero de 2018, se haría de la siguiente forma:
 
     https://www.pyphoy.com/ibague/particulares?d=2018-02-27
 
 El argumento `d` (fecha) debe ser dado en el formato `yyyy-mm-dd`. Si no se cuenta con la información solicitada la página devolverá un código de respuesta `404`. Si no se ingresa este argumento el valor por defecto que se asumirá será la fecha actual.
 
-Adicionalmente, se puede solicitar los días que se desean consultar hacia adelante o hacia atrás de la fecha especificada. Para ellos se usan los argumentos `f` y `b`. Estos argumentos por defecto corresponden a `6` días hacia adelante y `2` días hacia atrás:
+Adicionalmente, se puede solicitar los días que se desean consultar hacia adelante. Para ello se usa el argumentos `f`. Si no se especifica este argumento, por defecto corresponden a `8` días hacia adelante.
 
-    https://www.pyphoy.com/ibague/particulares?d=2018-02-27&f=6&b=2
+    https://www.pyphoy.com/ibague/particulares?d=2018-02-27&f=8
 
-De esta forma, si se desea consultar la información treinta días hacia adelante, sin incluir ningún día hacia atrás, se usaría:
+De esta forma, si se desea consultar la información treinta días hacia adelante, se usaría:
 
-    https://www.pyphoy.com/ibague/particulares?d=2018-02-27&f=30&b=0
+    https://www.pyphoy.com/ibague/particulares?d=2018-02-27&f=30
 
-**La cantidad máxima de días que se puede solicitar (incluye los días hacia atrás y hacia adelante) es 30.**
+**La cantidad máxima de días que se puede solicitar es 30.**
 
-Si se desea consultar la información de la fecha actual y treinta días hacia adelante, por ejemplo, para consultar siempre la información un mes hacia adelante del pico y placa para taxis en Bogotá, se usaría:
+Si se desea consultar la información de la fecha actual y treinta días hacia adelante, se usaría:
 
-    https://www.pyphoy.com/bogota/taxis?b=0&f=30
+    https://www.pyphoy.com/bogota/taxis?f=30
 
 ### Números
 
