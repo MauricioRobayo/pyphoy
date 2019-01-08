@@ -19,6 +19,8 @@ header.header.container.text-center
   if archive
     div.archive
       +archiveWarning()
+  if pagePath.includes("armenia")
+    div.archive Mediante decreto 313 del 28 de diciembre del 2018 se levanta la medida para particulares y motos del 1 al 8 de enero de 2019.
 .container.text-center
   if pagePath
     +breadCrumbs(pagePath)
