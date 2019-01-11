@@ -7,7 +7,8 @@ const emojis = {
   tpc: "🚌",
   motos: "🛵",
   especial: "🚐",
-  ambiental: "🌻"
+  ambiental: "🌻",
+  carga: "🚛"
 };
 
 const site = {
