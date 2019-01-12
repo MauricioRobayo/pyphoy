@@ -12,6 +12,7 @@ const emojis = {
 };
 
 const site = {
+  url: "https://www.pyphoy.com",
   emojis,
   env: process.env.NODE_ENV || "development",
   name: "Pico y placa hoy",
