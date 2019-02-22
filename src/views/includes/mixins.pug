@@ -63,24 +63,30 @@ mixin categoryList(city)
         a(href=`/${category.path}` title=`Pico y placa ${category.name.toLowerCase()} en ${city.name}`) Pico y placa #{category.name.toLowerCase()}
         
 mixin categoryInfo(city)
+  - console.log(city.info)
   each category in city.info
     header
       h2.title
         a(href=`/${category.path}`)= title
+
     article
-      dl
-        dt#dias-de-aplicacion Días de apliación
-        dd
-          ul.list-style-none
-            each day in category.days
-              li= day
-        dt#horario Horario
-        dd
-          +hours(category.hours, ["list-style-none"])
-        dt#clase-de-vehiculos Clase de vehículos
-        dd= category.vehicleClasses
-        dt#decreto Decreto
-        dd
+
+      h3#dias-de-aplicacion Días de apliación
+      section
+        ul.list-style-none
+          each day in category.days
+            li= day
+    
+      h3#horario Horario
+      section
+        +hours(category.hours, ["list-style-none"])
+    
+      h3#clase-de-vehiculos Clase de vehículos
+      section= category.vehicleClasses
+    
+      if category.decrees.length
+        h3#decreto Decreto
+        section
           ul.list-style-none
             each decree in category.decrees
               li
@@ -89,20 +95,27 @@ mixin categoryInfo(city)
                 else
                   |
                   = decree.name
-        dt#esquema Esquema
-        dd !{category.scheme}
-        if category.observations
-          dt#observaciones Observaciones
-          dd !{category.observations}
-        if category.map
-          dt#mapa Mapa
-          dd 
-            img(src=category.map alt=`Mapa Pico y Placa en ${city.name}` height="612" width="906")
-        if category.exceptions
-          dt#excepciones Excepciones
-          dd !{category.exceptions}
-        dt#sanciones Sanciones
-        dd Los infractores a lo dispuesto serán sancionados con multa equivalente a quince (15) salarios mínimos diarios legales vigentes e inmovilización del vehículo, según lo consagrado por el artículo 131 literal C numeral 14 de la #[a(href="http://www.secretariasenado.gov.co/senado/basedoc/ley_0769_2002.html") Ley 769 de 2002].
+    
+      if category.scheme
+        h3#esquema Esquema
+        section !{category.scheme}
+
+      if category.observations
+        h3#observaciones Observaciones
+        section !{category.observations}
+    
+      if category.maps.length
+        h3#mapa Mapa
+        each map in category.maps
+          section 
+            img(src=map.url alt=map.name height="612" width="906")
+    
+      if category.exceptions
+        h3#excepciones Excepciones
+        section !{category.exceptions}
+    
+      h3#sanciones Sanciones
+      section Los infractores a lo dispuesto serán sancionados con multa equivalente a quince (15) salarios mínimos diarios legales vigentes e inmovilización del vehículo, según lo consagrado por el artículo 131 literal C numeral 14 de la #[a(href="http://www.secretariasenado.gov.co/senado/basedoc/ley_0769_2002.html") Ley 769 de 2002].
 
 mixin hours(hours, classes, interactive=false)
   each hour in hours
