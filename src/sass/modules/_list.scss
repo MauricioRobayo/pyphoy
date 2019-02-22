@@ -1,18 +1,24 @@
-.list-style-none {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.list-group {
-  .list-group-item {
-    padding: 0.25em 0;
-    a {
-      color: $white-ter;
-    }
+ul {
+  padding-left: 1em;
+  li {
+    margin-left: 0;
   }
-  .active {
-    color: $white;
-    font-weight: bold;
+  &.list-style-none {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &.list-group {
+    .list-group-item {
+      padding: 0.25em 0;
+      a {
+        color: $white-ter;
+      }
+    }
+    .active {
+      color: $white;
+      font-weight: bold;
+    }
   }
 }
