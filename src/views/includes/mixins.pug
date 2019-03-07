@@ -63,7 +63,6 @@ mixin categoryList(city)
         a(href=`/${category.path}` title=`Pico y placa ${category.name.toLowerCase()} en ${city.name}`) Pico y placa #{category.name.toLowerCase()}
         
 mixin categoryInfo(city)
-  - console.log(city.info)
   each category in city.info
     header
       h2.title
