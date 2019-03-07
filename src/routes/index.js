@@ -89,7 +89,7 @@ router.get("/", async (req, res, next) => {
 });
 
 router.get("/:city", async (req, res, next) => {
-  const date = res.locals.dtString.replace(/\//g, "-");
+  const date = res.locals.ISODateShort;
   const queryParams = { date };
   const { citiesMap } = res.locals;
   const { city } = req.params;
@@ -194,10 +194,10 @@ router.get("/:city/:category", async (req, res, next) => {
 
 /* GET Query page. */
 router.get("/:city/:category/:number", async (req, res, next) => {
-  const { citiesMap } = res.locals;
+  const { ISODateShort: date, citiesMap } = res.locals;
   const { city, category, number } = req.params;
   const num = number.toString().toUpperCase();
-  const queryParams = { days: 30 };
+  const queryParams = { date, days: 30 };
   let pypData;
   if (city === "manizales" && category === "transporte-publico-colectivo") {
     if (!["H", "I", "J", "A", "B", "C", "D", "E", "F", "G"].includes(num)) {
