@@ -1,95 +1,95 @@
-const { format } = require("date-fns");
-const { es } = require("date-fns/locale");
+const { format } = require('date-fns')
+const { es } = require('date-fns/locale')
 
 const emojis = {
-  taxis: "🚕",
-  particulares: "🚗",
-  tpc: "🚌",
-  motos: "🛵",
-  especial: "🚐",
-  ambiental: "🌻",
-  carga: "🚛"
-};
+  taxis: '🚕',
+  particulares: '🚗',
+  tpc: '🚌',
+  motos: '🛵',
+  especial: '🚐',
+  ambiental: '🌻',
+  carga: '🚛',
+}
 
 const site = {
-  url: "https://www.pyphoy.com",
+  url: 'https://www.pyphoy.com',
   emojis,
-  env: process.env.NODE_ENV || "development",
-  name: "Pico y placa hoy",
-  title({ city, category, number, date = "" } = {}) {
+  env: process.env.NODE_ENV || 'development',
+  name: 'Pico y placa hoy',
+  title({ city, category, number, date = '' } = {}) {
     if (!city) {
-      return "Toda la información sobre el pico y placa en Colombia";
+      return 'Toda la información sobre el pico y placa en Colombia'
     }
-    const base = `Pico y placa`;
+    const base = `Pico y placa`
     if (!category) {
-      return `${base} ${city}`;
+      return `${base} ${city}`
     }
     if (!number) {
       return `${base} ${category.toLowerCase()} en ${city}${date &&
-        ` ${date.replace(",", "")}`}`;
+        ` ${date.replace(',', '')}`}`
     }
     return `${base} ${category.toLowerCase()} en ${city} placas número ${number}${date &&
-      ` ${date.replace(",", "")}`}`;
+      ` ${date.replace(',', '')}`}`
   },
-  description({ city, category, number, date = "" } = {}) {
+  description({ city, category, number, date = '' } = {}) {
     const base = `Horarios, días, fechas, ${
-      number ? "" : "placas, números, "
-    }decretos, exensiones, sanciones y toda la información vigente del pico y placa`;
+      number ? '' : 'placas, números, '
+    }decretos, exensiones, sanciones y toda la información vigente del pico y placa`
     if (!city) {
-      return `${base} en Colombia.`;
+      return `${base} en Colombia.`
     }
     if (!category) {
-      return `${base} en ${city}`;
+      return `${base} en ${city}`
     }
     if (!number) {
       return `${base} ${category.toLowerCase()} en ${city}${date &&
-        ` el ${date.replace(",", "")}`}`;
+        ` el ${date.replace(',', '')}`}`
     }
     return `${base} ${category.toLowerCase()} en ${city} placas número ${number}${date &&
-      ` el ${date.replace(",", "")}`}`;
-  }
-};
+      ` el ${date.replace(',', '')}`}`
+  },
+}
 
 const helpers = {
   longDate: "cccc, d 'de' MMMM 'de' yyyy",
   timeString(time) {
-    const hours = Math.floor(time / (1000 * 60 * 60));
-    const minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
-    return `${hours ? `${hours}h` : ""}${minutes ? ` ${minutes}m` : ""}`;
+    const hours = Math.floor(time / (1000 * 60 * 60))
+    const minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60))
+    return `${hours ? `${hours}h` : ''}${minutes ? ` ${minutes}m` : ''}`
   },
   format(date, formatString) {
-    return format(date, formatString || "yyyy-MM-dd", { locale: es });
+    return format(date, formatString || 'yyyy-MM-dd', { locale: es })
   },
   cdn(path) {
-    const p = path.startsWith("/") ? path : `/${path}`;
-    if (site.env === "production") {
-      return `https://cdn.pyphoy.com/assets${p}`;
+    const p = path.startsWith('/') ? path : `/${path}`
+    if (site.env === 'production') {
+      return `https://cdn.pyphoy.com/assets${p}`
     }
-    return `${p}`;
+    return `${p}`
   },
   convert24toAMPM(hour24) {
-    if (hour24 === "12:00") return `${hour24}m.`;
-    const [hours, minutes] = hour24.split(":");
-    const hoursNumber = parseInt(hours, 10);
-    if (hoursNumber === 12) return `${hour24}pm`;
+    if (hour24 === '12:00') return `${hour24}m.`
+    const [hours, minutes] = hour24.split(':')
+    const hoursNumber = parseInt(hours, 10)
+    if (hoursNumber === 12) return `${hour24}pm`
     return hoursNumber > 12
       ? `${hoursNumber - 12}:${minutes}pm`
-      : `${hoursNumber}:${minutes}am`;
+      : `${hoursNumber}:${minutes}am`
   },
   dump(obj) {
-    return JSON.stringify(obj, null, 2);
-  }
-};
+    return JSON.stringify(obj, null, 2)
+  },
+}
 
 const pyptron = {
   url:
-    site.env === "production"
+    site.env === 'production'
       ? process.env.PYPTRON_API_ENDPOINT
-      : "http://localhost:3246"
-};
+      : 'http://localhost:3246',
+}
 
 module.exports = {
   site,
   helpers,
-  pyptron
-};
+  pyptron,
+}

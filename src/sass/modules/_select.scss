@@ -33,7 +33,7 @@ $main-color: $grey;
     }
   }
   &::after {
-    content: "";
+    content: '';
     display: inline-block;
     border-top: 10px solid $main-color;
     border-right: 10px solid transparent;

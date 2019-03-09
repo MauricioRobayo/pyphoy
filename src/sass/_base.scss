@@ -1,4 +1,4 @@
-@import "modules/minireset";
+@import 'modules/minireset';
 
 $body-background-color: $white !default;
 $body-size: 16px !default;
@@ -100,7 +100,7 @@ div.hour-category {
     margin-right: 0.25em;
   }
   &::before {
-    content: "🛑";
+    content: '🛑';
     display: inline-block;
   }
   .lapse {
@@ -110,7 +110,7 @@ div.hour-category {
 
 .hour-warning {
   &::before {
-    content: "⚠️";
+    content: '⚠️';
     display: inline-block;
   }
   .lapse {
