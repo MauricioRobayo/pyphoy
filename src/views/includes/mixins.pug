@@ -83,6 +83,10 @@ mixin categoryInfo(city)
       h3#clase-de-vehiculos Clase de vehículos
       section= category.vehicleClasses
     
+      h3#esquema Esquema
+      - const scheme = [ 'Último dígito del número de la placa', 'Primer dígito del número de la placa']
+      section= scheme[category.scheme] || category.scheme
+
       if category.decrees.length
         h3#decreto Decreto
         section
@@ -95,9 +99,6 @@ mixin categoryInfo(city)
                   |
                   = decree.name
     
-      if category.scheme
-        h3#esquema Esquema
-        section !{category.scheme}
 
       if category.observations
         h3#observaciones Observaciones
