@@ -18,7 +18,7 @@ block pypData
           if currentISODateShort === ISODateShort
             tr.active(class=na && 'table-secondary text-muted')
               td
-                time(datetime=currentISODate)= site.emojis[pypData.data[0].categories[0].key]
+                time(datetime=currentISODate)= pypData.data[0].categories[0].emoji
                   |
                   |
                   = (currentISODateShort === todayISODateShort ? `hoy ${currentLocalDay}` : currentLocalDay)
