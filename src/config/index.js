@@ -1,19 +1,8 @@
 const { format } = require('date-fns')
 const { es } = require('date-fns/locale')
 
-const emojis = {
-  taxis: '🚕',
-  particulares: '🚗',
-  tpc: '🚌',
-  motos: '🛵',
-  especial: '🚐',
-  ambiental: '🌻',
-  carga: '🚛',
-}
-
 const site = {
   url: 'https://www.pyphoy.com',
-  emojis,
   env: process.env.NODE_ENV || 'development',
   name: 'Pico y placa hoy',
   title({ city, category, number, date = '' } = {}) {
