@@ -19,8 +19,6 @@ header.header.container.text-center
   if archive
     div.archive
       +archiveWarning()
-  else if pagePath.indexOf("popayan") !== -1
-    div.archive A partir del 1 de enero de 2019 y hasta nuevo aviso se levanta la medida de pico y placa en toda la ciudad.
   +displayMessages(pypData.messages)
   if categoryPage || numberPage
     for category in pypData.info
