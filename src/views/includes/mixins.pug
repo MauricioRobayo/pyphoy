@@ -2,11 +2,14 @@ mixin archiveWarning()
   p.t1.small Esta página no corresponde con la fecha actual.
   a.t1.small.hyperlink(href=pagePath) Consulte acá el pico y placa para hoy.
 
+mixin externalLink(url, text)
+  a(href=url rel="nofollow" target="_blank")= text
+
 mixin displayMessages(messages)
   for message in messages
     div.message
       if message.url
-        a(href=message.url target="_blank" rel="nofollow")= `${message.message} ↗️`
+        +externalLink(message.url, `${message.message} ↗️`)
       else
         p= message.message
 
@@ -102,7 +105,7 @@ mixin categoryInfo(city)
             each decree in category.decrees
               li
                 if decree.url
-                  a(href=decree.url)= decree.name
+                  +externalLink(decree.url, decree.name)
                 else
                   |
                   = decree.name
@@ -123,7 +126,7 @@ mixin categoryInfo(city)
         section !{category.exceptions}
     
       h3#sanciones Sanciones
-      section Los infractores a lo dispuesto serán sancionados con multa equivalente a quince (15) salarios mínimos diarios legales vigentes e inmovilización del vehículo, según lo consagrado por el artículo 131 literal C numeral 14 de la #[a(href="http://www.secretariasenado.gov.co/senado/basedoc/ley_0769_2002.html") Ley 769 de 2002].
+      section Los infractores a lo dispuesto serán sancionados con multa equivalente a quince (15) salarios mínimos diarios legales vigentes e inmovilización del vehículo, según lo consagrado por el artículo 131 literal C numeral 14 de la #[+externalLink("http://www.secretariasenado.gov.co/senado/basedoc/ley_0769_2002.html", "Ley 769 de 2002")].
 
 mixin hours(hours, classes, interactive=false)
   each hour in hours
