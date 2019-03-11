@@ -18,6 +18,16 @@
   border: 1px solid $warning;
 }
 
+.message {
+  font-size: 0.85rem;
+  background-color: lighten($success, 45%);
+  max-width: 560px;
+  margin: 0.5em auto 0em auto;
+  padding: 0.25em 0.5em;
+  border-radius: 5px;
+  border: 1px solid $success;
+}
+
 .is-public {
   background-color: $white;
   box-shadow: 0 0 0 1.5px $white;
