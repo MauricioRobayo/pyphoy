@@ -114,6 +114,7 @@ router.get('/:city', async (req, res, next) => {
     },
   ]
   res.render('city', {
+    cityPage: true,
     pypData,
     path,
     cityName,
@@ -179,6 +180,7 @@ router.get('/:city/:category', async (req, res, next) => {
   const todayISODate = today.toISOString()
   const todayISODateShort = helpers.format(today)
   res.render('category', {
+    categoryPage: true,
     pypData,
     cityName,
     categoryName,
@@ -258,6 +260,7 @@ router.get('/:city/:category/:number', async (req, res, next) => {
     },
   ]
   res.render('number', {
+    numberPage: true,
     cityName,
     categoryName,
     title,
