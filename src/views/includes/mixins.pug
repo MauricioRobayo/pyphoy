@@ -2,6 +2,14 @@ mixin archiveWarning()
   p.t1.small Esta página no corresponde con la fecha actual.
   a.t1.small.hyperlink(href=pagePath) Consulte acá el pico y placa para hoy.
 
+mixin displayMessages(messages)
+  for message in messages
+    div.message
+      if message.url
+        a(href=message.url target="_blank" rel="nofollow")= `${message.message} ↗️`
+      else
+        p= message.message
+
 mixin ad(filter)
   if pypData.data[0].categories[0].path === filter
     .container
