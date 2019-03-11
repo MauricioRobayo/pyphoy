@@ -14,18 +14,21 @@ block pypData
           each category in pypData.info
             +hours(category.hours, ["list-style-none"], status)
     .container
-      table.table
-          caption
-            p Prográmese
-            - const data = { name: categoryName, pyp: num}
-            p
-              +licensePlate(data)
-            p tiene pico y placa los días
-          tbody
-            each date in nextPyp
-              tr
-                td.text-center= helpers.format(new Date(date.date), helpers.longDate)
-
+      if nextPyp.length
+        table.table
+            caption
+              p Prográmese
+              - const data = { name: categoryName, pyp: num}
+              p
+                +licensePlate(data)
+              p tiene pico y placa los días
+            tbody
+              each date in nextPyp
+                tr
+                  td.text-center= helpers.format(new Date(date.date), helpers.longDate)
+      else
+        div No tiene pico y placa en los próximos 30 días
+        
 block pypQuery
   +pypQuery(`/${pypData.data[0].categories[0].path}`)
 
