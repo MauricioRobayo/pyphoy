@@ -2,8 +2,8 @@
 
 const { Router } = require('express')
 const sm = require('sitemap')
+const { pyptron } = require('@picoyplaca/pyptron-sdk')
 const { helpers, site } = require('../config')
-const pyptron = require('../utils/pyptron')
 
 const router = Router()
 

@@ -1,10 +1,10 @@
 const express = require('express')
 const createError = require('http-errors')
 const logger = require('morgan')
+const { pyptron } = require('@picoyplaca/pyptron-sdk')
 const { join } = require('path')
 const { helpers, site } = require('./config')
 const router = require('./routes')
-const pyptron = require('./utils/pyptron')
 
 const app = express()
 
