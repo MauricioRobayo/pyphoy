@@ -157,7 +157,8 @@ mixin cityTable(city)
               |
               |
               = cityCategory.name
-            +hours(city.info[cityCategory.key].hours, ["list-style-none", "small"], !na)
+            if !na
+              +hours(city.info[cityCategory.key].hours, ["list-style-none", "small"], true)
           +tdLicensePlate(cityCategory, na)
 
 mixin tdLicensePlate(data, na)
