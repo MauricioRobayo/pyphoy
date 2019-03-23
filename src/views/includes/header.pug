@@ -19,7 +19,8 @@ header.header.container.text-center
   if archive
     div.archive
       +archiveWarning()
-  +displayMessages(pypData.messages)
+  if pypData
+    +displayMessages(pypData.messages)
   if categoryPage || numberPage
     for category in pypData.info
       +displayMessages(category.messages)
