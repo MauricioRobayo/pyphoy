@@ -231,6 +231,7 @@ router.get('/:city/:category/:number', async (req, res, next) => {
   }
   const cityName = pypData.name
   const categoryName = citiesMap[city].categories[category].name
+  const categoryKey = citiesMap[city].categories[category].key
   const title = site.title({
     city: cityName,
     category: categoryName,
@@ -241,9 +242,9 @@ router.get('/:city/:category/:number', async (req, res, next) => {
     category: categoryName,
     number: num,
   })
-  const status = pypData.data[0].categories[0].pyp.split('-').includes(num)
-  const nextPyp = pypData.data.filter(val =>
-    val.categories[0].pyp.split('-').includes(num)
+  const status = pypData.categories[categoryKey].pyp[0].numbers.includes(num)
+  const nextPyp = pypData.categories[categoryKey].pyp.filter(val =>
+    val.numbers.includes(num)
   )
   const path = [
     {
