@@ -69,12 +69,12 @@ mixin cityInfo(city)
 
 mixin categoryList(city)
   ul.list-style-none
-    each category in city.info
+    each category in city.categories
       li.m-1.title
         a(href=`/${category.path}` title=`Pico y placa ${category.name.toLowerCase()} en ${city.name}`) Pico y placa #{category.name.toLowerCase()}
         
 mixin categoryInfo(city)
-  each category in city.info
+  each category in city.categories
     header
       h2.title
         a(href=`/${category.path}`)= title
@@ -83,9 +83,13 @@ mixin categoryInfo(city)
 
       h3#dias-de-aplicacion Días de apliación
       section
-        ul.list-style-none
-          each day in category.days
-            li= day
+        if category.excludedDays.length
+          ul.list-style-none
+            each day in [0, 1, 2, 3, 4, 5, 6].filter(day => !category.excludedDays.includes(day))
+              li= ['Domingos', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábados'][day]
+        else
+          p Aplica todos los días
+        p= `${category.skipHolidays ? 'No Aplica' : 'Aplica'} los días festivos`
     
       h3#horario Horario
       section
@@ -148,26 +152,25 @@ mixin cityTable(city)
         th Categoría
         th.text-right Placas
     tbody
-      each cityCategory in city.data[0].categories
-        - const na = cityCategory.pyp === 'NA'
+      each category in city.categories
+        - const na = category.pyp === 'NA'
         tr(class=na ? 'table-secondary text-muted' : '')
-          td(title=`Pico y placa ${cityCategory.name.toLowerCase()} en ${city.name}`)
-            a(href=`/${cityCategory.path}`)
-              span= cityCategory.emoji
+          td(title=`Pico y placa ${category.name.toLowerCase()} en ${city.name}`)
+            a(href=`/${category.path}`)
+              span= category.emoji
               |
               |
-              = cityCategory.name
+              = category.name
             if !na
-              +hours(city.info[cityCategory.key].hours, ["list-style-none", "small"], true)
-          +tdLicensePlate(cityCategory, na)
+              +hours(category.hours, ["list-style-none", "small"], true)
+          +tdLicensePlate(category.pyp[0].numbers, helpers.isPublic(category.name))
 
-mixin tdLicensePlate(data, na)
+mixin tdLicensePlate(numbers, public)
   td.text-right
-      +licensePlate(data)
+      +licensePlate(numbers, public)
 
-mixin licensePlate(data)
-    - const public = data.name === 'Taxis' || data.name === 'Transporte Público Colectivo' || data.name === 'Transporte Público de Carga'
-    span(class=na ? '' : `plate is-${public ? 'public' : 'particular'}`)= data.pyp === "0-1-2-3-4-5-6-7-8-9" ? "TODOS" : data.pyp
+mixin licensePlate(numbers, public)
+    span(class=`plate is-${public ? 'public' : 'particular'}`)= helpers.pypNumbersToString(numbers)
 
 mixin pypQuery(path)
   - letters = ["H", "I", "J", "A", "B", "C", "D", "E", "F", "G"]

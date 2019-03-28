@@ -1,36 +1,36 @@
 extends layouts/layout
 
 block pypData
-  section.text-center
-    div.m-1
-      span.badge(class=status ? 'stop' : 'go')= num
-    p.lead Hoy #{status ? '' : 'no'} tiene pico y placa
-    .info
-      p= date
-      .m-1
-        +licensePlate(pypData.data[0].categories[0])
-      dt Horario
-        dd
-          each category in pypData.info
+  each category in pypData.categories
+    section.text-center
+      div.m-1
+        span.badge(class=status ? 'stop' : 'go')= num
+      p.lead Hoy #{status ? '' : 'no'} tiene pico y placa
+      .info
+        p= date
+        .m-1
+          +licensePlate(category.pyp[0].numbers)
+        dt Horario
+          dd
             +hours(category.hours, ["list-style-none"], status)
-    .container
-      if nextPyp.length
-        table.table
-            caption
-              p Prográmese
-              - const data = { name: categoryName, pyp: num}
-              p
-                +licensePlate(data)
-              p tiene pico y placa los días
-            tbody
-              each date in nextPyp
-                tr
-                  td.text-center= helpers.format(new Date(date.date), helpers.longDate)
-      else
-        div No tiene pico y placa en los próximos 30 días
+      .container
+        if nextPyp.length
+          table.table
+              caption
+                p Prográmese
+                p
+                  +licensePlate(num, helpers.isPublic(category.name))
+                p tiene pico y placa los días
+              tbody
+                each date in nextPyp
+                  tr
+                    td.text-center= helpers.format(new Date(date.date), helpers.longDate)
+        else
+          div No tiene pico y placa en los próximos 30 días
         
 block pypQuery
-  +pypQuery(`/${pypData.data[0].categories[0].path}`)
+  each category in pypData.categories
+    +pypQuery(`/${category.path}`)
 
 block pypInfo
   .info-container

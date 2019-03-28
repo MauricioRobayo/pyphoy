@@ -8,35 +8,36 @@ block pypData
           th Fecha
           th.text-right Placas
       tbody
-        each pyp, index in pypData.data
-          - const currentDate = new Date(pyp.date)
-          - const currentISODate = currentDate.toISOString()
-          - const currentISODateShort = helpers.format(currentDate);
-          - const currentLocalDate = currentISODateShort.replace(/-/g, "/")
-          - const currentLocalDay = helpers.format(currentDate, "cccc");
-          - const na = pyp.categories[0].pyp === 'NA'
-          if currentISODateShort === ISODateShort
-            tr.active(class=na && 'table-secondary text-muted')
-              td
-                time(datetime=currentISODate)= pypData.data[0].categories[0].emoji
+        each category in pypData.categories
+          each pyp in category.pyp
+            - const currentDate = new Date(pyp.date)
+            - const currentISODate = currentDate.toISOString()
+            - const currentISODateShort = helpers.format(currentDate);
+            - const currentLocalDate = currentISODateShort.replace(/-/g, "/")
+            - const currentLocalDay = helpers.format(currentDate, "cccc");
+            - const na = pyp.numbers === 'NA'
+            if currentISODateShort === ISODateShort
+              tr.active(class=na && 'table-secondary text-muted')
+                td
+                  time(datetime=currentISODate)= category.emoji
+                    |
+                    |
+                    = (currentISODateShort === todayISODateShort ? `hoy ${currentLocalDay}` : currentLocalDay)
                   |
                   |
-                  = (currentISODateShort === todayISODateShort ? `hoy ${currentLocalDay}` : currentLocalDay)
-                |
-                |
-                span.warning.small= currentLocalDate
-                  if !na
-                    +hours(pypData.info[pypData.data[0].categories[0].key].hours, ["list-style-none", "small"],  !archive)
-              +tdLicensePlate(pyp.categories[0], na)
-          else
-            tr(class=na && 'table-secondary text-muted')
-              td
-                a(href=`${pagePath}?d=${currentISODateShort}`)
-                  time(datetime=currentISODate)= currentLocalDay
-                  |
-                  |
-                  span.text-muted.small= currentLocalDate
-              +tdLicensePlate(pyp.categories[0], na)
+                  span.warning.small= currentLocalDate
+                    if !na
+                      +hours(category.hours, ["list-style-none", "small"],  !archive)
+                +tdLicensePlate(pyp.numbers, helpers.isPublic(category.name))
+            else
+              tr(class=na && 'table-secondary text-muted')
+                td
+                  a(href=`${pagePath}?d=${currentISODateShort}`)
+                    time(datetime=currentISODate)= currentLocalDay
+                    |
+                    |
+                    span.text-muted.small= currentLocalDate
+                +tdLicensePlate(pyp.numbers, helpers.isPublic(category.name))
 block pypQuery
   +pypQuery(pagePath)
 block pypInfo

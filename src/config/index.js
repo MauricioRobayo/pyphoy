@@ -68,6 +68,28 @@ const helpers = {
   dump(obj) {
     return JSON.stringify(obj, null, 2)
   },
+  isPublic(name) {
+    return (
+      name.toLowerCase() === 'taxis' || name.toLowerCase().includes('público')
+    )
+  },
+  pypNumbersToString(numbers) {
+    if (!numbers.length) {
+      return 'NA'
+    }
+    // sort() muta el array original
+    // Por eso usamos una copia
+    switch ([...numbers].sort().join('')) {
+      case '0123456789':
+        return 'TODOS'
+      case '02468':
+        return 'PARES'
+      case '13579':
+        return 'IMPARES'
+      default:
+        return numbers.join('-')
+    }
+  },
 }
 
 module.exports = {

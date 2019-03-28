@@ -7,7 +7,7 @@ nav.navbar(role="navigation" aria-label="main navigation")
     .navbar-item
       if pypData
         +selectCity(pypData.name)
-        +selectCategory(pypData.path, categoryName ? pypData.data[0].categories[0].name : false)
+        +selectCategory(pypData.path, categoryName )
       else
         +selectCity()
 
@@ -22,7 +22,7 @@ header.header.container.text-center
   if pypData
     +displayMessages(pypData.messages)
   if categoryPage || numberPage
-    for category in pypData.info
+    for category in pypData.categories
       +displayMessages(category.messages)
   
 .container.text-center
