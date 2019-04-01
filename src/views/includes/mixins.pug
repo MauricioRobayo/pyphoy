@@ -153,7 +153,7 @@ mixin cityTable(city)
         th.text-right Placas
     tbody
       each category in city.categories
-        - const na = category.pyp === 'NA'
+        - const na = !category.pyp[0].numbers.length
         tr(class=na ? 'table-secondary text-muted' : '')
           td(title=`Pico y placa ${category.name.toLowerCase()} en ${city.name}`)
             a(href=`/${category.path}`)
