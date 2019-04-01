@@ -15,7 +15,7 @@ block pypData
             - const currentISODateShort = helpers.format(currentDate);
             - const currentLocalDate = currentISODateShort.replace(/-/g, "/")
             - const currentLocalDay = helpers.format(currentDate, "cccc");
-            - const na = pyp.numbers === 'NA'
+            - const na = !pyp.numbers.length
             if currentISODateShort === ISODateShort
               tr.active(class=na && 'table-secondary text-muted')
                 td
