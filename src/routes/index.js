@@ -2,7 +2,7 @@
 
 const { Router } = require('express')
 const sm = require('sitemap')
-const { pyptron } = require('@picoyplaca/pyptron-sdk')
+const pyptron = require('@picoyplaca/pyptron-sdk').pyptron()
 const { helpers, site } = require('../config')
 
 const router = Router()
@@ -77,7 +77,7 @@ router.get('/sitemap.xml', (req, res, next) => {
 router.get('/', async (req, res, next) => {
   let pypData
   try {
-    pypData = await pyptron()
+    pypData = await pyptron.request({})
   } catch (err) {
     next(err)
     return
@@ -99,7 +99,7 @@ router.get('/:city', async (req, res, next) => {
     return
   }
   try {
-    pypData = await pyptron({ city, queryParams })
+    pypData = await pyptron.request({ city, queryParams })
   } catch (err) {
     next(err)
     return
@@ -143,7 +143,7 @@ router.get('/:city/:category', async (req, res, next) => {
     return
   }
   try {
-    pypData = await pyptron({ city, category, queryParams })
+    pypData = await pyptron.request({ city, category, queryParams })
   } catch (err) {
     next(err)
     return
