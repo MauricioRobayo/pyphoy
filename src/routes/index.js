@@ -198,7 +198,8 @@ router.get('/:city/:category', async (req, res, next) => {
 router.get('/:city/:category/:number', async (req, res, next) => {
   const { ISODateShort: date, citiesMap } = res.locals
   const { city, category, number } = req.params
-  const num = number.toString().toUpperCase()
+  const int = parseInt(number, 10)
+  const num = Number.isNaN(int) ? number.toString().toUpperCase() : int
   const queryParams = { date, days: 30 }
   let pypData
   if (city === 'manizales' && category === 'transporte-publico-colectivo') {
@@ -206,9 +207,7 @@ router.get('/:city/:category/:number', async (req, res, next) => {
       next()
       return
     }
-  } else if (
-    !['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].includes(num)
-  ) {
+  } else if (![0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(num)) {
     next()
     return
   }
