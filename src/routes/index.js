@@ -224,7 +224,7 @@ router.get('/:city/:category/:number', async (req, res, next) => {
     return
   }
   try {
-    pypData = await pyptron({ city, category, queryParams })
+    pypData = await pyptron.request({ city, category, queryParams })
   } catch (err) {
     next(err)
     return
