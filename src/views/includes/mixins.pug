@@ -114,10 +114,13 @@ mixin categoryInfo(city)
                   |
                   = decree.name
     
-
       if category.observations
         h3#observaciones Observaciones
         section !{category.observations}
+      
+      if category.zones
+        h3#vias Vías
+        section !{category.zones}
     
       if category.maps.length
         h3#mapa Mapa
