@@ -74,6 +74,9 @@ const helpers = {
     )
   },
   pypNumbersToString(numbers) {
+    if (!Array.isArray(numbers)) {
+      return numbers
+    }
     if (!numbers.length) {
       return 'NA'
     }
@@ -82,10 +85,6 @@ const helpers = {
     switch ([...numbers].sort().join('')) {
       case '0123456789':
         return 'TODOS'
-      case '02468':
-        return 'PARES'
-      case '13579':
-        return 'IMPARES'
       default:
         return numbers.join('-')
     }
