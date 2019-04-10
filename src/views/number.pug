@@ -9,10 +9,10 @@ block pypData
       .info
         p= date
         .m-1
-          +licensePlate(category.pyp[0].numbers)
+          +licensePlate(category.data[0].numbers)
         dt Horario
           dd
-            +hours(category.hours, ["list-style-none"], status)
+            +hours(category.data[0].hours, ["list-style-none"], status)
       .container
         if nextPyp.length
           table.table

@@ -75,38 +75,39 @@ mixin categoryList(city)
         
 mixin categoryInfo(city)
   each category in city.categories
+    - const pyp = category.data[0]
     header
       h2.title
-        a(href=`/${category.path}`)= title
+        a(href=`/${pyp.path}`)= title
 
     article
 
       h3#dias-de-aplicacion Días de apliación
       section
-        if category.excludedDays.length
+        if pyp.excludedDays.length
           ul.list-style-none
-            each day in [0, 1, 2, 3, 4, 5, 6].filter(day => !category.excludedDays.includes(day))
+            each day in [0, 1, 2, 3, 4, 5, 6].filter(day => !pyp.excludedDays.includes(day))
               li= ['Domingos', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábados'][day]
         else
           p Aplica todos los días
-        p= `${category.skipHolidays ? 'No Aplica' : 'Aplica'} los días festivos`
+        p= `${pyp.skipHolidays ? 'No Aplica' : 'Aplica'} los días festivos`
     
       h3#horario Horario
       section
-        +hours(category.hours, ["list-style-none"])
+        +hours(pyp.hours, ["list-style-none"])
     
       h3#clase-de-vehiculos Clase de vehículos
-      section= category.vehicleClasses
+      section= pyp.vehicleClasses
     
       h3#esquema Esquema
       - const scheme = [ 'Último dígito del número de la placa', 'Primer dígito del número de la placa']
-      section= scheme[category.scheme] || category.scheme
+      section= scheme[pyp.scheme] || pyp.scheme
 
-      if category.decrees.length
+      if pyp.decrees.length
         h3#decreto Decreto
         section
           ul.list-style-none
-            each decree in category.decrees
+            each decree in pyp.decrees
               li
                 if decree.url
                   +externalLink(decree.url, decree.name)
@@ -114,23 +115,23 @@ mixin categoryInfo(city)
                   |
                   = decree.name
     
-      if category.observations
+      if pyp.observations
         h3#observaciones Observaciones
-        section !{category.observations}
+        section !{pyp.observations}
       
-      if category.zones
+      if pyp.zones
         h3#vias Vías
-        section !{category.zones}
+        section !{pyp.zones}
     
-      if category.maps.length
+      if pyp.maps.length
         h3#mapa Mapa
-        each map in category.maps
+        each map in pyp.maps
           section 
             img(src=map.url alt=map.name)
     
-      if category.exceptions
+      if pyp.exceptions
         h3#excepciones Excepciones
-        section !{category.exceptions}
+        section !{pyp.exceptions}
     
       h3#sanciones Sanciones
       section Los infractores a lo dispuesto serán sancionados con multa equivalente a quince (15) salarios mínimos diarios legales vigentes e inmovilización del vehículo, según lo consagrado por el artículo 131 literal C numeral 14 de la #[+externalLink("http://www.secretariasenado.gov.co/senado/basedoc/ley_0769_2002.html", "Ley 769 de 2002")].
@@ -156,7 +157,7 @@ mixin cityTable(city)
         th.text-right Placas
     tbody
       each category in city.categories
-        - const na = !category.pyp[0].numbers.length
+        - const na = !category.data[0].numbers.length
         tr(class=na ? 'table-secondary text-muted' : '')
           td(title=`Pico y placa ${category.name.toLowerCase()} en ${city.name}`)
             a(href=`/${category.path}`)
@@ -165,8 +166,8 @@ mixin cityTable(city)
               |
               = category.name
             if !na
-              +hours(category.hours, ["list-style-none", "small"], true)
-          +tdLicensePlate(category.pyp[0].numbers, helpers.isPublic(category.name))
+              +hours(category.data[0].hours, ["list-style-none", "small"], true)
+          +tdLicensePlate(category.data[0].numbers, helpers.isPublic(category.name))
 
 mixin tdLicensePlate(numbers, public)
   td.text-right
