@@ -241,8 +241,8 @@ router.get('/:city/:category/:number', async (req, res, next) => {
     category: categoryName,
     number: num,
   })
-  const status = pypData.categories[categoryKey].pyp[0].numbers.includes(num)
-  const nextPyp = pypData.categories[categoryKey].pyp.filter(val =>
+  const status = pypData.categories[categoryKey].data[0].numbers.includes(num)
+  const nextPyp = pypData.categories[categoryKey].data.filter(val =>
     val.numbers.includes(num)
   )
   const path = [

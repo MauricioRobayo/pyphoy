@@ -9,7 +9,7 @@ block pypData
           th.text-right Placas
       tbody
         each category in pypData.categories
-          each pyp in category.pyp
+          each pyp in category.data
             - const currentDate = new Date(pyp.date)
             - const currentISODate = currentDate.toISOString()
             - const currentISODateShort = helpers.format(currentDate);
@@ -27,7 +27,7 @@ block pypData
                   |
                   span.warning.small= currentLocalDate
                     if !na
-                      +hours(category.hours, ["list-style-none", "small"],  !archive)
+                      +hours(pyp.hours, ["list-style-none", "small"],  !archive)
                 +tdLicensePlate(pyp.numbers, helpers.isPublic(category.name))
             else
               tr(class=na && 'table-secondary text-muted')
