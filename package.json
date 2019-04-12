@@ -17,10 +17,8 @@
     "lint": "eslint src",
     "format": "prettier --write src/**/*.{js,ts,css,less,scss,vue,json,gql,md,yml,yaml}",
     "validate:circleci": "circleci config validate",
-    "deploy:setup": "run.env pm2 deploy production setup",
-    "deploy:setup:dev": "run.env pm2 deploy development setup",
-    "deploy:site": "run.env pm2 deploy production",
-    "deploy:site:dev": "run.env pm2 deploy development",
+    "deploy:prod": "run.env pm2 deploy production",
+    "deploy:dev": "run.env pm2 deploy development",
     "sync:assets": "aws s3 sync assets/ s3://pyphoy/assets --acl public-read"
   },
   "husky": {
