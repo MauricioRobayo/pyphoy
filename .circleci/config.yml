@@ -41,6 +41,30 @@ jobs:
       - run:
           name: Deploy to EC2
           command: npm run deploy:prod -- update
+  deploy-dev:
+    docker:
+      - image: circleci/node:8.10
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - add_ssh_keys:
+          fingerprints:
+            - '9e:3f:ef:64:be:36:57:51:9d:44:fb:a0:05:2f:89:fd'
+      - run:
+          name: Intall awscli
+          command: |
+            sudo apt-get install python3 python3-pip -y
+            sudo pip3 install awscli --upgrade
+      - run:
+          name: Sync S3 assets
+          command: npm run sync:assets
+      - run:
+          name: Deploy to EC2
+          command: npm run deploy:dev -- update
 
 workflows:
   build_test_and_deploy:
@@ -52,3 +76,9 @@ workflows:
           filters:
             branches:
               only: master
+      - deploy-dev:
+          requires:
+            - build
+          filters:
+            branches:
+              only: develop
