@@ -129,7 +129,7 @@ router.get('/:city/:category', async (req, res, next) => {
     next()
     return
   }
-  const date = helpers.format(res.locals.d)
+  const date = helpers.localISOString(res.locals.d)
   const queryParams = { date, days }
   const { citiesMap } = res.locals
   const { city, category } = req.params
@@ -178,7 +178,7 @@ router.get('/:city/:category', async (req, res, next) => {
   // Debido a que esta página recibe como query una fecha, esa fecha se usa
   const today = new Date()
   const todayISODate = today.toISOString()
-  const todayISODateShort = helpers.format(today)
+  const todayISODateShort = helpers.localISOString(today)
   res.render('category', {
     categoryPage: true,
     pypData,

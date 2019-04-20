@@ -26,9 +26,9 @@ app.use(async (req, res, next) => {
   res.locals.helpers = helpers
   res.locals.d = date
   res.locals.ISODate = date.toISOString()
-  res.locals.ISODateShort = helpers.format(date)
+  res.locals.ISODateShort = helpers.localISOString(date)
   res.locals.dtString = res.locals.ISODateShort.replace(/-/g, '/')
-  res.locals.date = helpers.format(date, helpers.longDate)
+  res.locals.date = helpers.fullDateString(date)
   res.locals.pagePath = req.path
   res.locals.url =
     site.env === 'production'

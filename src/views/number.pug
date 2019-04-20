@@ -24,7 +24,7 @@ block pypData
               tbody
                 each date in nextPyp
                   tr
-                    td.text-center= helpers.format(new Date(date.date), helpers.longDate)
+                    td.text-center= helpers.fullDateString(new Date(date.date))
         else
           div No tiene pico y placa en los próximos 30 días
         
