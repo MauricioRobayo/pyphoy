@@ -171,11 +171,6 @@ router.get('/:city/:category', async (req, res, next) => {
       name: categoryName,
     },
   ]
-  // Como la fecha de base para construir la página y por lo tanto si la fecha
-  // de la query (por ejemplo: ?d=2018-10-12) no coincide con la fecha actual,
-  // vamos a desconocer al fecha actual, que necesitamos para validar en la
-  // creación de la página si estamos hablando de hoy.
-  // Debido a que esta página recibe como query una fecha, esa fecha se usa
   const today = new Date()
   const todayISODate = today.toISOString()
   const todayISODateShort = helpers.localISOString(today)
