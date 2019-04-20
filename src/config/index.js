@@ -1,6 +1,3 @@
-const { format } = require('date-fns')
-const { es } = require('date-fns/locale')
-
 const site = {
   url: 'https://www.pyphoy.com',
   env: process.env.NODE_ENV || 'development',
@@ -40,14 +37,48 @@ const site = {
 }
 
 const helpers = {
-  longDate: "cccc, d 'de' MMMM 'de' yyyy",
   timeString(time) {
     const hours = Math.floor(time / (1000 * 60 * 60))
     const minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60))
     return `${hours ? `${hours}h` : ''}${minutes ? ` ${minutes}m` : ''}`
   },
-  format(date, formatString) {
-    return format(date, formatString || 'yyyy-MM-dd', { locale: es })
+  weekdayName(day) {
+    return [
+      'domingo',
+      'lunes',
+      'martes',
+      'miércoles',
+      'jueves',
+      'viernes',
+      'sábado',
+    ][day]
+  },
+  monthName(month) {
+    return [
+      'enero',
+      'febrero',
+      'marzo',
+      'abril',
+      'mayo',
+      'junio',
+      'julio',
+      'agosto',
+      'septiembre',
+      'noviembre',
+      'diciembre',
+    ][month]
+  },
+  fullDateString(date) {
+    return `${this.weekdayName(
+      date.getDay()
+    )}, ${date.getDate()} de ${this.monthName(
+      date.getMonth()
+    )} de ${date.getFullYear()}`
+  },
+  localISOString(date) {
+    const d = new Date(date)
+    d.setMinutes(d.getMinutes() - d.getTimezoneOffset())
+    return d.toISOString().split('T')[0]
   },
   cdn(path) {
     const p = path.startsWith('/') ? path : `/${path}`

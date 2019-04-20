@@ -12,9 +12,9 @@ block pypData
           each pyp in category.data
             - const currentDate = new Date(pyp.date)
             - const currentISODate = currentDate.toISOString()
-            - const currentISODateShort = helpers.format(currentDate);
+            - const currentISODateShort = helpers.localISOString(currentDate);
             - const currentLocalDate = currentISODateShort.replace(/-/g, "/")
-            - const currentLocalDay = helpers.format(currentDate, "cccc");
+            - const currentLocalDay = helpers.weekdayName(currentDate.getDay())
             - const na = !pyp.numbers.length
             if currentISODateShort === ISODateShort
               tr.active(class=na && 'table-secondary text-muted')
