@@ -19,7 +19,7 @@
     "validate:circleci": "circleci config validate",
     "deploy:prod": "run.env pm2 deploy production",
     "deploy:dev": "run.env pm2 deploy development",
-    "sync:assets": "aws s3 sync assets/ s3://pyphoy/assets --acl public-read"
+    "sync:assets": "aws s3 sync assets/ s3://pyphoy/assets"
   },
   "husky": {
     "hooks": {
