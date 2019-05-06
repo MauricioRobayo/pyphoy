@@ -25,10 +25,10 @@ commands:
           command: sudo pip install awscli
       - run:
           name: Sync S3 assets
-          command: npm run sync:assets
+          command: aws s3 sync assets/ s3://pyphoy/assets
       - run:
           name: Deploy to EC2
-          command: npm run deploy:<< parameters.stage >> -- update
+          command: npx pm2 deploy << parameters.stage >> update
 jobs:
   build:
     executor: node-aws-lambda
@@ -48,13 +48,13 @@ jobs:
     executor: python3-node
     steps:
       - deploy:
-          stage: prod
+          stage: production
 
   deploy-dev:
     executor: python3-node
     steps:
       - deploy:
-          stage: dev
+          stage: development
 
 workflows:
   build_test_and_deploy:
