@@ -1,7 +1,7 @@
 const express = require('express')
 const createError = require('http-errors')
 const logger = require('morgan')
-const pyptron = require('@picoyplaca/pyptron-sdk').pyptron()
+const { getCitiesMap } = require('@picoyplaca/pyptron')
 const { join } = require('path')
 const { helpers, site } = require('./config')
 const router = require('./routes')
@@ -40,14 +40,7 @@ app.use(async (req, res, next) => {
     res.locals.semester
   } semestre del ${date.getFullYear()}`
   res.locals.archive = !!req.query.d
-  let citiesMap
-  try {
-    citiesMap = await pyptron.request()
-  } catch (err) {
-    next(err)
-    return
-  }
-  res.locals.citiesMap = citiesMap
+  res.locals.citiesMap = getCitiesMap()
   next()
 })
 

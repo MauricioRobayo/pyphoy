@@ -2,7 +2,7 @@
 
 const { Router } = require('express')
 const sm = require('sitemap')
-const pyptron = require('@picoyplaca/pyptron-sdk').pyptron()
+const { getCityData } = require('@picoyplaca/pyptron')
 const { helpers, site } = require('../config')
 
 const router = Router()
@@ -74,36 +74,22 @@ router.get('/sitemap.xml', (req, res, next) => {
   })
 })
 
-router.get('/', async (req, res, next) => {
-  let pypData
-  try {
-    pypData = await pyptron.request({})
-  } catch (err) {
-    next(err)
-    return
-  }
+router.get('/', (req, res) => {
   res.render('home', {
-    pypData,
     home: true,
   })
 })
 
-router.get('/:city', async (req, res, next) => {
+router.get('/:city', (req, res, next) => {
   const date = res.locals.ISODateShort
   const queryParams = { date }
   const { citiesMap } = res.locals
   const { city } = req.params
-  let pypData
   if (!citiesMap.hasOwnProperty(city)) {
     next()
     return
   }
-  try {
-    pypData = await pyptron.request({ city, queryParams })
-  } catch (err) {
-    next(err)
-    return
-  }
+  const pypData = getCityData(city, queryParams)
   const cityName = pypData.name
   const title = site.title({ city: cityName })
   const description = site.description({ city: cityName })
@@ -123,7 +109,7 @@ router.get('/:city', async (req, res, next) => {
   })
 })
 
-router.get('/:city/:category', async (req, res, next) => {
+router.get('/:city/:category', (req, res, next) => {
   const days = req.query.f ? parseInt(req.query.f, 10) : 8
   if (days > 30) {
     next()
@@ -133,7 +119,6 @@ router.get('/:city/:category', async (req, res, next) => {
   const queryParams = { date, days }
   const { citiesMap } = res.locals
   const { city, category } = req.params
-  let pypData
   if (!citiesMap.hasOwnProperty(city)) {
     next()
     return
@@ -142,12 +127,7 @@ router.get('/:city/:category', async (req, res, next) => {
     next()
     return
   }
-  try {
-    pypData = await pyptron.request({ city, category, queryParams })
-  } catch (err) {
-    next(err)
-    return
-  }
+  const pypData = getCityData(city, { category, ...queryParams })
   const cityName = pypData.name
   const categoryName = citiesMap[city].categories[category].name
   const title = site.title({ city: cityName, category: categoryName })
@@ -190,13 +170,12 @@ router.get('/:city/:category', async (req, res, next) => {
 })
 
 /* GET Query page. */
-router.get('/:city/:category/:number', async (req, res, next) => {
+router.get('/:city/:category/:number', (req, res, next) => {
   const { ISODateShort: date, citiesMap } = res.locals
   const { city, category, number } = req.params
   const int = parseInt(number, 10)
   const num = Number.isNaN(int) ? number.toString().toUpperCase() : int
   const queryParams = { date, days: 30 }
-  let pypData
   if (city === 'manizales' && category === 'transporte-publico-colectivo') {
     if (!['H', 'I', 'J', 'A', 'B', 'C', 'D', 'E', 'F', 'G'].includes(num)) {
       next()
@@ -217,12 +196,7 @@ router.get('/:city/:category/:number', async (req, res, next) => {
     next()
     return
   }
-  try {
-    pypData = await pyptron.request({ city, category, queryParams })
-  } catch (err) {
-    next(err)
-    return
-  }
+  const pypData = getCityData(city, { category, ...queryParams })
   const cityName = pypData.name
   const categoryName = citiesMap[city].categories[category].name
   const categoryKey = citiesMap[city].categories[category].key
