@@ -1,0 +1,15 @@
+.hero {
+  margin: 4em 2em;
+  text-align: center;
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 0.25em;
+  }
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.25em;
+  }
+  @media screen and (min-width: $tablet) {
+    font-size: 200%;
+  }
+}

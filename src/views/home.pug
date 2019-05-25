@@ -2,9 +2,9 @@ extends layouts/layout
 
 block pypData
   section.hero
-    .container.text-center
-      h1.title= site.name
-      h2.subtitle
+    header
+      h1= site.name
+      h2
         time(datetime=ISODate)= date
-    .container.text-center
+    main
       +selectCity('', true)

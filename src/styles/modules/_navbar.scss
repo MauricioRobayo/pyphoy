@@ -1,16 +1,12 @@
-$navbar-height: 3.25rem;
-$navbar-item-color: $grey-dark;
-$navbar-burger-color: $navbar-item-color;
-
 nav {
   display: flex;
-  background-color: $white-ter;
-  min-height: $navbar-height;
-  border-bottom: 1px solid $grey-lighter;
+  background-color: $light;
+  min-height: 3.25em;
+  border-bottom: 1px solid $border;
   justify-content: space-between;
   align-items: center;
   .navbar-item {
-    color: $navbar-item-color;
+    color: $text-strong;
     line-height: 1.5;
     padding: 0.5rem 0.75rem;
     text-align: right;

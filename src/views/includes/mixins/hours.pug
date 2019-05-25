@@ -1,0 +1,12 @@
+mixin hours(hours, classes, interactive=false)
+  each hour in hours
+    - let done = false
+    if hour.comment && hour.comment !== "Todo el día"
+      div.hour-category(class=classes) #{hour.comment}:
+    ul.hours(class=classes class=interactive && "hours-interactive" data-comment=hour.comment data-days=hour.days.join())
+      each h in hour.hours
+        li.hour(data-start=h[0] data-end=h[1])
+          |
+          = hour.comment === "Todo el día" ? hour.comment : ""
+          |
+          = h.map(h => helpers.convert24toAMPM(h)).join(' a ')

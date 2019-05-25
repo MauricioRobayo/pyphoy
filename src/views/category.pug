@@ -1,43 +1,9 @@
 extends layouts/layout
 
 block pypData
-  section.container
-    table.table
-      thead.dark
-        tr
-          th Fecha
-          th.text-right Placas
-      tbody
-        each category in pypData.categories
-          each pyp in category.data
-            - const currentDate = new Date(pyp.date)
-            - const currentISODate = currentDate.toISOString()
-            - const currentISODateShort = helpers.localISOString(currentDate);
-            - const currentLocalDate = currentISODateShort.replace(/-/g, "/")
-            - const currentLocalDay = helpers.weekdayName(currentDate.getDay())
-            - const na = !pyp.numbers.length
-            if currentISODateShort === ISODateShort
-              tr.active(class=na && 'table-secondary text-muted')
-                td
-                  time(datetime=currentISODate)= category.emoji
-                    |
-                    |
-                    = (currentISODateShort === todayISODateShort ? `hoy ${currentLocalDay}` : currentLocalDay)
-                  |
-                  |
-                  span.warning.small= currentLocalDate
-                    if !na
-                      +hours(pyp.hours, ["list-style-none", "small"],  !archive)
-                +tdLicensePlate(pyp.numbers, helpers.isPublic(category.name))
-            else
-              tr(class=na && 'table-secondary text-muted')
-                td
-                  a(href=`${pagePath}?d=${currentISODateShort}`)
-                    time(datetime=currentISODate)= currentLocalDay
-                    |
-                    |
-                    span.text-muted.small= currentLocalDate
-                +tdLicensePlate(pyp.numbers, helpers.isPublic(category.name))
+  main
+    +categoryTable(categoryData)
+
 block pypQuery
   +pypQuery(pagePath)
 block pypInfo

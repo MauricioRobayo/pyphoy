@@ -1,0 +1,17 @@
+.info-container {
+  margin: 1.5em auto;
+  padding: 0 1em;
+  max-width: 960px;
+  ul {
+    list-style: disc inside none;
+    margin: 0.5rem 0 0.5rem 1rem;
+  }
+  h3 {
+    margin: 1em 0 0;
+    font-weight: bold;
+  }
+  section {
+    margin: 0;
+    padding: 0.25em 0 0.5em;
+  }
+}

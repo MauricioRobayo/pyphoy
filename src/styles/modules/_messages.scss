@@ -1,0 +1,17 @@
+.message {
+  font-size: 0.85rem;
+  max-width: 560px;
+  margin: 0.5em auto 0em auto;
+  padding: 0.25em 0.5em;
+  border-radius: 5px;
+  background-color: lighten($success, 45%);
+  border: 1px solid $success;
+  color: $grey;
+  a {
+    color: $link;
+  }
+  &.warning {
+    background-color: lighten($warning, 45%);
+    border-color: $warning;
+  }
+}

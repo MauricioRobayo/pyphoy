@@ -7,7 +7,7 @@
     "start:server": "cross-env DEBUG=pyphoy:* nodemon src/bin/server.js",
     "start:browser-sync": "browser-sync start --port 3001 --proxy localhost:3000 --files assets/css src/views/ --no-open ",
     "start:dev": "run.env npm-run-all -p build:js build:css -l -p start:server css:watch start:browser-sync",
-    "css:sass": "node-sass src/sass/main.scss assets/css/main.css",
+    "css:sass": "node-sass src/styles/main.scss assets/css/main.css",
     "css:postcss": "postcss assets/css/main.css --use autoprefixer --output assets/css/main.css",
     "css:minify": "postcss assets/css/main.css --use cssnano --output assets/css/main.min.css --no-map",
     "css:watch": "nodemon --ext scss -x npm run build:css",
@@ -45,8 +45,8 @@
     "sitemap": "^5.0.0"
   },
   "devDependencies": {
-    "browser-sync": "^2.26.3",
     "cross-env": "^6.0.0",
+    "browser-sync": "^2.26.7",
     "eslint": "^6.0.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "^6.0.0",
@@ -56,7 +56,9 @@
     "nodemon": "^2.0.0",
     "pm2": "^4.0.0",
     "prettier": "^1.16.4",
-    "run.env": "^1.1.0"
+    "run.env": "^1.1.0",
+    "stylelint": "^10.0.1",
+    "stylelint-config-recommended": "^2.2.0"
   },
   "description": "El pico y placa en Colombia es una medida de restricción vehicular que se aplica en las principales ciudades con el fin de descongestionar el tráfico de automóviles en las vías.",
   "main": "app.js",

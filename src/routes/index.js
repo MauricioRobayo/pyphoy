@@ -129,7 +129,10 @@ router.get('/:city/:category', (req, res, next) => {
   }
   const pypData = getCityData(city, { category, ...queryParams })
   const cityName = pypData.name
-  const categoryName = citiesMap[city].categories[category].name
+  const { name: categoryName, key: categoryKey } = citiesMap[city].categories[
+    category
+  ]
+  const categoryData = pypData.categories[categoryKey]
   const title = site.title({ city: cityName, category: categoryName })
   const SEOTitle = site.title({
     city: cityName,
@@ -159,6 +162,8 @@ router.get('/:city/:category', (req, res, next) => {
     pypData,
     cityName,
     categoryName,
+    categoryKey,
+    categoryData,
     title,
     SEOTitle,
     description,
@@ -197,9 +202,11 @@ router.get('/:city/:category/:number', (req, res, next) => {
     return
   }
   const pypData = getCityData(city, { category, ...queryParams })
+  const { name: categoryName, key: categoryKey } = citiesMap[city].categories[
+    category
+  ]
+  const categoryData = pypData.categories[categoryKey]
   const cityName = pypData.name
-  const categoryName = citiesMap[city].categories[category].name
-  const categoryKey = citiesMap[city].categories[category].key
   const title = site.title({
     city: cityName,
     category: categoryName,
@@ -210,10 +217,8 @@ router.get('/:city/:category/:number', (req, res, next) => {
     category: categoryName,
     number: num,
   })
-  const status = pypData.categories[categoryKey].data[0].numbers.includes(num)
-  const nextPyp = pypData.categories[categoryKey].data.filter(val =>
-    val.numbers.includes(num)
-  )
+  const status = categoryData.data[0].numbers.includes(num)
+  const nextPyp = categoryData.data.filter(val => val.numbers.includes(num))
   const path = [
     {
       path: city,
@@ -232,6 +237,8 @@ router.get('/:city/:category/:number', (req, res, next) => {
     numberPage: true,
     cityName,
     categoryName,
+    categoryKey,
+    categoryData,
     title,
     description,
     pypData,

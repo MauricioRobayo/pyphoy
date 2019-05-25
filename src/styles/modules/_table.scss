@@ -1,28 +1,25 @@
 .table {
   width: 100%;
   max-width: 560px;
-  margin: 0 auto 1em auto;
-  border: 1px solid $grey-lighter;
+  padding: 1rem;
+  border: 1px solid $border;
   break-inside: avoid-column;
   vertical-align: top;
-  caption {
-    border: 1px solid $dark;
-    background-color: $dark;
-    padding: 0.25em;
-    font-size: 1.25em;
-    color: $light;
-    a {
-      color: $light;
-      text-decoration: none;
+
+  td,
+  th {
+    padding: 0.5em;
+    &.numeric {
+      text-align: right;
     }
   }
 
   tbody {
     tr {
-      border-bottom: 1px solid $grey-lighter;
+      border-bottom: 1px solid $border;
       &.table-secondary {
-        background-color: $white-ter;
-        color: $grey-light;
+        background-color: $light;
+        color: $text-light;
       }
       &.active {
         font-size: 1.25em;
@@ -38,13 +35,8 @@
     }
   }
 
-  td,
-  th {
-    padding: 0.5em;
-  }
-
   thead tr {
-    border-bottom: 2px solid $grey-lighter;
+    border-bottom: 2px solid $border;
   }
 
   thead.dark {

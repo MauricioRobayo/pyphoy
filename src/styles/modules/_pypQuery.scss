@@ -1,0 +1,13 @@
+.query {
+  font-size: 1.25rem;
+  margin: auto;
+  padding: 0 1.5em 1.5em 1.5em;
+  text-align: center;
+
+  .nums {
+    max-width: 520px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+  }
+}

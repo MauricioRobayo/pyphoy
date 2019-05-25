@@ -1,0 +1,44 @@
+.lapse {
+  color: $text-invert;
+  padding: 0 0.25em;
+  border-radius: 3px;
+  display: inline-block;
+  font-size: 0.9em;
+  margin-left: 0.25em;
+}
+.hours {
+  &.small {
+    font-size: 0.85rem;
+  }
+}
+.hours-interactive {
+  .hour {
+    margin-left: 1em;
+  }
+}
+
+div.hour-category {
+  color: $dark;
+}
+
+.hour-active {
+  color: $dark;
+  &::before {
+    margin-right: 0.25em;
+    content: '🛑';
+    display: inline-block;
+  }
+  .lapse {
+    background-color: $danger;
+  }
+}
+
+.hour-warning {
+  &::before {
+    content: '⚠️';
+    display: inline-block;
+  }
+  .lapse {
+    background-color: $success;
+  }
+}

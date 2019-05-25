@@ -1,0 +1,72 @@
+@import 'modules/minireset';
+
+@include fontFace($family-license, $assets-path);
+
+html {
+  background-color: $background;
+  font-size: 14px;
+  @media screen and (min-width: $tablet) {
+    font-size: 16px;
+  }
+  @media screen and (min-width: $desktop) {
+    font-size: 18px;
+  }
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+body {
+  color: $text;
+  font-family: $family-primary;
+  > header {
+    h1 {
+      line-height: 1.2;
+      font-size: 2rem;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      margin-bottom: 0;
+      color: $grey;
+      font-weight: normal;
+    }
+
+    text-align: center;
+    margin: 1em;
+  }
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: $link;
+}
+
+footer {
+  background-color: $dark;
+  color: $text-light;
+
+  a {
+    color: $text-light;
+    text-transform: uppercase;
+  }
+
+  text-align: center;
+  padding: 2em;
+}

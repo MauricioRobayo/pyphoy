@@ -1,4 +1,16 @@
-include ../includes/mixins
+include ../includes/mixins/breadcrumbs
+include ../includes/mixins/categoryInfo
+include ../includes/mixins/categoryList
+include ../includes/mixins/categoryTable
+include ../includes/mixins/cityInfo
+include ../includes/mixins/cityTable
+include ../includes/mixins/email
+include ../includes/mixins/externalLink
+include ../includes/mixins/hours
+include ../includes/mixins/licensePlate
+include ../includes/mixins/messages
+include ../includes/mixins/pypQuery
+include ../includes/mixins/selectors
 
 doctype html
 html(lang="es")
@@ -10,9 +22,9 @@ html(lang="es")
     block pypQuery
     block contact
       if !home  
-        section.cta.text-center
-          p.mb-0 ¿Falta algo?
-          p.mb-0 ¿Algo no está bien?
+        section.cta
+          p ¿Falta algo?
+          p ¿Algo no está bien?
           p
             a(target="_blank" rel="nofollow" href="http://m.me/picoyplacahoy")
               u Ayúdenos a mejorar esta página
