@@ -63,8 +63,7 @@ mixin datePicker()
     input(type="submit" value="Consultar")
 
 mixin cityInfo(city)
-  h2.title
-    a(href=`/${city.path}`) Pico y placa vigente en #{city.name}
+  h2.title Pico y placa vigente en #{city.name}
   p.subtitle Las siguientes son las medidas de restricción vehicular vigentes para #{city.name} durante el #{timePeriod}, de acuerdo con lo establecido por la Alcaldía de #{city.name}:
 
 mixin categoryList(city)
@@ -77,8 +76,7 @@ mixin categoryInfo(city)
   each category in city.categories
     - const pyp = category.data[0]
     header
-      h2.title
-        a(href=`/${pypData.path}`)= title
+      h2.title= title
 
     article
 
