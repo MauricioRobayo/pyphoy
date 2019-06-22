@@ -30,7 +30,7 @@
     "@babel/preset-env": "^7.4.3",
     "@commitlint/cli": "^8.0.0",
     "@commitlint/config-conventional": "^8.0.0",
-    "@picoyplaca/pyptron": "^1.0.1",
+    "@picoyplaca/pyptron": "^1.0.2",
     "autoprefixer": "^9.5.1",
     "babel-preset-minify": "^0.5.0",
     "cssnano": "^4.1.10",
