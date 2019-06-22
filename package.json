@@ -6,7 +6,7 @@
     "start": "node src/bin/server.js",
     "start:server": "cross-env DEBUG=pyphoy:* nodemon src/bin/server.js",
     "start:browser-sync": "browser-sync start --port 3001 --proxy localhost:3000 --files assets/css src/views/ --no-open ",
-    "start:dev": "run.env npm-run-all build:css -l -p start:server css:watch start:browser-sync",
+    "start:dev": "run.env npm-run-all -p build:js build:css -l -p start:server css:watch start:browser-sync",
     "css:sass": "node-sass src/sass/main.scss assets/css/main.css",
     "css:postcss": "postcss assets/css/main.css --use autoprefixer --output assets/css/main.css",
     "css:minify": "postcss assets/css/main.css --use cssnano --output assets/css/main.min.css --no-map",
