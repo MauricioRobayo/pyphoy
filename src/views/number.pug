@@ -6,12 +6,9 @@ block pypData
       span.badge(class=status ? 'stop' : 'go')= num
     p.lead Hoy #{status ? '' : 'no'} tiene pico y placa
     .info
-      p= date
+      +hours(categoryData.data[0].hours, ["list-style-none"], status)
       .m-1
         +licensePlate(categoryData.data[0].numbers)
-      dt Horario
-        dd
-          +hours(categoryData.data[0].hours, ["list-style-none"], status)
     section
       if nextPyp.length
         table.table
