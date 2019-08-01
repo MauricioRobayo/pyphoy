@@ -14,24 +14,24 @@
 .hours-interactive {
   .hour {
     padding-top: 0.5rem;
-    margin-left: 1em;
+    margin-left: 1.75em;
+  }
+  .hour-active {
+    color: $dark;
+    margin-left: 0;
+    &::before {
+      width: 1.75em;
+      content: '🛑';
+      display: inline-block;
+    }
+    .lapse {
+      background-color: $danger;
+    }
   }
 }
 
 div.hour-category {
   color: $dark;
-}
-
-.hour-active {
-  color: $dark;
-  &::before {
-    margin-right: 0.25em;
-    content: '🛑';
-    display: inline-block;
-  }
-  .lapse {
-    background-color: $danger;
-  }
 }
 
 .hour-warning {
