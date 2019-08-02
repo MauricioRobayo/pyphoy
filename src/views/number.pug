@@ -4,23 +4,25 @@ block pypData
   main
     div.m-1
       span.badge(class=status ? 'stop' : 'go')= num
-    p.lead Hoy #{status ? '' : 'no'} tiene pico y placa
+    p.lead #{status ? 'Tiene' : 'No tiene'} pico y placa
     .info
       +hours(categoryData.data[0].hours, ["list-style-none"], status)
-      .m-1
-        +licensePlate(categoryData.data[0].numbers)
+    div= categoryData.data[0].vehicleClasses  
+    - const scheme = [ 'Último dígito del número de la placa', 'Primer dígito del número de la placa']
+    div= scheme[categoryData.data[0].scheme] || categoryData.data[0].scheme
+
+    +licensePlate(categoryData.data[0].numbers)
     section
       if nextPyp.length
-        table.table
-            caption
-              p Prográmese
-              p
-                +licensePlate(num, helpers.isPublic(categoryData.name))
-              p tiene pico y placa los días
-            tbody
-              each date in nextPyp
-                tr
-                  td= helpers.fullDateString(new Date(date.date))
+        p 
+          | Prográmese
+          |
+          +licensePlate(num, helpers.isPublic(categoryData.name))
+          |
+          | tiene pico y placa los días
+        ul
+          each date in nextPyp
+            li= helpers.fullDateString(new Date(date.date))
       else
         div No tiene pico y placa en los próximos 30 días
         
