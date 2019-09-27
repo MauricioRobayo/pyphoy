@@ -64,6 +64,7 @@ const helpers = {
       'julio',
       'agosto',
       'septiembre',
+      'octubre',
       'noviembre',
       'diciembre',
     ][month]
