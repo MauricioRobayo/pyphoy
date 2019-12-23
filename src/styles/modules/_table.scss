@@ -6,6 +6,11 @@
   break-inside: avoid-column;
   vertical-align: top;
 
+  li {
+    padding: 0.5rem 0;
+    text-align: center;
+  }
+
   td,
   th {
     padding: 0.5em;

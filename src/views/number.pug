@@ -7,25 +7,26 @@ block pypData
     p.lead #{status ? 'Tiene' : 'No tiene'} pico y placa
     .info
       +hours(categoryData.data[0].hours, ["list-style-none"], status)
-    div= categoryData.data[0].vehicleClasses  
+    div= categoryData.data[0].vehicleClasses
     - const scheme = [ 'Último dígito del número de la placa', 'Primer dígito del número de la placa']
     div= scheme[categoryData.data[0].scheme] || categoryData.data[0].scheme
 
     +licensePlate(categoryData.data[0].numbers)
     section
       if nextPyp.length
-        p 
+        p
           | Prográmese
           |
           +licensePlate(num, helpers.isPublic(categoryData.name))
           |
           | tiene pico y placa los días
-        ul
+        ul.table
           each date in nextPyp
-            li= helpers.fullDateString(new Date(date.date))
+            li
+              a(href=`/${categoryData.path}?d=${helpers.localISOString(date.date)}`)= helpers.fullDateString(new Date(date.date))
       else
         div No tiene pico y placa en los próximos 30 días
-        
+
 block pypQuery
   +pypQuery(`/${categoryData.path}`)
 
