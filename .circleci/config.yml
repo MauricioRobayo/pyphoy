@@ -15,8 +15,8 @@ commands:
       - checkout
       - restore_cache:
           keys:
-            - v3-dependencies-{{ checksum "package.json" }}
-            - v3-dependencies-
+            - v4-dependencies-{{ checksum "package.json" }}
+            - v4-dependencies-
       - add_ssh_keys:
           fingerprints:
             - '32:b0:75:8c:c6:2c:70:45:48:92:09:df:b3:0b:77:ad'
@@ -37,12 +37,12 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v3-dependencies-{{ checksum "package.json" }}
-            - v3-dependencies-
+            - v4-dependencies-{{ checksum "package.json" }}
+            - v4-dependencies-
       - run: npm install
       - run: npm run build
       - save_cache:
-          key: v3-dependencies-{{ checksum "package.json" }}
+          key: v4-dependencies-{{ checksum "package.json" }}
           paths:
             - node_modules
   deploy-prod:
