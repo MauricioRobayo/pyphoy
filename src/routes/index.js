@@ -57,7 +57,7 @@ router.get('/sitemap.xml', (req, res, next) => {
         }
       })
       return paths
-    }, [])
+    }, []),
   )
   const sitemap = sm.createSitemap({
     hostname: site.url,
