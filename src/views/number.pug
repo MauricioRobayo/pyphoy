@@ -20,7 +20,7 @@ block pypData
           +licensePlate(num, helpers.isPublic(categoryData.name))
           |
           | tiene pico y placa los días
-        ul.table
+        ul.next-days
           each date in nextPyp
             li
               a(href=`/${categoryData.path}?d=${helpers.localISOString(date.date)}`)= helpers.fullDateString(new Date(date.date))
