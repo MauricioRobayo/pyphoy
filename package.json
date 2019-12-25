@@ -57,7 +57,7 @@
     "pm2": "^4.0.0",
     "prettier": "^1.16.4",
     "run.env": "^1.1.0",
-    "stylelint": "^10.0.1",
+    "stylelint": "^12.0.1",
     "stylelint-config-recommended": "^2.2.0"
   },
   "description": "El pico y placa en Colombia es una medida de restricción vehicular que se aplica en las principales ciudades con el fin de descongestionar el tráfico de automóviles en las vías.",
