@@ -1,9 +1,11 @@
 .cta {
   text-align: center;
+  margin: auto;
   padding: 1.5em;
   font-size: 1em;
   background-color: $info;
   color: $text-invert;
+
   a {
     color: $text-invert;
     font-weight: bold;

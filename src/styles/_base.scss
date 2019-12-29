@@ -12,12 +12,6 @@ html {
     font-size: 18px;
   }
   text-rendering: optimizeLegibility;
-  height: 100%;
-}
-body {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
 }
 
 h1,
@@ -31,9 +25,6 @@ h6 {
 }
 
 body {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
   color: $text;
   font-family: $family-primary;
   > header {
@@ -69,7 +60,7 @@ a {
 footer {
   background-color: $dark;
   color: $text-light;
-  margin-top: auto;
+
   a {
     color: $text-light;
     text-transform: uppercase;
