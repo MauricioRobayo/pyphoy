@@ -71,9 +71,9 @@ const helpers = {
   },
   fullDateString(date) {
     return `${this.weekdayName(
-      date.getDay()
+      date.getDay(),
     )}, ${date.getDate()} de ${this.monthName(
-      date.getMonth()
+      date.getMonth(),
     )} de ${date.getFullYear()}`
   },
   localISOString(date) {
@@ -84,9 +84,9 @@ const helpers = {
   cdn(path) {
     const p = path.startsWith('/') ? path : `/${path}`
     if (site.env === 'production') {
-      return `https://cdn.pyphoy.com/assets${p}`
+      return `https://pyphoy.s3.amazonaws.com/assets${p}`
     }
-    return `${p}`
+    return p
   },
   convert24toAMPM(hour24) {
     if (hour24 === '12:00') return `${hour24}m.`
