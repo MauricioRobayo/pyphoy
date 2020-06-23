@@ -1,13 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg enable-background="new 0 0 30 45" overflow="scroll" version="1.1" viewBox="0 0 30 45" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
-<style type="text/css">
-	.st0{fill:#F3D50C;}
-</style>
-<rect width="15" height="15"/>
-<rect x="15" y="15" width="15" height="15"/>
-<rect y="30" width="15" height="15"/>
-<rect class="st0" x="15" width="15" height="15"/>
-<rect class="st0" y="15" width="15" height="15"/>
-<rect class="st0" x="15" y="30" width="15" height="15"/>
-</svg>
-
+<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 30 45" overflow="scroll" version="1.1" viewBox="0 0 30 45" xml:space="preserve"><style type="text/css">.st0{fill:#f3d50c}</style><rect width="15" height="15"/><rect width="15" height="15" x="15" y="15"/><rect width="15" height="15" y="30"/><rect width="15" height="15" x="15" class="st0"/><rect width="15" height="15" y="15" class="st0"/><rect width="15" height="15" x="15" y="30" class="st0"/></svg>
