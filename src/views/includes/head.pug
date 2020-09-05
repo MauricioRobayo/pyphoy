@@ -4,6 +4,12 @@
 
 head
   meta(charset='utf-8')
+  
+  //- Please implement the code below on EVERY PAGE, at the very top part of the <head> section. 
+  if site.env === 'production'
+    script(async src="//cmp.optad360.io/items/7c7d011f-99df-41d8-9f11-c753fa2bfce5.min.js")
+    script(async src="//get.optad360.io/sf/2a40859c-c8aa-44e8-8dde-57e141e62268/plugin.min.js")
+
   meta(http-equiv='X-UA-Compatible' content='IE=edge')
   meta(name='viewport' content='width=device-width,minimum-scale=1,initial-scale=1')
   title= siteTitle
