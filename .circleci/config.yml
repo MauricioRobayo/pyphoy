@@ -19,8 +19,7 @@ commands:
             - v4-dependencies-
       - add_ssh_keys:
           fingerprints:
-            - '32:b0:75:8c:c6:2c:70:45:48:92:09:df:b3:0b:77:ad'
-            - '56:0c:6e:91:71:03:b7:95:28:14:c2:b0:37:e8:a0:07'
+            - 'e:f5:8f:61:2c:bf:04:88:f4:b9:21:52:03:99:db:6f'
       - run:
           name: Install awscli
           command: sudo pip install awscli
