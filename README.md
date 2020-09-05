@@ -1,6 +1,6 @@
 # ![pyphoy](https://www.pyphoy.com/imgs/pyphoy.svg) Pico y placa hoy
 
-[![CircleCI](https://circleci.com/gh/picoyplaca/pyphoy.svg?style=svg)](https://circleci.com/gh/picoyplaca/pyphoy) [![Greenkeeper badge](https://badges.greenkeeper.io/picoyplaca/pyphoy.svg)](https://greenkeeper.io/)
+[![CircleCI](https://circleci.com/gh/MauricioRobayo/pyphoy.svg?style=svg)](https://circleci.com/gh/MauricioRobayo/pyphoy)
 
 El [pico y placa en Colombia](https://www.pyphoy.com) es una medida de restricción vehicular que se
 aplica en las principales ciudades con el fin de descongestionar el tráfico
