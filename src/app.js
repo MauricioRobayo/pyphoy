@@ -1,3 +1,4 @@
+const path = require('path')
 const express = require('express')
 const createError = require('http-errors')
 const logger = require('morgan')
@@ -44,6 +45,8 @@ app.use(async (req, res, next) => {
   next()
 })
 
+app.use(express.static(path.join(__dirname, 'public')))
+
 app.use('/', router)
 
 // catch 404 and forward to error handler
@@ -51,8 +54,8 @@ app.use((req, res, next) => {
   next(
     createError(
       404,
-      ':( Al parecer no disponemos de la información solicitada.'
-    )
+      ':( Al parecer no disponemos de la información solicitada.',
+    ),
   )
 })
 
