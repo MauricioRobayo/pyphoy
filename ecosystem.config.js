@@ -16,7 +16,7 @@ module.exports = {
       port: process.env.PYPHOY_PRODUCTION_PORT,
       ssh_options: 'StrictHostKeyChecking=no',
       ref: 'origin/master',
-      repo: 'git@github.com:picoyplaca/pyphoy.git',
+      repo: 'git@github.com:mauriciorobayo/pyphoy.git',
       path: `/home/${process.env.PYPHOY_PRODUCTION_USER}/pyphoy`,
       'post-deploy':
         'npm install && npm run build && pm2 startOrRestart ecosystem.config.js --env production && pm2 save',
@@ -27,7 +27,7 @@ module.exports = {
       port: process.env.PYPHOY_DEVELOPMENT_PORT,
       ssh_options: 'StrictHostKeyChecking=no',
       ref: 'origin/develop',
-      repo: 'git@github.com:picoyplaca/pyphoy.git',
+      repo: 'git@github.com:mauriciorobayo/pyphoy.git',
       path: `/home/${process.env.PYPHOY_DEVELOPMENT_USER}/pyphoy`,
       'post-deploy':
         'npm install && npm run build && pm2 startOrRestart ecosystem.config.js --env development && pm2 save',
