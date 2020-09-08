@@ -31,3 +31,5 @@ html(lang="es")
     
     block pypInfo
     include ../includes/footer
+    if site.env === 'production'
+      include ../includes/ads
