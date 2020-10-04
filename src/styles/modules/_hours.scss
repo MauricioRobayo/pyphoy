@@ -11,6 +11,17 @@
     font-size: 0.85rem;
   }
 }
+
+.hour-warning {
+  &::before {
+    content: '⚠️';
+    display: inline-block;
+  }
+  .lapse {
+    background-color: $success;
+  }
+}
+
 .hours-interactive {
   .hour {
     padding-top: 0.5rem;
@@ -32,14 +43,4 @@
 
 div.hour-category {
   color: $dark;
-}
-
-.hour-warning {
-  &::before {
-    content: '⚠️';
-    display: inline-block;
-  }
-  .lapse {
-    background-color: $success;
-  }
 }
