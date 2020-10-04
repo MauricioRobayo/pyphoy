@@ -14,7 +14,9 @@
     "build:css": "npm-run-all css:sass css:postcss css:minify",
     "build:js": "babel src/scripts/ -d assets/js/",
     "build": "run-p build:*",
-    "lint": "eslint src",
+    "lint:eslint": "eslint src",
+    "lint:stylelint": "stylelint \"**/*.{css,scss}\"",
+    "lint": "run-p lint:*",
     "format": "prettier --write src/**/*.{js,ts,css,less,scss,vue,json,gql,md,yml,yaml}",
     "validate:circleci": "circleci config validate"
   },
