@@ -1,7 +1,8 @@
 module.exports = {
-  extends: ["airbnb-base", "prettier"],
+  extends: ['airbnb-base', 'prettier'],
   env: {
     browser: true,
-    jest: true
-  }
-};
+    jest: true,
+  },
+  ignorePatterns: ['assets/js/'],
+}
