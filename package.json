@@ -11,7 +11,7 @@
     "css:postcss": "postcss assets/css/main.css --use autoprefixer --output assets/css/main.css",
     "css:minify": "postcss assets/css/main.css --use cssnano --output assets/css/main.min.css --no-map",
     "css:watch": "nodemon --ext scss -x npm run build:css",
-    "build:css": "npm-run-all css:sass css:postcss css:minify",
+    "build:css": "run-s css:sass css:postcss css:minify",
     "build:js": "babel src/scripts/ -d assets/js/",
     "build": "run-p build:*",
     "lint:eslint": "eslint src",
