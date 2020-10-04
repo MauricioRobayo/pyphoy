@@ -2,7 +2,7 @@
 
 const { Router } = require('express')
 const sm = require('sitemap')
-const { getCityData } = require('@picoyplaca/pyptron')
+const { getCityData } = require('pyptron')
 const { helpers, site } = require('../config')
 
 const router = Router()
@@ -26,7 +26,7 @@ router.get('/sitemap.xml', (req, res, next) => {
         changefreq: 'daily',
         priority: 0.8,
       })
-      Object.keys(res.locals.citiesMap[city].categories).forEach(category => {
+      Object.keys(res.locals.citiesMap[city].categories).forEach((category) => {
         paths.push({
           url: `/${city}/${category}`,
           lastmod,
@@ -37,7 +37,7 @@ router.get('/sitemap.xml', (req, res, next) => {
           city === 'manizales' &&
           category === 'transporte-publico-colectivo'
         ) {
-          ;['H', 'I', 'J', 'A', 'B', 'C', 'D', 'E', 'F', 'G'].forEach(num => {
+          ;['H', 'I', 'J', 'A', 'B', 'C', 'D', 'E', 'F', 'G'].forEach((num) => {
             paths.push({
               url: `/${city}/${category}/${num}`,
               lastmod,
@@ -218,7 +218,7 @@ router.get('/:city/:category/:number', (req, res, next) => {
     number: num,
   })
   const status = categoryData.data[0].numbers.includes(num)
-  const nextPyp = categoryData.data.filter(val => val.numbers.includes(num))
+  const nextPyp = categoryData.data.filter((val) => val.numbers.includes(num))
   const path = [
     {
       path: city,

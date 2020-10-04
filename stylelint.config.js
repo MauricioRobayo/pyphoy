@@ -1,21 +1,9 @@
 module.exports = {
   extends: 'stylelint-config-recommended',
-  ignoreFiles: ['assets'],
+  plugins: ['stylelint-scss'],
   rules: {
-    'at-rule-no-unknown': [
-      true,
-      {
-        ignoreAtRules: [
-          'function',
-          'if',
-          'else',
-          'for',
-          'return',
-          'each',
-          'include',
-          'mixin',
-        ],
-      },
-    ],
+    'at-rule-no-unknown': null,
+    'scss/at-rule-no-unknown': true,
   },
+  ignoreFiles: ['assets/**/*'],
 }
