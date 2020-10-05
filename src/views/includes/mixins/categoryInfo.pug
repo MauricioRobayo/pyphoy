@@ -1,4 +1,4 @@
-mixin categoryInfo(city)
+mixin categoryInfo(city, full=true)
   each category in city.categories
     - const pyp = category.data[0]
     header
@@ -6,19 +6,20 @@ mixin categoryInfo(city)
 
     article
 
-      h3#dias-de-aplicacion Días de apliación
-      section
-        if pyp.excludedDays.length
-          ul
-            each day in [0, 1, 2, 3, 4, 5, 6].filter(day => !pyp.excludedDays.includes(day))
-              li= ['Domingos', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábados'][day]
-        else
-          p Aplica todos los días
-        p= `${pyp.skipHolidays ? 'No Aplica' : 'Aplica'} los días festivos`
+      if full
+        h3#dias-de-aplicacion Días de apliación
+        section
+          if pyp.excludedDays.length
+            ul
+              each day in [0, 1, 2, 3, 4, 5, 6].filter(day => !pyp.excludedDays.includes(day))
+                li= ['Domingos', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábados'][day]
+          else
+            p Aplica todos los días
+          p= `${pyp.skipHolidays ? 'No Aplica' : 'Aplica'} los días festivos`
 
-      h3#horario Horario
-      section
-        +hours(pyp.hours)
+        h3#horario Horario
+        section
+          +hours(pyp.hours)
 
       h3#clase-de-vehiculos Clase de vehículos
       section= pyp.vehicleClasses
