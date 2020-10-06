@@ -5,9 +5,6 @@ block pypData
     div.m-1
       span.badge(class=status ? 'stop' : 'go')= num
     p.lead #{status ? 'Tiene' : 'No tiene'} pico y placa
-    div= categoryData.data[0].vehicleClasses
-    - const scheme = [ 'Último dígito del número de la placa', 'Primer dígito del número de la placa']
-    div= scheme[categoryData.data[0].scheme] || categoryData.data[0].scheme
 
     section
       if nextPyp.length
