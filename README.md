@@ -1,6 +1,6 @@
 # ![pyphoy](https://www.pyphoy.com/imgs/pyphoy.svg) Pico y placa hoy
 
-[![CircleCI](https://circleci.com/gh/MauricioRobayo/pyphoy.svg?style=svg)](https://circleci.com/gh/MauricioRobayo/pyphoy)
+![build and release](https://github.com/MauricioRobayo/pyphoy/workflows/build%20and%20release/badge.svg)
 
 El [pico y placa en Colombia](https://www.pyphoy.com) es una medida de restricción vehicular que se
 aplica en las principales ciudades con el fin de descongestionar el tráfico
