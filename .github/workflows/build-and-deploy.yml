@@ -72,4 +72,4 @@ jobs:
           echo "${{ secrets.PYPHOY_HOST_FINGERPRINT }}" > ~/.ssh/known_hosts
           sudo chmod 600 ~/.ssh/id_rsa
       - name: Deploy
-        run: npm run deploy
+        run: npx pm2 deploy production update

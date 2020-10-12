@@ -17,8 +17,7 @@
     "lint:eslint": "eslint src",
     "lint:stylelint": "stylelint \"**/*.{css,scss}\"",
     "lint": "run-p lint:*",
-    "format": "prettier --write src/**/*.{js,ts,css,less,scss,vue,json,gql,md,yml,yaml}",
-    "deploy": "run.env pm2 deploy production update"
+    "format": "prettier --write src/**/*.{js,ts,css,less,scss,vue,json,gql,md,yml,yaml}"
   },
   "husky": {
     "hooks": {
