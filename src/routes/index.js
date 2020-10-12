@@ -2,7 +2,7 @@
 
 const { Router } = require('express')
 const sm = require('sitemap')
-const { getCityData } = require('pyptron')
+const { getCityData } = require('@mauriciorobayo/pyptron')
 const { helpers, site } = require('../config')
 
 const router = Router()
