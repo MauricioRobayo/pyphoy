@@ -4,7 +4,12 @@ block pypData
   main
     div.m-1
       span.badge(class=status ? 'stop' : 'go')= num
-    p.lead #{status ? 'Tiene' : 'No tiene'} pico y placa
+    if status
+      p.lead Tiene pico y placa
+      .info
+        +hours(categoryData.data[0].hours, ["list-style-none"], status)
+    else
+      p.lead No tiene pico y placa
 
     section
       if nextPyp.length
