@@ -17,9 +17,9 @@ mixin categoryInfo(city, full=true)
             p Aplica todos los días
           p= `${pyp.skipHolidays ? 'No Aplica' : 'Aplica'} los días festivos`
 
-        h3#horario Horario
-        section
-          +hours(pyp.hours)
+      h3#horario Horario
+      section
+        +hours(pyp.hours)
 
       h3#clase-de-vehiculos Clase de vehículos
       section= pyp.vehicleClasses
