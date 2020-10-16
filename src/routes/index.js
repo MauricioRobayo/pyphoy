@@ -6,6 +6,7 @@ const { getCityData } = require('@mauriciorobayo/pyptron')
 const { helpers, site } = require('../config')
 
 const router = Router()
+const MAX_DAYS = 31
 
 router.get('/sitemap.xml', (req, res, next) => {
   const lastmod = res.locals.d
@@ -111,7 +112,7 @@ router.get('/:city', (req, res, next) => {
 
 router.get('/:city/:category', (req, res, next) => {
   const days = req.query.f ? parseInt(req.query.f, 10) : 8
-  if (days > 30) {
+  if (days > MAX_DAYS) {
     next()
     return
   }
