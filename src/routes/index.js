@@ -184,7 +184,7 @@ router.get('/:city/:category/:number([0-9a-zA-Z])', (req, res) => {
   res.redirect(301, `/${city}/${category}/placa/${number}`);
 });
 
-router.get('/:city/:category/placa/:number', (req, res, next) => {
+router.get('/:city/:category/placa/:number([0-9a-zA-Z])', (req, res, next) => {
   const { ISODateShort: date, citiesMap } = res.locals;
   const { city, category, number } = req.params;
   const int = parseInt(number, 10);
