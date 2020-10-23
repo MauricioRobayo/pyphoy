@@ -17,7 +17,9 @@
     "lint:eslint": "eslint src",
     "lint:stylelint": "stylelint \"**/*.{css,scss}\"",
     "lint": "run-p lint:*",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "deploy:prod": "npx pm2 deploy production update",
+    "deploy:dev": "npx pm2 deploy development update"
   },
   "husky": {
     "hooks": {
