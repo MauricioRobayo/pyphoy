@@ -179,6 +179,80 @@ router.get('/:city/:category', (req, res, next) => {
 });
 
 /* GET Query page. */
+router.get('/:city/:category/placa/:number', (req, res, next) => {
+  const { ISODateShort: date, citiesMap } = res.locals;
+  const { city, category, number } = req.params;
+  const int = parseInt(number, 10);
+  const num = Number.isNaN(int) ? number.toString().toUpperCase() : int;
+  const queryParams = { date, days: 30 };
+  if (city === 'manizales' && category === 'transporte-publico-colectivo') {
+    if (!['H', 'I', 'J', 'A', 'B', 'C', 'D', 'E', 'F', 'G'].includes(num)) {
+      next();
+      return;
+    }
+  } else if (![0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(num)) {
+    next();
+    return;
+  }
+
+  // verificamos que la ciudad solicitada se encuentre disponible
+  if (!(city in citiesMap)) {
+    next();
+    return;
+  }
+  // verificamos que la categoría solicita se encuentre disponible dentro de la ciudad
+  if (!(category in citiesMap[city].categories)) {
+    next();
+    return;
+  }
+  const pypData = getCityData(city, { category, ...queryParams });
+  const { name: categoryName, key: categoryKey } = citiesMap[city].categories[
+    category
+  ];
+  const categoryData = pypData.categories[categoryKey];
+  const cityName = pypData.name;
+  const title = site.title({
+    city: cityName,
+    category: categoryName,
+    number: num,
+  });
+  const description = site.description({
+    city: cityName,
+    category: categoryName,
+    number: num,
+  });
+  const status = categoryData.data[0].numbers.includes(num);
+  const nextPyp = categoryData.data.filter((val) => val.numbers.includes(num));
+  const path = [
+    {
+      path: city,
+      name: cityName,
+    },
+    {
+      path: category,
+      name: categoryName,
+    },
+    {
+      path: number,
+      name: number,
+    },
+  ];
+  res.render('number', {
+    numberPage: true,
+    cityName,
+    categoryName,
+    categoryKey,
+    categoryData,
+    title,
+    description,
+    pypData,
+    nextPyp,
+    num,
+    status,
+    path,
+  });
+});
+
 router.get('/:city/:category/:number', (req, res, next) => {
   const { ISODateShort: date, citiesMap } = res.locals;
   const { city, category, number } = req.params;
