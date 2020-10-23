@@ -5,4 +5,4 @@ module.exports = {
     jest: true,
   },
   ignorePatterns: ['assets/js/'],
-}
+};
