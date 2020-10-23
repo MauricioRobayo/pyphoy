@@ -1,5 +1,3 @@
-/* eslint no-prototype-builtins: 0 */
-
 const { Router } = require('express');
 const sm = require('sitemap');
 const { getCityData } = require('@mauriciorobayo/pyptron');
@@ -86,7 +84,7 @@ router.get('/:city', (req, res, next) => {
   const queryParams = { date };
   const { citiesMap } = res.locals;
   const { city } = req.params;
-  if (!citiesMap.hasOwnProperty(city)) {
+  if (!(city in citiesMap)) {
     next();
     return;
   }
@@ -120,11 +118,11 @@ router.get('/:city/:category', (req, res, next) => {
   const queryParams = { date, days };
   const { citiesMap } = res.locals;
   const { city, category } = req.params;
-  if (!citiesMap.hasOwnProperty(city)) {
+  if (!(city in citiesMap)) {
     next();
     return;
   }
-  if (!citiesMap[city].categories.hasOwnProperty(category)) {
+  if (!(category in citiesMap[city].categories)) {
     next();
     return;
   }
@@ -193,12 +191,12 @@ router.get('/:city/:category/:number', (req, res, next) => {
   }
 
   // verificamos que la ciudad solicitada se encuentre disponible
-  if (!citiesMap.hasOwnProperty(city)) {
+  if (!(city in citiesMap)) {
     next();
     return;
   }
   // verificamos que la categoría solicita se encuentre disponible dentro de la ciudad
-  if (!citiesMap[city].categories.hasOwnProperty(category)) {
+  if (!(category in citiesMap[city].categories)) {
     next();
     return;
   }
