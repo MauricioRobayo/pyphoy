@@ -1,34 +1,42 @@
 const { Router } = require('express');
-const sm = require('sitemap');
+const { SitemapStream, streamToPromise } = require('sitemap');
+const { createGzip } = require('zlib');
 const { getCityData } = require('@mauriciorobayo/pyptron');
 const { helpers, site } = require('../config');
 
 const router = Router();
 const MAX_DAYS = 31;
 
+let sitemap;
+
 router.get('/sitemap.xml', (req, res, next) => {
-  const lastmod = res.locals.d;
-  lastmod.setHours(0, 0, 0, 0);
-  let urls = [
-    {
+  res.header('Content-Type', 'application/xml');
+  res.header('Content-Encoding', 'gzip');
+  // if we have a cached entry send it
+  if (sitemap) {
+    res.send(sitemap);
+    return;
+  }
+
+  try {
+    const smStream = new SitemapStream({ hostname: res.locals.url });
+    const pipeline = smStream.pipe(createGzip());
+
+    smStream.write({
       url: res.locals.url,
-      lastmod,
-      changefreq: 'daily',
+      changefreq: 'monthly',
       priority: 1,
-    },
-  ];
-  urls = urls.concat(
-    Object.keys(res.locals.citiesMap).reduce((paths, city) => {
-      paths.push({
+    });
+
+    Object.keys(res.locals.citiesMap).forEach((city) => {
+      smStream.write({
         url: `/${city}`,
-        lastmod,
         changefreq: 'daily',
         priority: 0.8,
       });
       Object.keys(res.locals.citiesMap[city].categories).forEach((category) => {
-        paths.push({
+        smStream.write({
           url: `/${city}/${category}`,
-          lastmod,
           changefreq: 'daily',
           priority: 0.6,
         });
@@ -37,40 +45,37 @@ router.get('/sitemap.xml', (req, res, next) => {
           category === 'transporte-publico-colectivo'
         ) {
           ['H', 'I', 'J', 'A', 'B', 'C', 'D', 'E', 'F', 'G'].forEach((num) => {
-            paths.push({
+            smStream.write({
               url: `/${city}/${category}/${num}`,
-              lastmod,
               changefreq: 'daily',
               priority: 0.2,
             });
           });
         } else {
           for (let i = 0; i <= 9; i += 1) {
-            paths.push({
+            smStream.write({
               url: `/${city}/${category}/${i}`,
-              lastmod,
               changefreq: 'daily',
               priority: 0.2,
             });
           }
         }
       });
-      return paths;
-    }, [])
-  );
-  const sitemap = sm.createSitemap({
-    hostname: site.url,
-    cacheTime: 600000, // 600 sec - cache purge period
-    urls,
-  });
-  sitemap.toXML((err, xml) => {
-    if (err) {
-      next(err);
-      return;
-    }
-    res.header('Content-Type', 'application/xml');
-    res.send(xml);
-  });
+    });
+
+    // cache the response
+    streamToPromise(pipeline).then((sm) => {
+      sitemap = sm;
+    });
+    // make sure to attach a write stream such as streamToPromise before ending
+    smStream.end();
+    // stream write the response
+    pipeline.pipe(res).on('error', (e) => {
+      throw e;
+    });
+  } catch (e) {
+    next(e);
+  }
 });
 
 router.get('/', (req, res) => {

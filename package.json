@@ -49,7 +49,8 @@
     "npm-run-all": "^4.1.5",
     "postcss-cli": "^8.0.0",
     "pug": "^3.0.0",
-    "sitemap": "^6.3.2"
+    "sitemap": "^6.3.2",
+    "zlib": "^1.0.5"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
