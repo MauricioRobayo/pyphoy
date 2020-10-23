@@ -44,17 +44,19 @@ router.get('/sitemap.xml', (req, res, next) => {
           city === 'manizales' &&
           category === 'transporte-publico-colectivo'
         ) {
-          ['H', 'I', 'J', 'A', 'B', 'C', 'D', 'E', 'F', 'G'].forEach((num) => {
-            smStream.write({
-              url: `/${city}/${category}/${num}`,
-              changefreq: 'daily',
-              priority: 0.2,
-            });
-          });
+          ['H', 'I', 'J', 'A', 'B', 'C', 'D', 'E', 'F', 'G'].forEach(
+            (letter) => {
+              smStream.write({
+                url: `/${city}/${category}/placa/${letter}`,
+                changefreq: 'daily',
+                priority: 0.2,
+              });
+            }
+          );
         } else {
           for (let i = 0; i <= 9; i += 1) {
             smStream.write({
-              url: `/${city}/${category}/${i}`,
+              url: `/${city}/${category}/placa/${i}`,
               changefreq: 'daily',
               priority: 0.2,
             });
