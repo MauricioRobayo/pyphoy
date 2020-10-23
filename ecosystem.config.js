@@ -33,4 +33,4 @@ module.exports = {
         'npm install && npm run build && pm2 startOrRestart ecosystem.config.js --env development && pm2 save',
     },
   },
-}
+};

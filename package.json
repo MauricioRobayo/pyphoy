@@ -17,7 +17,7 @@
     "lint:eslint": "eslint src",
     "lint:stylelint": "stylelint \"**/*.{css,scss}\"",
     "lint": "run-p lint:*",
-    "format": "prettier --write src/**/*.{js,ts,css,less,scss,vue,json,gql,md,yml,yaml}"
+    "format": "prettier --write ."
   },
   "husky": {
     "hooks": {
@@ -87,8 +87,6 @@
   },
   "homepage": "https://www.pyphoy.com",
   "prettier": {
-    "trailingComma": "all",
-    "semi": false,
     "singleQuote": true
   },
   "commitlint": {
