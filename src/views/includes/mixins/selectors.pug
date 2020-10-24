@@ -1,12 +1,13 @@
 mixin selectCity(cityName, main=false)
   if citiesMap
     .select
-      select#cities(class=main && 'main' required onchange="window.location.href = '/' + this.options[this.selectedIndex].value")
-        if !city
-          option(value="" disabled selected hidden) Ciudad...
+      input(type='text' placeholder='Ciudad...' list='pypinfo' id='query')
+      datalist#pypinfo
         each city, citySlug in citiesMap
-          - const selected = city.name === cityName
-          option(value=citySlug selected=selected)= city.name
+          each category, categorySlug in city.categories
+            - console.log({category})
+            option(value=`${city.name} / ${category.name}` data-url=`${citySlug}/${categorySlug}`)
+      button#go= 'Ir'
 
 mixin selectCategory(citySlug, categoryName)
   if citiesMap

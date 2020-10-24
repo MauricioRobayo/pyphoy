@@ -6,11 +6,16 @@ footer
     p
       a(href='/') Pico y Placa Hoy
     p= d.getFullYear()
-
-if site.env === "production" && !archive && !home
+if site.env === "production"
   script
-    include ../../../assets/js/hours.js
-else if !archive && !home
+    include ../../../assets/js/selector.js
+  if !archive && !home
+    script
+      include ../../../assets/js/hours.js
+else
   script
-    include ../../scripts/hours.js
+    include ../../scripts/selector.js
+  if !archive && !home
+    script
+      include ../../scripts/hours.js
   
