@@ -1,6 +1,0 @@
-mixin categoryList(city)
-  ul.list-style-none
-    each category in city.categories
-      li.m-1.title
-        a(href=`/${category.path}` title=`Pico y placa ${category.name.toLowerCase()} en ${city.name}`) Pico y placa #{category.name.toLowerCase()}
-
