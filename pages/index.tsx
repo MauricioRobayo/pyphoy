@@ -1,65 +1,72 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import { useEffect, useState } from 'react';
+import { GetStaticProps } from 'next';
+import { getCitiesMap } from '@mauriciorobayo/pyptron';
+import Head from 'next/head';
+import styles from '../styles/Home.module.css';
+import Select from '../components/select/select';
 
-export default function Home() {
+type HomeProps = {
+  cities: { value: string; text: string }[];
+};
+
+export default function Home({ cities }: HomeProps) {
+  const currentDate = new Date();
+  currentDate.setHours(0, 0, 0, 0);
+
+  const [formatedDateHelpers, setFormatedDateHelpers] = useState({
+    localDateString: '',
+    ISODateString: '',
+  });
+
+  useEffect(() => {
+    setFormatedDateHelpers({
+      localDateString: currentDate.toLocaleDateString('es-CO', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      }),
+      ISODateString: currentDate.toISOString(),
+    });
+  }, []);
+
+  const { ISODateString, localDateString } = formatedDateHelpers;
+
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>
+          Toda la información sobre el pico y placa en Colombia | Pico y placa
+          hoy
+        </title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <header>
+        <h1 className={styles.title}>Pico y placa hoy</h1>
+        <h2>
+          <time dateTime={ISODateString}>{localDateString}</time>
+        </h2>
+      </header>
+
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+        <Select id="city" name="Ciudad" options={cities} />
       </main>
 
       <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
+        <p>PICO Y PLACA HOY</p>
+        <p>{currentDate.getFullYear()}</p>
       </footer>
     </div>
-  )
+  );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const citiesMap = getCitiesMap();
+  const cities = Object.values<{ key: string; name: string }>(
+    citiesMap
+  ).map(({ key, name }) => ({ value: key, text: name }));
+  return {
+    props: { cities },
+  };
+};
