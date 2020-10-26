@@ -1,5 +1,6 @@
 import { useEffect, useState, ReactNode } from 'react';
 import Head from 'next/head';
+import styles from './Layout.module.scss';
 
 type LayoutProps = {
   children: ReactNode;
@@ -46,7 +47,11 @@ export default function Layout({ children, home }: LayoutProps) {
             </h2>
           </>
         ) : (
-          <img src="/pyphoy-logo.svg" alt="Pyphoy logo" />
+          <img
+            className={styles.pypLogo}
+            src="/pyphoy-logo.svg"
+            alt="Pyphoy logo"
+          />
         )}
       </header>
       <main>{children}</main>
