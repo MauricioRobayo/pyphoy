@@ -1,12 +1,17 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { getCitiesMap } from '@mauriciorobayo/pyptron';
+import Layout from '../../components/layout/layout';
 
 type CityProps = {
   city: string;
 };
 
 export default function City({ city }: CityProps) {
-  return <div>{`Hello from ${city}`}</div>;
+  return (
+    <Layout>
+      <div>{`Hello from ${city}`}</div>
+    </Layout>
+  );
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
