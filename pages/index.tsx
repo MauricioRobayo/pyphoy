@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { GetStaticProps } from 'next';
 import { getCitiesMap } from '@mauriciorobayo/pyptron';
 import Head from 'next/head';
-import styles from '../styles/Home.module.css';
 import Select from '../components/select/select';
 
 type HomeProps = {
@@ -33,7 +32,7 @@ export default function Home({ cities }: HomeProps) {
   const { ISODateString, localDateString } = formatedDateHelpers;
 
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <title>
           Toda la información sobre el pico y placa en Colombia | Pico y placa
@@ -43,21 +42,21 @@ export default function Home({ cities }: HomeProps) {
       </Head>
 
       <header>
-        <h1 className={styles.title}>Pico y placa hoy</h1>
+        <h1>Pico y placa hoy</h1>
         <h2>
           <time dateTime={ISODateString}>{localDateString}</time>
         </h2>
       </header>
 
-      <main className={styles.main}>
+      <main>
         <Select id="city" name="Ciudad" options={cities} />
       </main>
 
-      <footer className={styles.footer}>
+      <footer>
         <p>PICO Y PLACA HOY</p>
         <p>{currentDate.getFullYear()}</p>
       </footer>
-    </div>
+    </>
   );
 }
 
