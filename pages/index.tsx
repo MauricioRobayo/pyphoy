@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import { GetStaticProps } from 'next';
-import { getCitiesMap } from '@mauriciorobayo/pyptron';
+import { getCitiesMap, CityMap } from '@mauriciorobayo/pyptron';
 import Head from 'next/head';
 import Select from '../components/select/select';
 
-type CitiesMap = Record<string, { key: string; name: string }>;
 type HomeProps = {
-  citiesMap: CitiesMap;
+  citiesMap: Record<string, CityMap>;
 };
 
 export default function Home({ citiesMap }: HomeProps) {
