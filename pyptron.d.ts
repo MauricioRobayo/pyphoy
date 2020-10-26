@@ -30,7 +30,7 @@ declare module '@mauriciorobayo/pyptron' {
 
   interface HourData {
     comment: string;
-    hours: string[][];
+    hours: [string, string][];
     days: number[];
   }
 
