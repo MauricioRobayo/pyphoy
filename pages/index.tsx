@@ -4,11 +4,12 @@ import { getCitiesMap } from '@mauriciorobayo/pyptron';
 import Head from 'next/head';
 import Select from '../components/select/select';
 
+type CitiesMap = Record<string, { key: string; name: string }>;
 type HomeProps = {
-  cities: { value: string; text: string }[];
+  citiesMap: CitiesMap;
 };
 
-export default function Home({ cities }: HomeProps) {
+export default function Home({ citiesMap }: HomeProps) {
   const currentDate = new Date();
   currentDate.setHours(0, 0, 0, 0);
 
@@ -31,6 +32,10 @@ export default function Home({ cities }: HomeProps) {
 
   const { ISODateString, localDateString } = formatedDateHelpers;
 
+  const selectOptions = Object.entries(
+    citiesMap
+  ).map(([value, { name: text }]) => ({ value, text }));
+
   return (
     <>
       <Head>
@@ -49,7 +54,7 @@ export default function Home({ cities }: HomeProps) {
       </header>
 
       <main>
-        <Select id="city" name="Ciudad" options={cities} />
+        <Select id="city" name="Ciudad" options={selectOptions} />
       </main>
 
       <footer>
@@ -61,11 +66,7 @@ export default function Home({ cities }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const citiesMap = getCitiesMap();
-  const cities = Object.values<{ key: string; name: string }>(
-    citiesMap
-  ).map(({ key, name }) => ({ value: key, text: name }));
   return {
-    props: { cities },
+    props: { citiesMap: getCitiesMap() },
   };
 };
