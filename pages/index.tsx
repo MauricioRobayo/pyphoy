@@ -1,26 +1,26 @@
-import { GetStaticProps } from 'next';
-import { getCitiesMap, CityMap } from '@mauriciorobayo/pyptron';
+import { InferGetStaticPropsType } from 'next';
+import { getCitiesMap } from '@mauriciorobayo/pyptron';
 import Layout from '../components/layout/layout';
 import Select from '../components/select/select';
 
-type HomeProps = {
-  citiesMap: Record<string, CityMap>;
-};
-
-export default function Home({ citiesMap }: HomeProps) {
+export const getStaticProps = async () => {
+  const citiesMap = getCitiesMap();
   const selectOptions = Object.entries(
     citiesMap
   ).map(([value, { name: text }]) => ({ value, text }));
+  return {
+    props: {
+      selectOptions,
+    },
+  };
+};
 
+export default function Home({
+  selectOptions,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <Layout home>
       <Select id="city" name="Ciudad" options={selectOptions} />
     </Layout>
   );
 }
-
-export const getStaticProps: GetStaticProps = async () => {
-  return {
-    props: { citiesMap: getCitiesMap() },
-  };
-};
