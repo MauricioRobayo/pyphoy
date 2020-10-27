@@ -13,19 +13,8 @@ export default function Layout({ children, home, header }: LayoutProps) {
   date.setHours(0, 0, 0, 0);
 
   const [year, setYear] = useState(date.getFullYear());
-  const [ISODateString, setISODateString] = useState('');
-  const [localDateString, setLocalDateString] = useState('');
 
   useEffect(() => {
-    setISODateString(date.toISOString());
-    setLocalDateString(
-      date.toLocaleDateString('es-CO', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      })
-    );
     setYear(date.getFullYear());
   });
 
@@ -39,25 +28,16 @@ export default function Layout({ children, home, header }: LayoutProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {home ? (
-        <header>
-          <h1>Pico y placa hoy</h1>
-          <h2>
-            <time dateTime={ISODateString}>{localDateString}</time>
-          </h2>
-        </header>
-      ) : (
-        <>
-          <nav>
-            <img
-              className={styles.pypLogo}
-              src="/pyphoy-logo.svg"
-              alt="Pyphoy logo"
-            />
-          </nav>
-          {header}
-        </>
+      {home ? null : (
+        <nav>
+          <img
+            className={styles.pypLogo}
+            src="/pyphoy-logo.svg"
+            alt="Pyphoy logo"
+          />
+        </nav>
       )}
+      {header}
       <main>{children}</main>
       <footer>
         <p>PICO Y PLACA HOY</p>
