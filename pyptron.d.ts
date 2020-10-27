@@ -13,7 +13,7 @@ declare module '@mauriciorobayo/pyptron' {
   }
 
   interface CityDataOptions {
-    category: string;
+    category?: string;
     date?: Date;
     days?: number;
   }
@@ -65,5 +65,8 @@ declare module '@mauriciorobayo/pyptron' {
   }
 
   export function getCitiesMap(): Record<string, CityMap>;
-  export function getCityData(city: string, options: CityDataOptions): CityData;
+  export function getCityData(
+    city: string,
+    options?: CityDataOptions
+  ): CityData;
 }
