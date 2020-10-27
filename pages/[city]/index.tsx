@@ -16,8 +16,10 @@ export default function City({ cityData }: { cityData: CityData }) {
 
   return (
     <Layout header={header}>
-      <div>{`Hello from ${cityData.name}`}</div>
-      <CategoriesTable />
+      <CategoriesTable
+        cityName={cityData.name}
+        categories={cityData.categories}
+      />
       <CTA />
     </Layout>
   );

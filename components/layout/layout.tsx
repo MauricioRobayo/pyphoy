@@ -21,7 +21,6 @@ export default function Layout({ children, home, header }: LayoutProps) {
         </title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       {home ? null : (
         <nav>
           <img
