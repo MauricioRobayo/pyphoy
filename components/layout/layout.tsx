@@ -1,6 +1,7 @@
-import { useEffect, useState, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import Head from 'next/head';
 import styles from './Layout.module.scss';
+import useDate from '../../hooks/useDate';
 
 type LayoutProps = {
   children: ReactNode;
@@ -9,14 +10,7 @@ type LayoutProps = {
 };
 
 export default function Layout({ children, home, header }: LayoutProps) {
-  const date = new Date();
-  date.setHours(0, 0, 0, 0);
-
-  const [year, setYear] = useState(date.getFullYear());
-
-  useEffect(() => {
-    setYear(date.getFullYear());
-  });
+  const { year } = useDate();
 
   return (
     <>

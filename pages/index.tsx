@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
 import { InferGetStaticPropsType } from 'next';
 import { getCitiesMap } from '@mauriciorobayo/pyptron';
+import useDate from '../hooks/useDate';
 import Layout from '../components/layout/layout';
 import Select from '../components/select/select';
 
@@ -19,23 +19,7 @@ export const getStaticProps = async () => {
 export default function Home({
   selectOptions,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const date = new Date();
-  date.setHours(0, 0, 0, 0);
-
-  const [ISODateString, setISODateString] = useState('');
-  const [localDateString, setLocalDateString] = useState('');
-
-  useEffect(() => {
-    setISODateString(date.toISOString());
-    setLocalDateString(
-      date.toLocaleDateString('es-CO', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      })
-    );
-  });
+  const { ISODateString, localDateString } = useDate();
 
   const header = (
     <header>
