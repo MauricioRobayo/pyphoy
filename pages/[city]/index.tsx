@@ -1,11 +1,22 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { getCitiesMap, getCityData, CityData } from '@mauriciorobayo/pyptron';
 import Layout from '../../components/layout/layout';
+import CategoriesTable from '../../components/categories-table/categories-table';
+import useDate from '../../hooks/useDate';
 
 export default function City({ cityData }: { cityData: CityData }) {
+  const { localDateString } = useDate();
+  const header = (
+    <header>
+      <h1>{`Pico y placa ${cityData.name}`}</h1>
+      <h2>{localDateString}</h2>
+    </header>
+  );
+
   return (
-    <Layout>
+    <Layout header={header}>
       <div>{`Hello from ${cityData.name}`}</div>
+      <CategoriesTable />
     </Layout>
   );
 }
