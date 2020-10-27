@@ -5,9 +5,10 @@ import styles from './Layout.module.scss';
 type LayoutProps = {
   children: ReactNode;
   home?: boolean;
+  header?: ReactNode;
 };
 
-export default function Layout({ children, home }: LayoutProps) {
+export default function Layout({ children, home, header }: LayoutProps) {
   const date = new Date();
   date.setHours(0, 0, 0, 0);
 
@@ -38,22 +39,25 @@ export default function Layout({ children, home }: LayoutProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <header>
-        {home ? (
-          <>
-            <h1>Pico y placa hoy</h1>
-            <h2>
-              <time dateTime={ISODateString}>{localDateString}</time>
-            </h2>
-          </>
-        ) : (
-          <img
-            className={styles.pypLogo}
-            src="/pyphoy-logo.svg"
-            alt="Pyphoy logo"
-          />
-        )}
-      </header>
+      {home ? (
+        <header>
+          <h1>Pico y placa hoy</h1>
+          <h2>
+            <time dateTime={ISODateString}>{localDateString}</time>
+          </h2>
+        </header>
+      ) : (
+        <>
+          <nav>
+            <img
+              className={styles.pypLogo}
+              src="/pyphoy-logo.svg"
+              alt="Pyphoy logo"
+            />
+          </nav>
+          {header}
+        </>
+      )}
       <main>{children}</main>
       <footer>
         <p>PICO Y PLACA HOY</p>
@@ -65,4 +69,5 @@ export default function Layout({ children, home }: LayoutProps) {
 
 Layout.defaultProps = {
   home: false,
+  header: null,
 };
