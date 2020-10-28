@@ -1,44 +1,23 @@
+import { Fragment } from 'react';
 import { CategoryData } from '@mauriciorobayo/pyptron';
 
 type CategoryTableProps = {
-  cityName: string;
   categories: Record<string, CategoryData>;
 };
 
-export default function CategoriesTable({
-  cityName,
-  categories,
-}: CategoryTableProps) {
-  const categoriesNames = Object.values(categories);
+export default function CategoriesTable({ categories }: CategoryTableProps) {
+  const categoriesData = Object.values(categories);
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Categoría</th>
-          <th>Placas</th>
-        </tr>
-      </thead>
-      <tbody>
-        {categoriesNames.map(
-          ({ name: categoryName, emoji, data: [currentData] }) => {
-            return (
-              <tr key={categoryName}>
-                <td>
-                  <span
-                    role="img"
-                    aria-label={`Pico y placa ${cityName} ${categoryName}`}
-                  >
-                    {emoji}
-                  </span>
-                  {categoryName}
-                </td>
-                <td>{currentData.numbers.join('-')}</td>
-              </tr>
-            );
-          }
-        )}
-      </tbody>
-    </table>
+    <div>
+      {categoriesData.map(({ name: categoryName, data: [currentData] }) => {
+        return (
+          <Fragment key={categoryName}>
+            <div>{categoryName}</div>
+            <div>{currentData.numbers.join('-')}</div>
+          </Fragment>
+        );
+      })}
+    </div>
   );
 }
