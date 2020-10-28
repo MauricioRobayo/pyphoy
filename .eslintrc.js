@@ -52,6 +52,8 @@ module.exports = {
     {
       files: ['*.ts', '*.tsx'],
       rules: {
+        'no-shadow': 'off',
+        '@typescript-eslint/no-shadow': ['error'],
         '@typescript-eslint/no-unused-vars': [2, { args: 'none' }],
       },
     },
