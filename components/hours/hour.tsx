@@ -14,20 +14,23 @@ type HourProps = {
   hourData: HourData;
 };
 
-export default function Hour({ hourData }: HourProps) {
+export default function Hour({ hourData: { hours, comment } }: HourProps) {
   const ALL_DAY = 'Todo el día';
-  const hasComment = hourData.comment !== '';
-  const isAllDay = hourData.comment === ALL_DAY;
+  const hasComment = comment !== '';
+  const isAllDay = comment === ALL_DAY;
 
   return (
     <div>
-      {hasComment && !isAllDay ? <div>{hourData.comment}</div> : null}
+      {hasComment && !isAllDay ? <div>{comment}</div> : null}
       <ul>
-        {hourData.hours.map((hour) => {
+        {hours.map((hour) => {
+          if (hour.length === 0) {
+            return null;
+          }
           return (
             <li key={JSON.stringify(hour)}>
               <div>
-                {isAllDay ? ALL_DAY : hourData.comment}
+                {isAllDay ? ALL_DAY : comment}
                 <span>
                   {hour.map((hour24) => convert24toAMPM(hour24)).join(' a ')}
                 </span>

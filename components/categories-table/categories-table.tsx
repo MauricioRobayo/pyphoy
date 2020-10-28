@@ -38,13 +38,13 @@ export default function CategoriesTable({ categories }: CategoryTableProps) {
 
   return (
     <div className={styles.categoryTable}>
-      <h4>No pueden circular los siguientes vehículos</h4>
       {categoriesData.map(
         ({ name: categoryName, data: [{ numbers, scheme, hours }] }) => {
           const numbersString = pypNumbersToString(numbers);
           return (
             <article key={categoryName} className={styles.categoryRow}>
               <h4>{categoryName}</h4>
+              <div>No pueden circular en el siguiente horario:</div>
               <Hours hours={hours} interactive />
               <LicensePlate
                 numbers={numbersString}
