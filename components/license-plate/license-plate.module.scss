@@ -1,0 +1,20 @@
+.licensePlate {
+  --license-background-color: #F7C000;
+  --license-color: black;
+  background-color: var(--license-background-color);
+  box-shadow: 0 0 0 1.5px var(--license-background-color);
+  color: var(--license-color);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  border-radius: .25rem;
+  font-family: LicensePlate;
+  font-size: 100%;
+  padding: 0.25em;
+  margin: 1.5px;
+  border: 1.5px solid var(--license-color);
+  &.public {
+    --license-background-color: white;
+  }
+}
