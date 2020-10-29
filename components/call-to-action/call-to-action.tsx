@@ -5,7 +5,9 @@ export default function CTA() {
     <div className={styles.cta}>
       <p>¿Falta algo?</p>
       <p>¿Algo no está bien?</p>
-      <a href="http://m.me/picoyplacahoy">Ayúdenos a mejorar esta página</a>
+      <p>
+        <a href="http://m.me/picoyplacahoy">Ayúdenos a mejorar esta página</a>
+      </p>
     </div>
   );
 }

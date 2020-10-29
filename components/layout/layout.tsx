@@ -32,7 +32,7 @@ export default function Layout({ children, home, header }: LayoutProps) {
         )}
         {header}
         <main className={styles.mainContent}>{children}</main>
-        <CTA />
+        {home ? null : <CTA />}
       </div>
       <footer className={styles.footer}>
         <p>PICO Y PLACA HOY</p>
