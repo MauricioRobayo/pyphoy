@@ -39,6 +39,9 @@ export default function CategoriesTable({ categories }: CategoryTableProps) {
 
   return (
     <div className={styles.categoryTable}>
+      <h3 className={styles.title}>
+        Se restringe la circulación de los siguientes vehículos
+      </h3>
       {categoriesData.map(
         ({ name: categoryName, data: [{ numbers, scheme, hours }] }) => {
           const numbersString = pypNumbersToString(numbers);
