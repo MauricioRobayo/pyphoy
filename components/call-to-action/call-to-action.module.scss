@@ -1,9 +1,14 @@
 .cta {
   padding: 1rem;
   width: 100%;
-  background-color: #47D1FF;
+  background-color: #0F266E;
   text-align: center;
+  color: white;
   p {
     margin: 0.5rem;
+    a {
+      font-weight: bold;
+      color: white;
+    }
   }
 }
