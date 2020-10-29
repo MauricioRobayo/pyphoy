@@ -11,6 +11,10 @@ function convert24toAMPM(hour24: string) {
     : `${hoursNumber}:${minutes}am`;
 }
 
+function isEmptyArray(array: [string, string] | []): array is [] {
+  return array.length === 0;
+}
+
 type HourProps = {
   hourData: HourData;
 };
@@ -25,7 +29,7 @@ export default function Hour({ hourData: { hours, comment } }: HourProps) {
       {hasComment && !isAllDay ? <div>{comment}</div> : null}
       <ul className={styles.hours}>
         {hours.map((hour) => {
-          if (hour.length === 0) {
+          if (isEmptyArray(hour)) {
             return null;
           }
           return (
