@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { CategoryData } from '@mauriciorobayo/pyptron';
 import Hours from '../hours/hours';
 import LicensePlate from '../license-plate/license-plate';
@@ -11,6 +12,7 @@ enum Scheme {
 
 type CategoryTableProps = {
   categories: Record<string, CategoryData>;
+  citySlug: string;
 };
 
 function isPublicLicense(categoryName: string) {
@@ -36,8 +38,11 @@ function pypNumbersToString(numbers: number[]) {
   return numbers.join('-');
 }
 
-export default function CategoriesTable({ categories }: CategoryTableProps) {
-  const categoriesData = Object.values(categories);
+export default function CategoriesTable({
+  citySlug,
+  categories,
+}: CategoryTableProps) {
+  const categoriesData = Object.entries(categories);
 
   return (
     <div className={styles.categoryTable}>
@@ -45,14 +50,24 @@ export default function CategoriesTable({ categories }: CategoryTableProps) {
         Se restringe la circulación de los siguientes vehículos
       </h3>
       {categoriesData.map(
-        ({ name: categoryName, data: [{ numbers, scheme, hours }] }) => {
+        ([
+          categorySlug,
+          {
+            name: categoryName,
+            data: [{ numbers, scheme, hours }],
+          },
+        ]) => {
           const numbersString = pypNumbersToString(numbers);
           const allDigits = numbersString === ALL_DIGITS;
           const hasRestriction = numbers.length > 0;
 
           return (
             <article key={categoryName} className={styles.categoryRow}>
-              <h4 className={styles.categoryTitle}>{categoryName}</h4>
+              <Link href={`/${citySlug}/${categorySlug}`}>
+                <a>
+                  <h4 className={styles.categoryTitle}>{categoryName}</h4>
+                </a>
+              </Link>
               {hasRestriction ? (
                 <div>
                   <h5>Horario</h5>

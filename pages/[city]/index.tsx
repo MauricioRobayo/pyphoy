@@ -4,7 +4,12 @@ import Layout from '../../components/layout/layout';
 import CategoriesTable from '../../components/categories-table/categories-table';
 import useDate from '../../hooks/useDate';
 
-export default function City({ cityData }: { cityData: CityData }) {
+type CityProps = {
+  citySlug: string;
+  cityData: CityData;
+};
+
+export default function City({ citySlug, cityData }: CityProps) {
   const { localDateString } = useDate();
   const header = (
     <header>
@@ -15,15 +20,15 @@ export default function City({ cityData }: { cityData: CityData }) {
 
   return (
     <Layout header={header}>
-      <CategoriesTable categories={cityData.categories} />
+      <CategoriesTable categories={cityData.categories} citySlug={citySlug} />
     </Layout>
   );
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const citiesMap = getCitiesMap();
-  const paths = Object.keys(citiesMap).map((key) => ({
-    params: { city: key },
+  const paths = Object.keys(citiesMap).map((citySlug) => ({
+    params: { city: citySlug },
   }));
   return {
     paths,
@@ -35,6 +40,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const cityData = getCityData(params?.city as string);
   return {
     props: {
+      citySlug: params?.city as string,
       cityData,
     },
   };
