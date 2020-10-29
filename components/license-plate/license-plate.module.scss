@@ -9,11 +9,12 @@
   align-items: center;
   white-space: nowrap;
   border-radius: .25rem;
-  font-family: LicensePlate;
+  font-family: LicensePlate, monospace, sans-serif;
   padding: 0.25em;
   margin: 1.5px;
   border: 1.5px solid var(--license-color);
-
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
 .small {
