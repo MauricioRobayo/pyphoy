@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import Head from 'next/head';
 import styles from './Layout.module.scss';
 import Email from '../email/email';
+import CTA from '../call-to-action/call-to-action';
 
 type LayoutProps = {
   children: ReactNode;
@@ -31,6 +32,7 @@ export default function Layout({ children, home, header }: LayoutProps) {
         )}
         {header}
         <main className={styles.mainContent}>{children}</main>
+        <CTA />
       </div>
       <footer className={styles.footer}>
         <p>PICO Y PLACA HOY</p>

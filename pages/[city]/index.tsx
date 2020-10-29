@@ -2,7 +2,6 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { getCitiesMap, getCityData, CityData } from '@mauriciorobayo/pyptron';
 import Layout from '../../components/layout/layout';
 import CategoriesTable from '../../components/categories-table/categories-table';
-import CTA from '../../components/call-to-action/call-to-action';
 import useDate from '../../hooks/useDate';
 
 export default function City({ cityData }: { cityData: CityData }) {
@@ -20,7 +19,6 @@ export default function City({ cityData }: { cityData: CityData }) {
         cityName={cityData.name}
         categories={cityData.categories}
       />
-      <CTA />
     </Layout>
   );
 }
