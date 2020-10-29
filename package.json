@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@mauriciorobayo/pyptron": "^1.41.0",
+    "classnames": "^2.2.6",
     "next": "9.5.5",
     "react": "17.0.1",
     "react-dom": "17.0.1",

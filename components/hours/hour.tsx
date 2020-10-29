@@ -1,4 +1,5 @@
 import { HourData } from '@mauriciorobayo/pyptron';
+import styles from './hour.module.scss';
 
 function convert24toAMPM(hour24: string) {
   if (hour24 === '12:00') return `${hour24}m.`;
@@ -22,15 +23,15 @@ export default function Hour({ hourData: { hours, comment } }: HourProps) {
   return (
     <div>
       {hasComment && !isAllDay ? <div>{comment}</div> : null}
-      <ul>
+      <ul className={styles.hours}>
         {hours.map((hour) => {
           if (hour.length === 0) {
             return null;
           }
           return (
-            <li key={JSON.stringify(hour)}>
+            <li key={JSON.stringify(hour)} className={styles.hour}>
               <div>
-                {isAllDay ? ALL_DAY : comment}
+                {isAllDay ? ALL_DAY : ''}
                 <span>
                   {hour.map((hour24) => convert24toAMPM(hour24)).join(' a ')}
                 </span>

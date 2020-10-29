@@ -10,11 +10,24 @@
   white-space: nowrap;
   border-radius: .25rem;
   font-family: LicensePlate;
-  font-size: 100%;
   padding: 0.25em;
   margin: 1.5px;
   border: 1.5px solid var(--license-color);
-  &.public {
-    --license-background-color: white;
-  }
+
+}
+
+.small {
+  font-size: 0.75rem;
+}
+
+.medium {
+  font-size: 1rem;
+}
+
+.big {
+  font-size: 1.5rem;
+}
+
+.public {
+  --license-background-color: white;
 }

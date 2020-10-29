@@ -2,6 +2,7 @@ import { CategoryData } from '@mauriciorobayo/pyptron';
 import Hours from '../hours/hours';
 import LicensePlate from '../license-plate/license-plate';
 import styles from './categories-table.module.scss';
+import utilStyles from '../../styles/utils.module.scss';
 
 enum Scheme {
   LastNumber,
@@ -43,12 +44,13 @@ export default function CategoriesTable({ categories }: CategoryTableProps) {
           const numbersString = pypNumbersToString(numbers);
           return (
             <article key={categoryName} className={styles.categoryRow}>
-              <h4>{categoryName}</h4>
-              <div>No pueden circular en el siguiente horario:</div>
-              <Hours hours={hours} interactive />
+              <h4 className={styles.categoryTitle}>{categoryName}</h4>
+              <Hours className={utilStyles.mx_1} hours={hours} interactive />
               <LicensePlate
+                className={utilStyles.mt_1}
                 numbers={numbersString}
                 publicLicense={isPublicLicense(categoryName)}
+                size="big"
               />
               {numbersString === 'TODOS' ? null : (
                 <div>

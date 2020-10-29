@@ -3,13 +3,14 @@ import { HourData } from '@mauriciorobayo/pyptron';
 import Hour from './hour';
 
 type HoursProps = {
+  className: string;
   hours: HourData[];
   interactive?: boolean;
 };
 
-export default function Hours({ hours, interactive }: HoursProps) {
+export default function Hours({ hours, interactive, className }: HoursProps) {
   return (
-    <div className={interactive ? 'interactive' : ''}>
+    <div className={`${interactive ? 'interactive' : ''} ${className}`}>
       {hours.map((hourData, index) => (
         <Hour key={index} hourData={hourData} />
       ))}
