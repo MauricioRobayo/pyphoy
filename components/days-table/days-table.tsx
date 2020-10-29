@@ -73,7 +73,6 @@ export default function DaysTable({ categoryData }: DaysTableProps) {
           className={utilStyles.mt_1}
           numbers={numbersString}
           publicLicense={isPublicLicense(categoryName)}
-          size="big"
         />
         {allDigits || !hasRestriction ? null : (
           <div>

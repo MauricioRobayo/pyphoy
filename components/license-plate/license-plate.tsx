@@ -5,14 +5,14 @@ type LicensePlateProps = {
   numbers: string;
   publicLicense?: boolean;
   className: string;
-  size: 'small' | 'medium' | 'big';
+  size?: 'small' | 'medium' | 'big';
 };
 
 export default function LicensePlate({
   numbers,
-  publicLicense,
+  publicLicense = false,
   className,
-  size,
+  size = 'medium',
 }: LicensePlateProps) {
   return (
     <div
@@ -27,4 +27,5 @@ export default function LicensePlate({
 
 LicensePlate.defaultProps = {
   publicLicense: false,
+  size: 'medium',
 };
