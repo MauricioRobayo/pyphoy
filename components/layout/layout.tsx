@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import Head from 'next/head';
 import styles from './Layout.module.scss';
+import Email from '../email/email';
 
 type LayoutProps = {
   children: ReactNode;
@@ -33,6 +34,7 @@ export default function Layout({ children, home, header }: LayoutProps) {
       </div>
       <footer className={styles.footer}>
         <p>PICO Y PLACA HOY</p>
+        <Email />
       </footer>
     </div>
   );
