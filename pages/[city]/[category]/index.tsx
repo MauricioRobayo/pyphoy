@@ -1,21 +1,30 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { getCitiesMap, getCityData, CityData } from '@mauriciorobayo/pyptron';
+import {
+  getCitiesMap,
+  getCityData,
+  CategoryData,
+} from '@mauriciorobayo/pyptron';
 import Layout from '../../../components/layout/layout';
-import CategoriesTable from '../../../components/categories-table/categories-table';
+import DaysTable from '../../../components/days-table/days-table';
 import useDate from '../../../hooks/useDate';
 
-export default function City({ cityData }: { cityData: CityData }) {
+type CategoryProps = {
+  categoryData: CategoryData;
+  cityName: string;
+};
+
+export default function Category({ categoryData, cityName }: CategoryProps) {
   const { localDateString } = useDate();
   const header = (
     <header>
-      <h1>{`Pico y placa ${cityData.name}`}</h1>
+      <h1>{`Pico y placa ${categoryData.name.toLowerCase()} en ${cityName}`}</h1>
       <h2>{localDateString}</h2>
     </header>
   );
 
   return (
     <Layout header={header}>
-      <CategoriesTable categories={cityData.categories} />
+      <DaysTable categoryData={categoryData} />
     </Layout>
   );
 }
@@ -41,7 +50,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   });
   return {
     props: {
-      cityData,
+      cityName: cityData.name,
+      categoryData: cityData.categories[params?.category as string],
     },
   };
 };
