@@ -24,7 +24,7 @@ function hasAllDigits(numbers: number[]) {
 
 function pypNumbersToString(numbers: number[]) {
   if (numbers.length === 0) {
-    return 'NA';
+    return 'No Aplica';
   }
 
   if (hasAllDigits(numbers)) {
