@@ -3,6 +3,7 @@ import Hours from '../hours/hours';
 import LicensePlate from '../license-plate/license-plate';
 import styles from './days-table.module.scss';
 import utilStyles from '../../styles/utils.module.scss';
+import PypDate from '../pyp-date/pyp-date';
 
 enum Scheme {
   LastNumber,
@@ -49,39 +50,44 @@ function listFormat(array: string[]) {
 }
 
 export default function DaysTable({ categoryData }: DaysTableProps) {
-  const {
-    name: categoryName,
-    data: [{ numbers, scheme, hours, vehicleClasses }],
-  } = categoryData;
-  const numbersString = pypNumbersToString(numbers);
-  const allDigits = numbersString === ALL_DIGITS;
-  const hasRestriction = numbers.length > 0;
-  const vehicleClassesList = listFormat(vehicleClasses);
+  const vehicleClassesList = listFormat(categoryData.data[0].vehicleClasses);
+  const { name: categoryName } = categoryData;
+
   return (
     <article className={styles.categoryTable}>
       <h3 className={styles.title}>
         {`Se restringe la circulación de ${vehicleClassesList}`}
       </h3>
-      <div className={styles.categoryRow}>
-        {hasRestriction ? (
-          <div>
-            <h5>Horario</h5>
-            <Hours className={utilStyles.mx_1} hours={hours} interactive />
+      {categoryData.data.map(({ date, numbers, scheme, hours }) => {
+        const numbersString = pypNumbersToString(numbers);
+        const allDigits = numbersString === ALL_DIGITS;
+        const hasRestriction = numbers.length > 0;
+
+        return (
+          <div key={date} className={styles.categoryRow}>
+            <PypDate dateString={date} />
+            {hasRestriction ? (
+              <div>
+                <Hours className={utilStyles.mx_1} hours={hours} interactive />
+              </div>
+            ) : null}
+            <LicensePlate
+              className={utilStyles.mt_1}
+              numbers={numbersString}
+              publicLicense={isPublicLicense(categoryName)}
+            />
+            {allDigits || !hasRestriction ? null : (
+              <div>
+                {`${
+                  scheme === Scheme.FirstNumber
+                    ? 'Primer dígito'
+                    : 'Último dígito'
+                } del número de la placa`}
+              </div>
+            )}
           </div>
-        ) : null}
-        <LicensePlate
-          className={utilStyles.mt_1}
-          numbers={numbersString}
-          publicLicense={isPublicLicense(categoryName)}
-        />
-        {allDigits || !hasRestriction ? null : (
-          <div>
-            {`${
-              scheme === Scheme.FirstNumber ? 'Primer dígito' : 'Último dígito'
-            } del número de la placa`}
-          </div>
-        )}
-      </div>
+        );
+      })}
     </article>
   );
 }
