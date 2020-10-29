@@ -15,10 +15,7 @@ export default function City({ cityData }: { cityData: CityData }) {
 
   return (
     <Layout header={header}>
-      <CategoriesTable
-        cityName={cityData.name}
-        categories={cityData.categories}
-      />
+      <CategoriesTable categories={cityData.categories} />
     </Layout>
   );
 }
