@@ -29,17 +29,19 @@ export default function Hour({ hourData: { hours, comment } }: HourProps) {
       {hasComment && !isAllDay ? <div>{comment}</div> : null}
       <ul className={styles.hours}>
         {hours.map((hour) => {
+          if (isAllDay) {
+            return <li className={styles.hour}>{ALL_DAY}</li>;
+          }
+
           if (isEmptyArray(hour)) {
             return null;
           }
+
           return (
             <li key={JSON.stringify(hour)} className={styles.hour}>
-              <div>
-                {isAllDay ? ALL_DAY : ''}
-                <span>
-                  {hour.map((hour24) => convert24toAMPM(hour24)).join(' a ')}
-                </span>
-              </div>
+              <span>
+                {hour.map((hour24) => convert24toAMPM(hour24)).join(' a ')}
+              </span>
             </li>
           );
         })}
