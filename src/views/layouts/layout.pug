@@ -18,6 +18,8 @@ html(lang="es")
   body
     if !home
       include ../includes/header
+    if site.env === 'production'
+      include ../includes/the-monetizer/megabanner
     block pypData
     block pypQuery
     block contact
