@@ -79,7 +79,6 @@ export default function CategoriesTable({
                 </div>
               ) : null}
               <LicensePlate
-                className={utilStyles.mt_1}
                 publicLicense={isPublicLicense(categoryName)}
                 size="big"
               >

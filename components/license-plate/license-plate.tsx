@@ -5,19 +5,17 @@ import styles from './license-plate.module.scss';
 type LicensePlateProps = {
   children: React.ReactNode;
   publicLicense?: boolean;
-  className: string;
   size?: 'small' | 'medium' | 'big';
 };
 
 export default function LicensePlate({
   children,
   publicLicense = false,
-  className,
   size = 'medium',
 }: LicensePlateProps) {
   return (
     <div
-      className={cn(styles.licensePlate, className, styles[size], {
+      className={cn(styles.licensePlate, styles[size], {
         [styles.public]: publicLicense,
       })}
     >
