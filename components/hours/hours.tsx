@@ -1,10 +1,10 @@
 /* eslint-disable react/no-array-index-key */
-import { HourData } from '@mauriciorobayo/pyptron';
+import { IHourData } from '@mauriciorobayo/pyptron';
 import Hour from './hour';
 
 type HoursProps = {
   className: string;
-  hours: HourData[];
+  hours: IHourData[];
   interactive?: boolean;
 };
 

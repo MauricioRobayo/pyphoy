@@ -1,4 +1,4 @@
-import { HourData } from '@mauriciorobayo/pyptron';
+import { IHourData } from '@mauriciorobayo/pyptron';
 import styles from './hour.module.scss';
 
 function convert24toAMPM(hour24: string) {
@@ -16,7 +16,7 @@ function isEmptyArray(array: [string, string] | []): array is [] {
 }
 
 type HourProps = {
-  hourData: HourData;
+  hourData: IHourData;
 };
 
 export default function Hour({ hourData: { hours, comment } }: HourProps) {

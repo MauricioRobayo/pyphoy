@@ -1,12 +1,12 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { getCitiesMap, getCityData, CityData } from '@mauriciorobayo/pyptron';
+import { getCitiesMap, getCityData, ICityData } from '@mauriciorobayo/pyptron';
 import Layout from '../../components/layout/layout';
 import CategoriesTable from '../../components/categories-table/categories-table';
 import useDate from '../../hooks/useDate';
 
 type CityProps = {
   citySlug: string;
-  cityData: CityData;
+  cityData: ICityData;
 };
 
 export default function City({ citySlug, cityData }: CityProps) {

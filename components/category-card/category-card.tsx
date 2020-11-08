@@ -1,24 +1,14 @@
 import Link from 'next/link';
+import { Scheme, IHourData } from '@mauriciorobayo/pyptron';
 import cn from 'classnames';
 import Hours from '../hours/hours';
 import LicensePlate from '../license-plate/license-plate';
 import utilStyles from '../../styles/utils.module.scss';
 import styles from './category-card.module.scss';
 
-enum Scheme {
-  LastNumber,
-  FirstNumber,
-}
-
-interface HourData {
-  comment: string;
-  hours: ([string, string] | [])[];
-  days: number[];
-}
-
 type CategoryCardProps = {
   numbers: number[];
-  hours: HourData[];
+  hours: IHourData[];
   citySlug: string;
   categorySlug: string;
   categoryName: string;

@@ -2,14 +2,14 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import {
   getCitiesMap,
   getCityData,
-  CategoryData,
+  ICategoryData,
 } from '@mauriciorobayo/pyptron';
 import Layout from '../../../components/layout/layout';
 import DaysTable from '../../../components/days-table/days-table';
 import useDate from '../../../hooks/useDate';
 
 type CategoryProps = {
-  categoryData: CategoryData;
+  categoryData: ICategoryData;
   cityName: string;
 };
 

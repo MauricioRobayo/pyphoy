@@ -1,9 +1,9 @@
-import { CategoryData } from '@mauriciorobayo/pyptron';
+import { ICategoryData } from '@mauriciorobayo/pyptron';
 import styles from './categories-table.module.scss';
 import CategoryCard from '../category-card/category-card';
 
 type CategoryTableProps = {
-  categories: Record<string, CategoryData>;
+  categories: Record<string, ICategoryData>;
   citySlug: string;
 };
 
