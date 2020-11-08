@@ -80,10 +80,11 @@ export default function CategoriesTable({
               ) : null}
               <LicensePlate
                 className={utilStyles.mt_1}
-                numbers={numbersString}
                 publicLicense={isPublicLicense(categoryName)}
                 size="big"
-              />
+              >
+                {numbersString}
+              </LicensePlate>
               {allDigits || !hasRestriction ? null : (
                 <div>
                   {`${

@@ -1,15 +1,16 @@
+import React from 'react';
 import cn from 'classnames';
 import styles from './license-plate.module.scss';
 
 type LicensePlateProps = {
-  numbers: string;
+  children: React.ReactNode;
   publicLicense?: boolean;
   className: string;
   size?: 'small' | 'medium' | 'big';
 };
 
 export default function LicensePlate({
-  numbers,
+  children,
   publicLicense = false,
   className,
   size = 'medium',
@@ -20,7 +21,7 @@ export default function LicensePlate({
         [styles.public]: publicLicense,
       })}
     >
-      {numbers}
+      {children}
     </div>
   );
 }
