@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import cn from 'classnames';
 import { CategoryData } from '@mauriciorobayo/pyptron';
 import Hours from '../hours/hours';
 import LicensePlate from '../license-plate/license-plate';
@@ -62,7 +63,12 @@ export default function CategoriesTable({
           const hasRestriction = numbers.length > 0;
 
           return (
-            <article key={categoryName} className={styles.categoryRow}>
+            <article
+              key={categoryName}
+              className={cn(styles.categoryRow, {
+                [styles.na]: numbers.length === 0,
+              })}
+            >
               <Link href={`/${citySlug}/${categorySlug}`}>
                 <a>
                   <h4 className={styles.categoryTitle}>{categoryName}</h4>
@@ -80,7 +86,7 @@ export default function CategoriesTable({
               ) : null}
               <LicensePlate
                 publicLicense={isPublicLicense(categoryName)}
-                size="big"
+                size={numbers.length === 0 ? 'medium' : 'big'}
               >
                 {numbersString}
               </LicensePlate>
