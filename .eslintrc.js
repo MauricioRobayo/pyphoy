@@ -22,6 +22,8 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint', 'simple-import-sort'],
   rules: {
+    'no-use-before-define': [0],
+    '@typescript-eslint/no-use-before-define': [1],
     'react/jsx-props-no-spreading': 'off',
     'import/extensions': [
       'error',
@@ -34,11 +36,11 @@ module.exports = {
         mjs: 'never',
       },
     ],
+    'react/react-in-jsx-scope': 'off',
     'react/jsx-filename-extension': [
-      2,
+      1,
       { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
     ],
-    'react/react-in-jsx-scope': 'off',
     'jsx-a11y/anchor-is-valid': [
       'error',
       {
