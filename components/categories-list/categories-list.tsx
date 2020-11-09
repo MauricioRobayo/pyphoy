@@ -4,14 +4,10 @@ import CategoryCard from '../category-card/category-card';
 
 type CategoryTableProps = {
   categories: Record<string, ICategoryData>;
-  citySlug: string;
 };
 
-export default function CategoriesTable({
-  citySlug,
-  categories,
-}: CategoryTableProps) {
-  const categoriesData = Object.entries(categories);
+export default function CategoriesTable({ categories }: CategoryTableProps) {
+  const categoriesData = Object.values(categories);
 
   return (
     <div className={styles.categoryTable}>
@@ -19,18 +15,11 @@ export default function CategoriesTable({
         Se restringe la circulación de los siguientes vehículos
       </h3>
       {categoriesData.map(
-        ([
-          categorySlug,
-          {
-            name: categoryName,
-            data: [{ numbers, scheme, hours }],
-          },
-        ]) => {
+        ({ path, name: categoryName, data: [{ numbers, scheme, hours }] }) => {
           return (
             <CategoryCard
+              path={path}
               categoryName={categoryName}
-              categorySlug={categorySlug}
-              citySlug={citySlug}
               hours={hours}
               numbers={numbers}
               scheme={scheme}

@@ -9,10 +9,9 @@ import utilStyles from '../../styles/utils.module.scss';
 import styles from './category-card.module.scss';
 
 type CategoryCardProps = {
+  path: string;
   numbers: number[];
   hours: IHourData[];
-  citySlug: string;
-  categorySlug: string;
   categoryName: string;
   scheme: Scheme;
 };
@@ -42,8 +41,7 @@ function pypNumbersToString(numbers: number[]) {
 
 export default function CategoryCard({
   numbers,
-  citySlug,
-  categorySlug,
+  path,
   categoryName,
   hours,
   scheme,
@@ -58,7 +56,7 @@ export default function CategoryCard({
         [styles.na]: numbers.length === 0,
       })}
     >
-      <Link href={`/${citySlug}/${categorySlug}`}>
+      <Link href={path}>
         <a>
           <h4 className={styles.categoryTitle}>{categoryName}</h4>
         </a>
