@@ -39,7 +39,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const cityData = getCityData(params?.city as string);
   return {
     props: {
-      citySlug: params?.city as string,
       cityData,
     },
   };
