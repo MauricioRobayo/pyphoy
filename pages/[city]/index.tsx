@@ -5,11 +5,10 @@ import CategoriesTable from '../../components/categories-list/categories-list';
 import useDate from '../../hooks/useDate';
 
 type CityProps = {
-  citySlug: string;
   cityData: ICityData;
 };
 
-export default function City({ citySlug, cityData }: CityProps) {
+export default function City({ cityData }: CityProps) {
   const { localDateString } = useDate();
   const header = (
     <header>
@@ -20,7 +19,7 @@ export default function City({ citySlug, cityData }: CityProps) {
 
   return (
     <Layout header={header}>
-      <CategoriesTable categories={cityData.categories} citySlug={citySlug} />
+      <CategoriesTable categories={cityData.categories} />
     </Layout>
   );
 }
