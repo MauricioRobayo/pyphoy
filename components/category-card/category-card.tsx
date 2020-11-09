@@ -1,6 +1,8 @@
 import Link from 'next/link';
-import { Scheme, IHourData } from '@mauriciorobayo/pyptron';
+import { IHourData } from '@mauriciorobayo/pyptron';
 import cn from 'classnames';
+
+import { Scheme } from '../../types';
 import Hours from '../hours/hours';
 import LicensePlate from '../license-plate/license-plate';
 import utilStyles from '../../styles/utils.module.scss';

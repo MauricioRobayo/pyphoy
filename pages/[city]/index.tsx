@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { getCitiesMap, getCityData, ICityData } from '@mauriciorobayo/pyptron';
 import Layout from '../../components/layout/layout';
-import CategoriesTable from '../../components/categories-table/categories-table';
+import CategoriesTable from '../../components/categories-list/categories-list';
 import useDate from '../../hooks/useDate';
 
 type CityProps = {
