@@ -8,7 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@mauriciorobayo/pyptron": "^1.48.0",
+    "@mauriciorobayo/pyptron": "^1.49.0",
     "@types/classnames": "^2.2.11",
     "classnames": "^2.2.6",
     "next": "9.5.5",
