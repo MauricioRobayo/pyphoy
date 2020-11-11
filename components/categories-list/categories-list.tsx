@@ -15,9 +15,15 @@ export default function CategoriesTable({ categories }: CategoryTableProps) {
         Se restringe la circulación de los siguientes vehículos
       </h3>
       {categoriesData.map(
-        ({ path, name: categoryName, data: [{ numbers, scheme, hours }] }) => {
+        ({
+          key,
+          path,
+          name: categoryName,
+          data: [{ numbers, scheme, hours }],
+        }) => {
           return (
             <CategoryCard
+              key={key}
               path={path}
               categoryName={categoryName}
               hours={hours}
