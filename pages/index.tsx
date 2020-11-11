@@ -1,17 +1,17 @@
 import { InferGetStaticPropsType } from 'next';
-import { getCitiesMap } from '@mauriciorobayo/pyptron';
+import { getCitiesMap2 } from '@mauriciorobayo/pyptron';
 import useDate from '../hooks/useDate';
 import Layout from '../components/layout/layout';
 import Select from '../components/select/select';
 
 export const getStaticProps = async () => {
-  const citiesMap = getCitiesMap();
-  const selectOptions = Object.entries(
-    citiesMap
-  ).map(([value, { name: text }]) => ({ value, text }));
+  const citiesMap = getCitiesMap2();
   return {
     props: {
-      selectOptions,
+      selectOptions: citiesMap.map(({ slug: value, name: text }) => ({
+        value,
+        text,
+      })),
     },
   };
 };
