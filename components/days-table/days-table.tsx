@@ -71,11 +71,9 @@ export default function DaysTable({ categoryData }: DaysTableProps) {
                 <Hours className={utilStyles.mx_1} hours={hours} interactive />
               </div>
             ) : null}
-            <LicensePlate
-              className={utilStyles.mt_1}
-              numbers={numbersString}
-              publicLicense={isPublicLicense(categoryName)}
-            />
+            <LicensePlate publicLicense={isPublicLicense(categoryName)}>
+              {numbersString}
+            </LicensePlate>
             {allDigits || !hasRestriction ? null : (
               <div>
                 {`${
