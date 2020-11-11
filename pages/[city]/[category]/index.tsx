@@ -1,8 +1,9 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import {
-  getCitiesMap,
+  getCitiesMap2,
   getCityData,
   ICategoryData,
+  ICategoryMap2,
 } from '@mauriciorobayo/pyptron';
 import Layout from '../../../components/layout/layout';
 import DaysTable from '../../../components/days-table/days-table';
@@ -30,28 +31,33 @@ export default function Category({ categoryData, cityName }: CategoryProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const citiesMap = getCitiesMap();
-  const paths: any[] = [];
-  Object.entries(citiesMap).forEach(([citySlug, { categories }]) => {
-    Object.keys(categories).forEach((categorySlug) => {
-      paths.push({ params: { city: citySlug, category: categorySlug } });
-    });
-  });
+  const citiesMap = getCitiesMap2();
   return {
-    paths,
+    paths: citiesMap
+      .map(({ slug: citySlug, categories }) => {
+        return categories.map(({ slug: categorySlug }) => {
+          return { params: { city: citySlug, category: categorySlug } };
+        });
+      })
+      .flat(),
     fallback: false,
   };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const cityData = getCityData(params?.city as string, {
-    category: params?.category as string,
-    days: 7,
-  });
+  const citySlug = params?.city as string;
+  const categorySlug = params?.category as string;
+  const citiesMap = getCitiesMap2();
+  const cityInfo = citiesMap.find(({ slug }) => slug === citySlug);
+  const { key: categoryKey } = cityInfo?.categories.find(
+    ({ slug }) => slug === categorySlug
+  ) as ICategoryMap2;
+  const cityData = getCityData(citySlug, { category: categorySlug, days: 8 });
+
   return {
     props: {
-      cityName: cityData.name,
-      categoryData: cityData.categories[params?.category as string],
+      cityName: cityInfo?.name,
+      categoryData: cityData.categories[categoryKey],
     },
   };
 };
