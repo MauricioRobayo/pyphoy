@@ -4,6 +4,7 @@ import {
   getCityData,
   ICategoryData,
   ICategoryMap2,
+  ICityMap2,
 } from '@mauriciorobayo/pyptron';
 import Layout from '../../../components/layout/layout';
 import DaysTable from '../../../components/days-table/days-table';
@@ -44,20 +45,32 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
+function getInfoFromSlug<T extends { slug: string }>(
+  slug: string,
+  map: T[]
+): T {
+  return map.find((info) => info.slug === slug) as T;
+}
+
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const citySlug = params?.city as string;
   const categorySlug = params?.category as string;
   const citiesMap = getCitiesMap2();
-  const cityInfo = citiesMap.find(({ slug }) => slug === citySlug);
-  const { key: categoryKey } = cityInfo?.categories.find(
-    ({ slug }) => slug === categorySlug
-  ) as ICategoryMap2;
-  const cityData = getCityData(citySlug, { category: categorySlug, days: 8 });
-
+  const { name: cityName, categories: categoriesMap } = getInfoFromSlug<
+    ICityMap2
+  >(citySlug, citiesMap);
+  const { key: categoryKey } = getInfoFromSlug<ICategoryMap2>(
+    categorySlug,
+    categoriesMap
+  );
+  const categoryData = getCityData(citySlug, {
+    category: categorySlug,
+    days: 8,
+  }).categories[categoryKey];
   return {
     props: {
-      cityName: cityInfo?.name,
-      categoryData: cityData.categories[categoryKey],
+      cityName,
+      categoryData,
     },
   };
 };
