@@ -1,12 +1,12 @@
 import { ICategoryData } from '@mauriciorobayo/pyptron';
-import styles from './categories-table.module.scss';
+import styles from './categories-list.module.scss';
 import CategoryCard from '../category-card/category-card';
 
-type CategoryTableProps = {
+type CategoryListProps = {
   categories: Record<string, ICategoryData>;
 };
 
-export default function CategoriesTable({ categories }: CategoryTableProps) {
+export default function CategoriesList({ categories }: CategoryListProps) {
   const categoriesData = Object.values(categories);
 
   return (
