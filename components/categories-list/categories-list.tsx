@@ -15,15 +15,10 @@ export default function CategoriesList({ categories }: CategoryListProps) {
         Se restringe la circulación de los siguientes vehículos
       </h3>
       {categoriesData.map(
-        ({
-          key,
-          path,
-          name: categoryName,
-          data: [{ numbers, scheme, hours }],
-        }) => {
+        ({ path, name: categoryName, data: [{ numbers, scheme, hours }] }) => {
           return (
             <CategoryCard
-              key={key}
+              key={path}
               path={path}
               categoryName={categoryName}
               hours={hours}
