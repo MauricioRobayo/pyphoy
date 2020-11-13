@@ -7,7 +7,7 @@ import {
   ICityMap2,
 } from '@mauriciorobayo/pyptron';
 import Layout from '../../../components/layout/layout';
-import DaysTable from '../../../components/days-table/days-table';
+import DaysList from '../../../components/days-list/days-list';
 import useDate from '../../../hooks/useDate';
 
 type CategoryProps = {
@@ -26,7 +26,7 @@ export default function Category({ categoryData, cityName }: CategoryProps) {
 
   return (
     <Layout header={header}>
-      <DaysTable categoryData={categoryData} />
+      <DaysList categoryData={categoryData} />
     </Layout>
   );
 }

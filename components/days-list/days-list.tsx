@@ -1,7 +1,7 @@
 import { ICategoryData } from '@mauriciorobayo/pyptron';
 import Hours from '../hours/hours';
 import LicensePlate from '../license-plate/license-plate';
-import styles from './days-table.module.scss';
+import styles from './days-list.module.scss';
 import utilStyles from '../../styles/utils.module.scss';
 import PypDate from '../pyp-date/pyp-date';
 
@@ -49,7 +49,7 @@ function listFormat(array: string[]) {
   }, '');
 }
 
-export default function DaysTable({ categoryData }: DaysTableProps) {
+export default function DaysList({ categoryData }: DaysTableProps) {
   const vehicleClassesList = listFormat(categoryData.data[0].vehicleClasses);
   const { name: categoryName } = categoryData;
 
