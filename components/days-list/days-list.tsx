@@ -50,17 +50,20 @@ function listFormat(array: string[]) {
 }
 
 export default function DaysList({ categoryData }: DaysTableProps) {
-  const vehicleClassesList = listFormat(categoryData.data[0].vehicleClasses);
-  const { name: categoryName } = categoryData;
+  const {
+    name: categoryName,
+    data: [{ vehicleClasses, scheme }],
+  } = categoryData;
+  const vehicleClassesList = listFormat(vehicleClasses);
+  const schemeMessage = scheme === Scheme.FirstNumber ? 'primer' : 'ultimo';
 
   return (
     <article className={styles.categoryTable}>
       <h3 className={styles.title}>
-        {`Se restringe la circulación de ${vehicleClassesList}`}
+        {`Se restringe la circulación de ${vehicleClassesList} según el ${schemeMessage} dígito del número de la placa`}
       </h3>
-      {categoryData.data.map(({ date, numbers, scheme, hours }) => {
+      {categoryData.data.map(({ date, numbers, hours }) => {
         const numbersString = pypNumbersToString(numbers);
-        const allDigits = numbersString === ALL_DIGITS;
         const hasRestriction = numbers.length > 0;
 
         return (
@@ -71,18 +74,12 @@ export default function DaysList({ categoryData }: DaysTableProps) {
                 <Hours className={utilStyles.mx_1} hours={hours} interactive />
               </div>
             ) : null}
-            <LicensePlate publicLicense={isPublicLicense(categoryName)}>
+            <LicensePlate
+              publicLicense={isPublicLicense(categoryName)}
+              size={hasRestriction ? 'big' : 'medium'}
+            >
               {numbersString}
             </LicensePlate>
-            {allDigits || !hasRestriction ? null : (
-              <div>
-                {`${
-                  scheme === Scheme.FirstNumber
-                    ? 'Primer dígito'
-                    : 'Último dígito'
-                } del número de la placa`}
-              </div>
-            )}
           </div>
         );
       })}
