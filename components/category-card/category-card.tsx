@@ -53,7 +53,7 @@ export default function CategoryCard({
     <article
       key={categoryName}
       className={cn(styles.categoryRow, {
-        [styles.na]: numbers.length === 0,
+        [styles.na]: !hasRestriction,
       })}
     >
       <Link href={path}>
@@ -69,7 +69,7 @@ export default function CategoryCard({
       ) : null}
       <LicensePlate
         publicLicense={isPublicLicense(categoryName)}
-        size={numbers.length === 0 ? 'medium' : 'big'}
+        size={hasRestriction ? 'big' : 'medium'}
       >
         {numbersString}
       </LicensePlate>
