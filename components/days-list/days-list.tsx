@@ -6,7 +6,12 @@ import LicensePlate from '../license-plate/license-plate';
 import styles from './days-list.module.scss';
 import utilStyles from '../../styles/utils.module.scss';
 import Date from '../date/date';
-import { pypNumbersToString, listFormat, NA } from '../../utils/utils';
+import {
+  isPublicLicense,
+  pypNumbersToString,
+  listFormat,
+  NA,
+} from '../../utils/utils';
 
 enum Scheme {
   LastNumber,
@@ -16,11 +21,6 @@ enum Scheme {
 type DaysTableProps = {
   categoryData: ICategoryData2;
 };
-
-function isPublicLicense(categoryName: string) {
-  const lowerCaseName = categoryName.toLowerCase();
-  return lowerCaseName === 'taxis' || lowerCaseName.includes('público');
-}
 
 export default function DaysList({ categoryData }: DaysTableProps) {
   const {

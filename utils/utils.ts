@@ -35,3 +35,10 @@ export function listFormat(array: string[]) {
     return `${formatedList}, ${listElement.toLowerCase()}`;
   }, '');
 }
+
+export function isPublicLicense(categoryName: string) {
+  const lowerCaseName = categoryName.toLowerCase();
+  return ['taxis', 'público'].some((category) =>
+    lowerCaseName.includes(category)
+  );
+}
