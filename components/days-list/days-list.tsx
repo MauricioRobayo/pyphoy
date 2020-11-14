@@ -5,7 +5,7 @@ import Hours from '../hours/hours';
 import LicensePlate from '../license-plate/license-plate';
 import styles from './days-list.module.scss';
 import utilStyles from '../../styles/utils.module.scss';
-import PypDate from '../pyp-date/pyp-date';
+import Date from '../date/date';
 import { pypNumbersToString, listFormat, NA } from '../../utils/utils';
 
 enum Scheme {
@@ -46,7 +46,7 @@ export default function DaysList({ categoryData }: DaysTableProps) {
             })}
           >
             <div>
-              <PypDate dateString={date} />
+              <Date dateString={date} />
               {hasRestriction ? (
                 <div>
                   <Hours
