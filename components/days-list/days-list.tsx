@@ -1,4 +1,4 @@
-import { ICategoryData } from '@mauriciorobayo/pyptron';
+import { ICategoryData2 } from '@mauriciorobayo/pyptron';
 import Hours from '../hours/hours';
 import LicensePlate from '../license-plate/license-plate';
 import styles from './days-list.module.scss';
@@ -11,7 +11,7 @@ enum Scheme {
 }
 
 type DaysTableProps = {
-  categoryData: ICategoryData;
+  categoryData: ICategoryData2;
 };
 
 function isPublicLicense(categoryName: string) {

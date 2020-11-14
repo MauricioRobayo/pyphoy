@@ -1,11 +1,16 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { getCitiesMap2, getCityData, ICityData } from '@mauriciorobayo/pyptron';
+import {
+  getCitiesMap2,
+  getCityData2,
+  ICityData2,
+} from '@mauriciorobayo/pyptron';
 import Layout from '../../components/layout/layout';
 import CategoriesList from '../../components/categories-list/categories-list';
 import useDate from '../../hooks/useDate';
+import { getInfoFromSlug } from '../../utils/utils';
 
 type CityProps = {
-  cityData: ICityData;
+  cityData: ICityData2;
 };
 
 export default function City({ cityData }: CityProps) {
@@ -33,7 +38,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const cityData = getCityData(params?.city as string);
+  const citySlug = params?.city as string;
+  const { key: cityKey } = getInfoFromSlug(citySlug, getCitiesMap2());
+  const cityData = getCityData2(cityKey);
   return {
     props: {
       cityData,

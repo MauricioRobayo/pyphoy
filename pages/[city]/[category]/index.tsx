@@ -9,6 +9,7 @@ import {
 import Layout from '../../../components/layout/layout';
 import DaysList from '../../../components/days-list/days-list';
 import useDate from '../../../hooks/useDate';
+import { getInfoFromSlug } from '../../../utils/utils';
 
 type CategoryProps = {
   categoryData: ICategoryData2;
@@ -44,13 +45,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
     fallback: false,
   };
 };
-
-function getInfoFromSlug<T extends { slug: string }>(
-  slug: string,
-  map: T[]
-): T {
-  return map.find((info) => info.slug === slug) as T;
-}
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const citySlug = params?.city as string;
