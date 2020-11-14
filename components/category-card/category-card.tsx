@@ -52,13 +52,13 @@ export default function CategoryCard({
   return (
     <article
       key={categoryName}
-      className={cn(styles.categoryRow, {
+      className={cn(styles.row, {
         [styles.na]: !hasRestriction,
       })}
     >
       <Link href={path}>
         <a>
-          <h4 className={styles.categoryTitle}>{categoryName}</h4>
+          <h4 className={styles.title}>{categoryName}</h4>
         </a>
       </Link>
       {hasRestriction ? (

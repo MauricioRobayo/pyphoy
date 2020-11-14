@@ -1,14 +1,14 @@
-.categoryTitle {
+.title {
   font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 1rem;
 }
-.categoryRow {
+.row {
   padding: 1rem;
   margin: 1rem 0;
   border-radius: 0.5rem;
   background-color: #FFF9C9;
-}
-.na {
-  background-color: #F5F5F5;
+  &.na {
+    background-color: #F5F5F5;
+  }
 }
