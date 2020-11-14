@@ -1,17 +1,17 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import {
   getCitiesMap2,
-  getCityData,
-  ICategoryData,
-  ICategoryMap2,
   ICityMap2,
+  ICategoryMap2,
+  ICategoryData2,
+  getCityData2,
 } from '@mauriciorobayo/pyptron';
 import Layout from '../../../components/layout/layout';
 import DaysList from '../../../components/days-list/days-list';
 import useDate from '../../../hooks/useDate';
 
 type CategoryProps = {
-  categoryData: ICategoryData;
+  categoryData: ICategoryData2;
   cityName: string;
 };
 
@@ -56,17 +56,22 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const citySlug = params?.city as string;
   const categorySlug = params?.category as string;
   const citiesMap = getCitiesMap2();
-  const { name: cityName, categories: categoriesMap } = getInfoFromSlug<
-    ICityMap2
-  >(citySlug, citiesMap);
+  const {
+    key: cityKey,
+    name: cityName,
+    categories: categoriesMap,
+  } = getInfoFromSlug<ICityMap2>(citySlug, citiesMap);
   const { key: categoryKey } = getInfoFromSlug<ICategoryMap2>(
     categorySlug,
     categoriesMap
   );
-  const categoryData = getCityData(citySlug, {
-    category: categorySlug,
-    days: 8,
-  }).categories[categoryKey];
+  const categoryData = getInfoFromSlug<ICategoryData2>(
+    categorySlug,
+    getCityData2(cityKey, {
+      categoryKey: [categoryKey],
+      days: 8,
+    }).categories
+  );
   return {
     props: {
       cityName,
