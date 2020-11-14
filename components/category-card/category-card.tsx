@@ -7,6 +7,7 @@ import Hours from '../hours/hours';
 import LicensePlate from '../license-plate/license-plate';
 import utilStyles from '../../styles/utils.module.scss';
 import styles from './category-card.module.scss';
+import { pypNumbersToString, ALL_DIGITS, NA } from '../../utils/utils';
 
 type CategoryCardProps = {
   path: string;
@@ -21,24 +22,6 @@ function isPublicLicense(categoryName: string) {
   return lowerCaseName === 'taxis' || lowerCaseName.includes('público');
 }
 
-const ALL_DIGITS = 'Todos';
-
-function hasAllDigits(numbers: number[]) {
-  return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].every((num) => numbers.includes(num));
-}
-
-function pypNumbersToString(numbers: number[]) {
-  if (numbers.length === 0) {
-    return 'No aplica';
-  }
-
-  if (hasAllDigits(numbers)) {
-    return ALL_DIGITS;
-  }
-
-  return numbers.join('-');
-}
-
 export default function CategoryCard({
   numbers,
   path,
@@ -48,7 +31,7 @@ export default function CategoryCard({
 }: CategoryCardProps) {
   const numbersString = pypNumbersToString(numbers);
   const allDigits = numbersString === ALL_DIGITS;
-  const hasRestriction = numbers.length > 0;
+  const hasRestriction = numbersString !== NA;
   return (
     <article
       key={categoryName}

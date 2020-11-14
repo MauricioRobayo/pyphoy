@@ -7,6 +7,9 @@
     font-weight: bold;
   }
   .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 1rem;
     background-color: #FFF9C9;
     border-bottom: 1px solid #dbdbdb;
