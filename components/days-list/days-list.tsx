@@ -58,7 +58,7 @@ export default function DaysList({ categoryData }: DaysTableProps) {
   const schemeMessage = scheme === Scheme.FirstNumber ? 'primer' : 'ultimo';
 
   return (
-    <article className={styles.categoryTable}>
+    <article className={styles.list}>
       <h3 className={styles.title}>
         {`Se restringe la circulación de ${vehicleClassesList} según el ${schemeMessage} dígito del número de la placa`}
       </h3>
@@ -67,7 +67,7 @@ export default function DaysList({ categoryData }: DaysTableProps) {
         const hasRestriction = numbers.length > 0;
 
         return (
-          <div key={date} className={styles.categoryRow}>
+          <div key={date} className={styles.row}>
             <PypDate dateString={date} />
             {hasRestriction ? (
               <div>
