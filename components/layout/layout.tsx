@@ -3,6 +3,7 @@ import Head from 'next/head';
 import styles from './Layout.module.scss';
 import Email from '../email/email';
 import CTA from '../call-to-action/call-to-action';
+import LicensePlate from '../license-plate/license-plate';
 
 type LayoutProps = {
   children: ReactNode;
@@ -23,11 +24,7 @@ export default function Layout({ children, home, header }: LayoutProps) {
       <div className={styles.siteContent}>
         {home ? null : (
           <nav>
-            <img
-              className={styles.logo}
-              src="/pyphoy-logo.svg"
-              alt="Pyphoy logo"
-            />
+            <LicensePlate size="large">PYPHOY</LicensePlate>
           </nav>
         )}
         {header}

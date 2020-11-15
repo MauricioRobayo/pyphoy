@@ -5,7 +5,7 @@ import styles from './license-plate.module.scss';
 type LicensePlateProps = {
   children: React.ReactNode;
   publicLicense?: boolean;
-  size?: 'small' | 'medium' | 'big';
+  size?: 'small' | 'medium' | 'large';
 };
 
 export default function LicensePlate({
