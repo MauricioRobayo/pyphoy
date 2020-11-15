@@ -2,9 +2,8 @@
   height: 48px;
 }
 .site {
-  display: flex;
+  display: grid;
   min-height: 100vh;  
-  flex-direction: column;
   align-items: center;
   .siteContent {
     display: flex;

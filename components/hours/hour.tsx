@@ -29,8 +29,13 @@ export default function Hour({ hourData: { hours, comment } }: HourProps) {
       {hasComment && !isAllDay ? <div>{comment}</div> : null}
       <ul className={styles.hours}>
         {hours.map((hour, index) => {
+          /* eslint-disable react/no-array-index-key */
           if (isAllDay) {
-            return <li className={styles.hour}>{ALL_DAY}</li>;
+            return (
+              <li key={index} className={styles.hour}>
+                {ALL_DAY}
+              </li>
+            );
           }
 
           if (isEmptyArray(hour)) {
@@ -38,14 +43,13 @@ export default function Hour({ hourData: { hours, comment } }: HourProps) {
           }
 
           return (
-            /* eslint-disable react/no-array-index-key */
             <li key={index} className={styles.hour}>
               <span>
                 {hour.map((hour24) => convert24toAMPM(hour24)).join(' a ')}
               </span>
             </li>
-            /* eslint-enable */
           );
+          /* eslint-enable */
         })}
       </ul>
     </div>

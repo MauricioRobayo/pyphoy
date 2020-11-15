@@ -1,40 +1,38 @@
-export function weekdayName(day: number): string {
-  return [
-    'domingo',
-    'lunes',
-    'martes',
-    'miércoles',
-    'jueves',
-    'viernes',
-    'sábado',
-  ][day];
+const dateTimeFormatOptions = {
+  weekday: 'long',
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'America/Bogota',
+};
+
+const formatter = new Intl.DateTimeFormat('es-CO', dateTimeFormatOptions);
+
+export function getDateFormattedParts(
+  date: Date = new Date()
+): Intl.DateTimeFormatPart[] {
+  return formatter.formatToParts(date);
 }
 
-export function monthName(month: number): string {
-  return [
-    'enero',
-    'febrero',
-    'marzo',
-    'abril',
-    'mayo',
-    'junio',
-    'julio',
-    'agosto',
-    'septiembre',
-    'octubre',
-    'noviembre',
-    'diciembre',
-  ][month];
+export function getWeekdayName(date: Date = new Date()): string {
+  const parts = getDateFormattedParts(date);
+  const weekdayName = parts.find(
+    ({ type }: Intl.DateTimeFormatPart) => type === 'weekday'
+  ) as Intl.DateTimeFormatPart;
+  return weekdayName.value;
 }
 
-export function localISOString(date: Date): string {
-  const d = new Date(date);
-  d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
-  return d.toISOString().split('T')[0];
+export function getLocalLongDateString(date: Date = new Date()): string {
+  return formatter.format(date);
 }
 
-export function getLongLocalDateString(date: Date = new Date()): string {
-  return `${weekdayName(date.getDay())}, ${date.getDate()} de ${monthName(
-    date.getMonth()
-  )} de ${date.getFullYear()}`;
+export function getLocalShortDateString(date: Date = new Date()): string {
+  const shortDateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+    timeZone: 'America/Bogota',
+  };
+  const f = new Intl.DateTimeFormat('es-CO', shortDateTimeFormatOptions);
+  return f.format(date);
 }

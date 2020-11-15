@@ -1,6 +1,6 @@
 import { InferGetStaticPropsType } from 'next';
 import { getCitiesMap2 } from '@mauriciorobayo/pyptron';
-import useDate from '../hooks/useDate';
+import { getCurrentDate } from '../components/date/utils';
 import Layout from '../components/layout/layout';
 import Select from '../components/select/select';
 
@@ -19,13 +19,13 @@ export const getStaticProps = async () => {
 export default function Home({
   selectOptions,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const { ISODateString, localDateString } = useDate();
+  const { ISODateString, longLocalDateString } = getCurrentDate();
 
   const header = (
     <header>
       <h1>Pico y placa hoy</h1>
       <h2>
-        <time dateTime={ISODateString}>{localDateString}</time>
+        <time dateTime={ISODateString}>{longLocalDateString}</time>
       </h2>
     </header>
   );
