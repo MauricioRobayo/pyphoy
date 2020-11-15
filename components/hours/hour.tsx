@@ -28,7 +28,7 @@ export default function Hour({ hourData: { hours, comment } }: HourProps) {
     <div>
       {hasComment && !isAllDay ? <div>{comment}</div> : null}
       <ul className={styles.hours}>
-        {hours.map((hour) => {
+        {hours.map((hour, index) => {
           if (isAllDay) {
             return <li className={styles.hour}>{ALL_DAY}</li>;
           }
@@ -38,11 +38,13 @@ export default function Hour({ hourData: { hours, comment } }: HourProps) {
           }
 
           return (
-            <li key={JSON.stringify(hour)} className={styles.hour}>
+            /* eslint-disable react/no-array-index-key */
+            <li key={index} className={styles.hour}>
               <span>
                 {hour.map((hour24) => convert24toAMPM(hour24)).join(' a ')}
               </span>
             </li>
+            /* eslint-enable */
           );
         })}
       </ul>
