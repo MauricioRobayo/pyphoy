@@ -8,7 +8,7 @@ type CategoryListProps = {
 
 export default function CategoriesList({ categories }: CategoryListProps) {
   return (
-    <div className={styles.categoryTable}>
+    <div className={styles.list}>
       <h3 className={styles.title}>
         Se restringe la circulación de los siguientes vehículos
       </h3>

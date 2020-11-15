@@ -1,7 +1,8 @@
-.categoryTable {
+.list {
   max-width: 570px;
-  margin: auto;
-  text-align: center;
+  display: grid;
+  gap: 1rem;
+  justify-content: center;
   .title {
     font-size: 1.4rem;
     font-weight: bold;

@@ -35,7 +35,7 @@ export default function CategoryCard({
   return (
     <article
       key={categoryName}
-      className={cn(styles.row, {
+      className={cn(styles.card, {
         [styles.na]: !hasRestriction,
       })}
     >

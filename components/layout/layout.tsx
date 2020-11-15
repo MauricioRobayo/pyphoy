@@ -24,7 +24,7 @@ export default function Layout({ children, home, header }: LayoutProps) {
         {home ? null : (
           <nav>
             <img
-              className={styles.pypLogo}
+              className={styles.logo}
               src="/pyphoy-logo.svg"
               alt="Pyphoy logo"
             />
