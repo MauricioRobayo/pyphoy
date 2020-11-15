@@ -1,11 +1,7 @@
 import { ICategoryData2 } from '@mauriciorobayo/pyptron';
-import cn from 'classnames';
 
-import Hours from '../hours/hours';
-import LicensePlate from '../license-plate/license-plate';
+import DayCard from '../day-card/day-card';
 import styles from './days-list.module.scss';
-import utilStyles from '../../styles/utils.module.scss';
-import Date from '../date/date';
 import {
   isPublicLicense,
   pypNumbersToString,
@@ -37,33 +33,14 @@ export default function DaysList({ categoryData }: DaysTableProps) {
       </h3>
       {categoryData.data.map(({ date, numbers, hours }) => {
         const numbersString = pypNumbersToString(numbers);
-        const hasRestriction = numbersString !== NA;
         return (
-          <div
-            key={date}
-            className={cn(styles.row, {
-              [styles.na]: !hasRestriction,
-            })}
-          >
-            <div>
-              <Date dateString={date} />
-              {hasRestriction ? (
-                <div>
-                  <Hours
-                    className={utilStyles.mx_1}
-                    hours={hours}
-                    interactive
-                  />
-                </div>
-              ) : null}
-            </div>
-            <LicensePlate
-              publicLicense={isPublicLicense(categoryName)}
-              size={hasRestriction ? 'big' : 'medium'}
-            >
-              {numbersString}
-            </LicensePlate>
-          </div>
+          <DayCard
+            date={date}
+            numbersString={numbersString}
+            hours={hours}
+            isPublicLicense={isPublicLicense(categoryName)}
+            hasRestriction={numbersString !== NA}
+          />
         );
       })}
     </article>
