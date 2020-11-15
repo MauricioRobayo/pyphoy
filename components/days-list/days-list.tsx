@@ -12,7 +12,6 @@ import {
   listFormat,
   NA,
 } from '../../utils/utils';
-import useCurrentDate from '../../hooks/useCurrentDate';
 
 enum Scheme {
   LastNumber,
@@ -30,8 +29,6 @@ export default function DaysList({ categoryData }: DaysTableProps) {
   } = categoryData;
   const vehicleClassesList = listFormat(vehicleClasses);
   const schemeMessage = scheme === Scheme.FirstNumber ? 'primer' : 'último';
-  const currentDate = useCurrentDate();
-  console.log({ currentDate });
 
   return (
     <article className={styles.list}>

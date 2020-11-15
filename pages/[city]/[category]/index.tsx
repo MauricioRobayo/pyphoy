@@ -8,7 +8,7 @@ import {
 } from '@mauriciorobayo/pyptron';
 import Layout from '../../../components/layout/layout';
 import DaysList from '../../../components/days-list/days-list';
-import useDate from '../../../hooks/useDate';
+import { getLongLocalDateString } from '../../../components/date/utils';
 import { getInfoFromSlug } from '../../../utils/utils';
 
 type CategoryProps = {
@@ -17,11 +17,11 @@ type CategoryProps = {
 };
 
 export default function Category({ categoryData, cityName }: CategoryProps) {
-  const { localDateString } = useDate();
+  const longLocalDateString = getLongLocalDateString();
   const header = (
     <header>
       <h1>{`Pico y placa ${categoryData.name.toLowerCase()} en ${cityName}`}</h1>
-      <h2>{localDateString}</h2>
+      <h2>{longLocalDateString}</h2>
     </header>
   );
 

@@ -6,7 +6,7 @@ import {
 } from '@mauriciorobayo/pyptron';
 import Layout from '../../components/layout/layout';
 import CategoriesList from '../../components/categories-list/categories-list';
-import useDate from '../../hooks/useDate';
+import { getLongLocalDateString } from '../../components/date/utils';
 import { getInfoFromSlug } from '../../utils/utils';
 
 type CityProps = {
@@ -14,11 +14,11 @@ type CityProps = {
 };
 
 export default function City({ cityData }: CityProps) {
-  const { localDateString } = useDate();
+  const longLocalDateString = getLongLocalDateString();
   const header = (
     <header>
       <h1>{`Pico y placa ${cityData.name}`}</h1>
-      <h2>{localDateString}</h2>
+      <h2>{longLocalDateString}</h2>
     </header>
   );
 
