@@ -6,7 +6,7 @@ import {
 } from '@mauriciorobayo/pyptron';
 import Layout from '../../components/layout/layout';
 import CategoriesList from '../../components/categories-list/categories-list';
-import PypDate from '../../components/date/date';
+import Date from '../../components/date/date';
 import { getInfoFromSlug } from '../../utils/utils';
 
 type CityProps = {
@@ -18,7 +18,7 @@ export default function City({ cityData }: CityProps) {
     <header>
       <h1>{`Pico y placa ${cityData.name}`}</h1>
       <h2>
-        <PypDate />
+        <Date />
       </h2>
     </header>
   );

@@ -29,7 +29,7 @@ export default function DayCard({
       })}
     >
       <div>
-        <Date dateString={date} />
+        <Date date={date} type="short" />
         {hasRestriction ? (
           <div>
             <Hours hours={hours} interactive />

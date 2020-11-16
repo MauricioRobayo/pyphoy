@@ -8,7 +8,7 @@ import {
 } from '@mauriciorobayo/pyptron';
 import Layout from '../../../components/layout/layout';
 import DaysList from '../../../components/days-list/days-list';
-import PypDate from '../../../components/date/date';
+import Date from '../../../components/date/date';
 import { getInfoFromSlug } from '../../../utils/utils';
 
 type CategoryProps = {
@@ -21,7 +21,7 @@ export default function Category({ categoryData, cityName }: CategoryProps) {
     <header>
       <h1>{`Pico y placa ${categoryData.name.toLowerCase()} en ${cityName}`}</h1>
       <h2>
-        <PypDate />
+        <Date />
       </h2>
     </header>
   );

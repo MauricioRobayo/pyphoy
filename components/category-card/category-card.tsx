@@ -5,7 +5,6 @@ import cn from 'classnames';
 import { Scheme } from '../../types';
 import Hours from '../hours/hours';
 import LicensePlate from '../license-plate/license-plate';
-import utilStyles from '../../styles/utils.module.scss';
 import styles from './category-card.module.scss';
 import { pypNumbersToString, ALL_DIGITS, NA } from '../../utils/utils';
 
@@ -47,7 +46,7 @@ export default function CategoryCard({
       {hasRestriction ? (
         <div>
           <h5>Horario</h5>
-          <Hours className={utilStyles.mx_1} hours={hours} interactive />
+          <Hours hours={hours} interactive />
         </div>
       ) : null}
       <LicensePlate
