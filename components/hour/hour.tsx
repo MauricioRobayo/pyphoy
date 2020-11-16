@@ -1,20 +1,8 @@
 import { IHourData } from '@mauriciorobayo/pyptron';
+
+import { isEmptyArray, convert24toAMPM } from './utils';
 import styles from './hour.module.scss';
 import { ALL_DAY } from '../../utils/utils';
-
-function convert24toAMPM(hour24: string) {
-  if (hour24 === '12:00') return `${hour24}m.`;
-  const [hours, minutes] = hour24.split(':');
-  const hoursNumber = parseInt(hours, 10);
-  if (hoursNumber === 12) return `${hour24}pm`;
-  return hoursNumber > 12
-    ? `${hoursNumber - 12}:${minutes}pm`
-    : `${hoursNumber}:${minutes}am`;
-}
-
-function isEmptyArray(array: [string, string] | []): array is [] {
-  return array.length === 0;
-}
 
 type HourProps = {
   hourData: IHourData;
