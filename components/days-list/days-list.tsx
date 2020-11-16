@@ -35,6 +35,7 @@ export default function DaysList({ categoryData }: DaysTableProps) {
         const numbersString = pypNumbersToString(numbers);
         return (
           <DayCard
+            key={date}
             date={date}
             numbersString={numbersString}
             hours={hours}
