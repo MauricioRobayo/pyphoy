@@ -21,13 +21,13 @@ export default function Layout({ children, home, header }: LayoutProps) {
         </title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      {home ? null : (
+        <nav>
+          <LicensePlate size="large">PYPHOY</LicensePlate>
+        </nav>
+      )}
+      {header}
       <div className={styles.siteContent}>
-        {home ? null : (
-          <nav>
-            <LicensePlate size="large">PYPHOY</LicensePlate>
-          </nav>
-        )}
-        {header}
         <main className={styles.mainContent}>{children}</main>
         {home ? null : <CTA />}
       </div>
