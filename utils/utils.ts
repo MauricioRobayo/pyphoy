@@ -42,7 +42,3 @@ export function isPublicLicense(categoryName: string) {
     lowerCaseName.includes(category)
   );
 }
-
-export function currentDate() {
-  return new Date();
-}
