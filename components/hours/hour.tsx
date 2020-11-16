@@ -1,5 +1,6 @@
 import { IHourData } from '@mauriciorobayo/pyptron';
 import styles from './hour.module.scss';
+import { ALL_DAY } from '../../utils/utils';
 
 function convert24toAMPM(hour24: string) {
   if (hour24 === '12:00') return `${hour24}m.`;
@@ -20,7 +21,6 @@ type HourProps = {
 };
 
 export default function Hour({ hourData: { hours, comment } }: HourProps) {
-  const ALL_DAY = 'Todo el día';
   const hasComment = comment !== '';
   const isAllDay = comment === ALL_DAY;
 

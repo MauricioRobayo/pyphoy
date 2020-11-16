@@ -1,5 +1,6 @@
 export const ALL_DIGITS = 'Todos';
 export const NA = 'No aplica';
+export const ALL_DAY = 'Todo el día';
 
 export function getInfoFromSlug<T extends { slug: string }>(
   slug: string,
