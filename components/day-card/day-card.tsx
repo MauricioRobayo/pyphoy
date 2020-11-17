@@ -42,7 +42,7 @@ export default function DayCard({
         >
           <Date date={date} type="short" />
         </div>
-        {hasRestriction ? (
+        {hasRestriction && isToday ? (
           <div>
             <Hours hours={hours} interactive />
           </div>
@@ -50,7 +50,7 @@ export default function DayCard({
       </div>
       <LicensePlate
         publicLicense={isPublicLicense}
-        size={hasRestriction ? 'large' : 'medium'}
+        size={isToday ? 'large' : 'medium'}
       >
         {numbersString}
       </LicensePlate>
