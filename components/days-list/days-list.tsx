@@ -21,6 +21,7 @@ type DaysTableProps = {
 export default function DaysList({ categoryData }: DaysTableProps) {
   const {
     name: categoryName,
+    key: categoryKey,
     data: [{ vehicleClasses, scheme }],
   } = categoryData;
   const vehicleClassesList = listFormat(vehicleClasses);
@@ -29,12 +30,23 @@ export default function DaysList({ categoryData }: DaysTableProps) {
   return (
     <article className={styles.list}>
       <h3 className={styles.title}>
-        {`Se restringe la circulación de ${vehicleClassesList} según el ${schemeMessage} dígito del número de la placa`}
+        Se restringe la circulación de
+        {' '}
+        <strong className={styles.strong}>{vehicleClassesList}</strong>
+        {' '}
+        según el
+        {' '}
+        <strong className={styles.strong}>
+          {schemeMessage}
+          {' '}
+          dígito del número de la placa
+        </strong>
       </h3>
       {categoryData.data.map(({ date, numbers, hours }) => {
         const numbersString = pypNumbersToString(numbers);
         return (
           <DayCard
+            categoryKey={categoryKey}
             key={date}
             date={date}
             numbersString={numbersString}

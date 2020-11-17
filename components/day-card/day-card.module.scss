@@ -9,4 +9,37 @@
     background-color: #f5f5f5;
     color: #b5b5b5;
   }
+  .title {
+    margin-bottom: 1rem;
+  }
+  .today {
+    font-size: 1.25rem;
+  }
+  *::before {
+    margin-right: 0.5rem;
+  }
+  .taxis::before {
+    content: '🚕';
+  }
+  .particulares::before {
+    content: '🚗';
+  }
+  .tpc::before {
+    content: '🚌';
+  }
+  .motos::before {
+    content: '🛵';
+  }
+  .motocarros::before {
+    content: '';
+  }
+  .especial::before {
+    content: '🚐';
+  }
+  .ambiental::before {
+    content: '🌻';
+  }
+  .carga::before {
+    content: '🚛';
+  } 
 }

@@ -36,3 +36,15 @@ export function getLocalShortDateString(date: Date = new Date()): string {
   const f = new Intl.DateTimeFormat('es-CO', shortDateTimeFormatOptions);
   return f.format(date);
 }
+
+export function dateIsToday(date: Date | string): boolean {
+  const currentDate = new Date(date);
+  const today = new Date();
+  currentDate.setUTCHours(5, 0, 0, 0); // Colombian TZ
+  today.setUTCHours(5, 0, 0, 0); // Colombian TZ
+
+  const currentDateISOString = currentDate.toISOString();
+  const todayISOString = today.toISOString();
+
+  return todayISOString.substr(0, 10) === currentDateISOString.substr(0, 10);
+}

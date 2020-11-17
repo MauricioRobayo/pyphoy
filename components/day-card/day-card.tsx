@@ -3,10 +3,12 @@ import { IHourData } from '@mauriciorobayo/pyptron';
 
 import LicensePlate from '../license-plate/license-plate';
 import Date from '../date/date';
+import { dateIsToday } from '../date/utils';
 import Hours from '../hours/hours';
 import styles from './day-card.module.scss';
 
 type DayCardProps = {
+  categoryKey: string;
   date: string;
   numbersString: string;
   hours: IHourData[];
@@ -15,12 +17,14 @@ type DayCardProps = {
 };
 
 export default function DayCard({
+  categoryKey,
   date,
   numbersString,
   hours,
   isPublicLicense,
   hasRestriction,
 }: DayCardProps) {
+  const isToday = dateIsToday(date);
   return (
     <div
       key={date}
@@ -29,7 +33,14 @@ export default function DayCard({
       })}
     >
       <div>
-        <Date date={date} type="short" />
+        <div
+          className={cn(styles.title, {
+            [styles[categoryKey]]: isToday,
+            [styles.today]: isToday,
+          })}
+        >
+          <Date date={date} type="short" />
+        </div>
         {hasRestriction ? (
           <div>
             <Hours hours={hours} interactive />

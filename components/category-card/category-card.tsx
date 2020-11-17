@@ -51,7 +51,7 @@ export default function CategoryCard({
       ) : null}
       <LicensePlate
         publicLicense={isPublicLicense(categoryName)}
-        size={hasRestriction ? 'big' : 'medium'}
+        size={hasRestriction ? 'large' : 'medium'}
       >
         {numbersString}
       </LicensePlate>

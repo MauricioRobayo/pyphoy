@@ -14,7 +14,9 @@ export default function Hour({ hourData: { hours, comment } }: HourProps) {
 
   return (
     <div>
-      {hasComment && !isAllDay ? <div>{comment}</div> : null}
+      {hasComment && !isAllDay ? (
+        <div className={styles.title}>{comment}</div>
+      ) : null}
       <ul className={styles.hours}>
         {hours.map((hour, index) => {
           /* eslint-disable react/no-array-index-key */

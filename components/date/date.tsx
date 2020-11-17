@@ -2,6 +2,7 @@ import {
   getWeekdayName,
   getLocalShortDateString,
   getLocalLongDateString,
+  dateIsToday,
 } from './utils';
 import styles from './date.module.scss';
 
@@ -20,10 +21,8 @@ export default function PypDate({
   today.setUTCHours(5, 0, 0, 0); // Colombian TZ
 
   const currentDateISOString = currentDate.toISOString();
-  const todayISOString = today.toISOString();
 
-  const isToday =
-    todayISOString.substr(0, 10) === currentDateISOString.substr(0, 10);
+  const isToday = dateIsToday(date);
 
   if (type === 'long') {
     const localLongDateString = getLocalLongDateString(currentDate);
