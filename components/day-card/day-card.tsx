@@ -29,6 +29,7 @@ export default function DayCard({
     <div
       key={date}
       className={cn(styles.card, {
+        [styles.today]: isToday,
         [styles.na]: !hasRestriction,
       })}
     >

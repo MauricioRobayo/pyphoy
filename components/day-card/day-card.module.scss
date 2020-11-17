@@ -5,6 +5,10 @@
   padding: 1rem;
   background-color: #FFF9C9;
   border-bottom: 1px solid #dbdbdb;
+  &.today {
+    box-shadow: 0 0 10px 0 #7a7a7a;
+    position: relative;
+  }
   &.na {
     background-color: #f5f5f5;
     color: #b5b5b5;
