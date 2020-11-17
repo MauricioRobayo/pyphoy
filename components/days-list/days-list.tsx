@@ -7,12 +7,8 @@ import {
   pypNumbersToString,
   listFormat,
   NA,
+  Scheme,
 } from '../../utils/utils';
-
-enum Scheme {
-  LastNumber,
-  FirstNumber,
-}
 
 type DaysTableProps = {
   categoryData: ICategoryData2;
@@ -46,6 +42,7 @@ export default function DaysList({ categoryData }: DaysTableProps) {
         const numbersString = pypNumbersToString(numbers);
         return (
           <DayCard
+            scheme={scheme}
             categoryKey={categoryKey}
             key={date}
             date={date}

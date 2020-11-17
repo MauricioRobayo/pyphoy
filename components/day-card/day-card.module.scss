@@ -3,10 +3,10 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background-color: #FFF9C9;
   border: 1px solid #dbdbdb;
   border-top: none;
   &.today {
+    background-color: #FFF9C9;
     align-items: start;
     box-shadow: 0 0 10px 0 #7a7a7a;
     position: relative;
@@ -19,6 +19,12 @@
   &.na {
     background-color: #f5f5f5;
     color: #b5b5b5;
+  }
+  .license {
+    text-align: right;
+  }
+  .scheme {
+    margin-top: 0.5rem;
   }
   .today {
     font-size: 1.25rem;

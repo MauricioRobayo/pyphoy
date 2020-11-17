@@ -3,11 +3,13 @@ import { IHourData } from '@mauriciorobayo/pyptron';
 
 import LicensePlate from '../license-plate/license-plate';
 import Date from '../date/date';
+import { Scheme } from '../../utils/utils';
 import { dateIsToday } from '../date/utils';
 import Hours from '../hours/hours';
 import styles from './day-card.module.scss';
 
 type DayCardProps = {
+  scheme: Scheme;
   categoryKey: string;
   date: string;
   numbersString: string;
@@ -17,6 +19,7 @@ type DayCardProps = {
 };
 
 export default function DayCard({
+  scheme,
   categoryKey,
   date,
   numbersString,
@@ -24,6 +27,7 @@ export default function DayCard({
   isPublicLicense,
   hasRestriction,
 }: DayCardProps) {
+  const schemeMessage = scheme === Scheme.FirstNumber ? 'primer' : 'último';
   const isToday = dateIsToday(date);
   return (
     <div
@@ -48,12 +52,25 @@ export default function DayCard({
           </div>
         ) : null}
       </div>
-      <LicensePlate
-        publicLicense={isPublicLicense}
-        size={isToday ? 'large' : 'medium'}
-      >
-        {numbersString}
-      </LicensePlate>
+      <div className={styles.license}>
+        <LicensePlate
+          publicLicense={isPublicLicense}
+          size={isToday ? 'large' : 'medium'}
+        >
+          {numbersString}
+        </LicensePlate>
+        {hasRestriction && isToday ? (
+          <div className={styles.scheme}>
+            <span role="img" aria-label="No circulan" title="No circulan">
+              🛑
+            </span>
+            {' '}
+            {schemeMessage}
+            {' '}
+            dígito
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 }

@@ -2,6 +2,11 @@ export const ALL_DIGITS = 'Todos';
 export const NA = 'No aplica';
 export const ALL_DAY = 'Todo el día';
 
+export enum Scheme {
+  LastNumber,
+  FirstNumber,
+}
+
 export function getInfoFromSlug<T extends { slug: string }>(
   slug: string,
   map: T[]
@@ -26,15 +31,17 @@ export function pypNumbersToString(numbers: number[]) {
 }
 
 export function listFormat(array: string[]) {
-  return array.reduce((formatedList, listElement, index) => {
-    if (index === 0) {
-      return listElement.toLowerCase();
-    }
-    if (index === array.length - 1) {
-      return `${formatedList} y ${listElement.toLowerCase()}`;
-    }
-    return `${formatedList}, ${listElement.toLowerCase()}`;
-  }, '');
+  return array
+    .reduce((formatedList, listElement, index) => {
+      if (index === 0) {
+        return listElement.toLowerCase();
+      }
+      if (index === array.length - 1) {
+        return `${formatedList} y ${listElement.toLowerCase()}`;
+      }
+      return `${formatedList}, ${listElement.toLowerCase()}`;
+    }, '')
+    .replace(/\.$/, '');
 }
 
 export function isPublicLicense(categoryName: string) {
