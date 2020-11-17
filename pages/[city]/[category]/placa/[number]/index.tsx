@@ -6,17 +6,21 @@ import {
   ICategoryData2,
   getCityData2,
 } from '@mauriciorobayo/pyptron';
-import Layout from '../../../components/layout/layout';
-import DaysList from '../../../components/days-list/days-list';
-import Date from '../../../components/date/date';
-import { getInfoFromSlug } from '../../../utils/utils';
+import Layout from '../../../../../components/layout/layout';
+import Date from '../../../../../components/date/date';
+import { getInfoFromSlug } from '../../../../../utils/utils';
 
 type CategoryProps = {
   categoryData: ICategoryData2;
   cityName: string;
+  number: string;
 };
 
-export default function Category({ categoryData, cityName }: CategoryProps) {
+export default function Category({
+  categoryData,
+  cityName,
+  number,
+}: CategoryProps) {
   const header = (
     <header>
       <h1>{`Pico y placa ${categoryData.name.toLowerCase()} en ${cityName}`}</h1>
@@ -28,21 +32,31 @@ export default function Category({ categoryData, cityName }: CategoryProps) {
 
   return (
     <Layout header={header}>
-      <DaysList cityName={cityName} categoryData={categoryData} />
+      Hello
+      {number}
     </Layout>
-  );
+);
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const citiesMap = getCitiesMap2();
+  const paths: any = [];
+  citiesMap.forEach(({ slug: citySlug, categories }) => {
+    categories.forEach(({ slug: categorySlug }) => {
+      const numbers =
+        citySlug === 'manizales' &&
+        categorySlug === 'transporte-publico-colectivo'
+          ? ['H', 'I', 'J', 'A', 'B', 'C', 'D', 'E', 'F', 'G']
+          : ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+      numbers.forEach((number) =>
+        paths.push({
+          params: { city: citySlug, category: categorySlug, number },
+        })
+      );
+    });
+  });
   return {
-    paths: citiesMap
-      .map(({ slug: citySlug, categories }) => {
-        return categories.map(({ slug: categorySlug }) => {
-          return { params: { city: citySlug, category: categorySlug } };
-        });
-      })
-      .flat(),
+    paths,
     fallback: false,
   };
 };
@@ -71,6 +85,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       cityName,
       categoryData,
+      number: params?.number,
     },
   };
 };

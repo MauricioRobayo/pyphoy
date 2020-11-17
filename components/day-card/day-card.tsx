@@ -3,7 +3,7 @@ import { IHourData } from '@mauriciorobayo/pyptron';
 
 import LicensePlate from '../license-plate/license-plate';
 import Date from '../date/date';
-import { Scheme } from '../../utils/utils';
+import { Scheme, ALL_DIGITS } from '../../utils/utils';
 import { dateIsToday } from '../date/utils';
 import Hours from '../hours/hours';
 import styles from './day-card.module.scss';
@@ -28,6 +28,7 @@ export default function DayCard({
   hasRestriction,
 }: DayCardProps) {
   const schemeMessage = scheme === Scheme.FirstNumber ? 'primer' : 'último';
+  const isAllDigits = numbersString === ALL_DIGITS;
   const isToday = dateIsToday(date);
   return (
     <div
@@ -59,7 +60,7 @@ export default function DayCard({
         >
           {numbersString}
         </LicensePlate>
-        {hasRestriction && isToday ? (
+        {hasRestriction && !isAllDigits && isToday ? (
           <div className={styles.scheme}>
             <span role="img" aria-label="No circulan" title="No circulan">
               🛑
