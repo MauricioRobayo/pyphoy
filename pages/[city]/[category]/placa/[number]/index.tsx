@@ -23,7 +23,7 @@ export default function Category({
 }: CategoryProps) {
   const header = (
     <header>
-      <h1>{`Pico y placa ${categoryData.name.toLowerCase()} en ${cityName}`}</h1>
+      <h1>{`Pico y placa ${categoryData.name.toLowerCase()} en ${cityName} placas ${number}`}</h1>
       <h2>
         <Date />
       </h2>
@@ -35,7 +35,7 @@ export default function Category({
       Hello
       {number}
     </Layout>
-);
+  );
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {

@@ -27,8 +27,8 @@ export default function Layout({ children, home, header }: LayoutProps) {
         </nav>
       )}
       {header}
-      <div className={styles.siteContent}>
-        <main className={styles.mainContent}>{children}</main>
+      <div className={styles.site}>
+        <main className={styles.main}>{children}</main>
         {home ? null : <CTA />}
       </div>
       <footer className={styles.footer}>

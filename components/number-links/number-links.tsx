@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import styles from './number-links.module.scss';
+
 type NumberLinksProps = {
   path: string;
   cityName: string;
@@ -17,13 +19,15 @@ export default function NumberLinks({
       : ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
   return (
-    <>
-      <div>¿Cuándo tengo pico y placa?</div>
-      {numbers.map((pypNumber) => (
-        <Link href={`/${path}/placa/${pypNumber}`}>
-          <a>{pypNumber}</a>
-        </Link>
-      ))}
-    </>
+    <div className={styles.numberLinks}>
+      <h4 className={styles.title}>¿Cuándo tengo pico y placa?</h4>
+      <div>
+        {numbers.map((pypNumber) => (
+          <Link href={`/${path}/placa/${pypNumber}`}>
+            <a>{pypNumber}</a>
+          </Link>
+        ))}
+      </div>
+    </div>
   );
 }
