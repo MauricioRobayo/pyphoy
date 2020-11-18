@@ -1,7 +1,7 @@
-import Link from 'next/link';
 import { ICategoryData2 } from '@mauriciorobayo/pyptron';
 
 import DayCard from '../day-card/day-card';
+import NumberLinks from '../number-links/number-links';
 import styles from './days-list.module.scss';
 import {
   isPublicLicense,
@@ -25,11 +25,6 @@ export default function DaysList({ cityName, categoryData }: DaysTableProps) {
   } = categoryData;
   const vehicleClassesList = listFormat(vehicleClasses);
   const schemeMessage = scheme === Scheme.FirstNumber ? 'primer' : 'último';
-  // console.log({cityName, categoryName})
-  const pypNumbers =
-    cityName === 'Manizales' && categoryName === 'Transporte publico colectivo'
-      ? ['H', 'I', 'J', 'A', 'B', 'C', 'D', 'E', 'F', 'G']
-      : ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
   return (
     <article className={styles.list}>
       <main>
@@ -64,13 +59,11 @@ export default function DaysList({ cityName, categoryData }: DaysTableProps) {
         })}
       </main>
       <footer>
-        <div>¿Cuándo tengo pico y placa?</div>
-        {console.log({ categoryPath })}
-        {pypNumbers.map((pypNumber) => (
-          <Link href={`/${categoryPath}/placa/${pypNumber}`}>
-            <a>{pypNumber}</a>
-          </Link>
-        ))}
+        <NumberLinks
+          path={categoryPath}
+          cityName={cityName}
+          categoryName={categoryName}
+        />
       </footer>
     </article>
   );
