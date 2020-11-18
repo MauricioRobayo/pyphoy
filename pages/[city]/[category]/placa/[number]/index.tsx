@@ -6,9 +6,13 @@ import {
   ICategoryData2,
   getCityData2,
 } from '@mauriciorobayo/pyptron';
+
 import Layout from '../../../../../components/layout/layout';
 import Date from '../../../../../components/date/date';
-import { getInfoFromSlug } from '../../../../../utils/utils';
+import { getInfoFromSlug, Scheme } from '../../../../../utils/utils';
+import NumberLinks from '../../../../../components/number-links/number-links';
+import Hours from '../../../../../components/hours/hours';
+import LicensePlate from '../../../../../components/license-plate/license-plate';
 
 type CategoryProps = {
   categoryData: ICategoryData2;
@@ -21,19 +25,39 @@ export default function Category({
   cityName,
   number,
 }: CategoryProps) {
+  const {
+    name: categoryName,
+    path: categoryPath,
+    data: [pypData],
+  } = categoryData;
   const header = (
     <header>
       <h1>{`Pico y placa ${categoryData.name.toLowerCase()} en ${cityName} placas ${number}`}</h1>
-      <h2>
-        <Date />
-      </h2>
     </header>
   );
+  const hasRestriction = pypData.numbers.includes(Number(number));
 
   return (
     <Layout header={header}>
-      Hello
-      {number}
+      <div>
+        <Date />, las placas{' '}
+        {pypData.scheme === Scheme.FirstNumber ? 'terminadas' : 'iniciadas'} en{' '}
+        <LicensePlate>{number}</LicensePlate>{' '}
+        {hasRestriction
+          ? 'tienen restricción en los siguientes horarios:'
+          : 'no tienen restricción.'}
+      </div>
+      {hasRestriction ? (
+        <div>
+          <Hours hours={pypData.hours} />
+        </div>
+      ) : null}
+      <NumberLinks
+        path={categoryPath}
+        cityName={cityName}
+        categoryName={categoryName}
+        numberSelected={number}
+      />
     </Layout>
   );
 }
@@ -78,7 +102,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     categorySlug,
     getCityData2(cityKey, {
       categoryKey: [categoryKey],
-      days: 8,
+      days: 30,
     }).categories
   );
   return {
