@@ -6,13 +6,19 @@ import {
   ICategoryData2,
   getCityData2,
 } from '@mauriciorobayo/pyptron';
+import cn from 'classnames';
 
 import Layout from '../../../../../components/layout/layout';
 import Date from '../../../../../components/date/date';
-import { getInfoFromSlug, Scheme } from '../../../../../utils/utils';
+import {
+  getInfoFromSlug,
+  listFormat,
+  Scheme,
+} from '../../../../../utils/utils';
 import NumberLinks from '../../../../../components/number-links/number-links';
 import Hours from '../../../../../components/hours/hours';
 import LicensePlate from '../../../../../components/license-plate/license-plate';
+import styles from './index.module.scss';
 
 type CategoryProps = {
   categoryData: ICategoryData2;
@@ -36,24 +42,60 @@ export default function Category({
     </header>
   );
   const hasRestriction = pypData.numbers.includes(Number(number));
+  const schemeString =
+    pypData.scheme === Scheme.FirstNumber ? 'terminadas' : 'iniciadas';
+  const licenseString = (
+    <>
+      las placas {schemeString} en <LicensePlate>{number}</LicensePlate>
+    </>
+  );
 
   return (
     <Layout header={header}>
-      <div>
-        <Date />, las placas{' '}
-        {pypData.scheme === Scheme.FirstNumber ? 'terminadas' : 'iniciadas'} en{' '}
-        <LicensePlate>{number}</LicensePlate>{' '}
-        {hasRestriction ? (
-          'tienen restricción en los siguientes horarios:'
-        ) : (
-          <strong>no tienen restricción.</strong>
-        )}
+      <div
+        className={cn(styles.semaphore, {
+          [styles.hasRestriction]: hasRestriction,
+        })}
+      >
+        {number}
+      </div>
+      <div className={styles.title}>
+        <Date />, {licenseString}{' '}
+        <strong>
+          {hasRestriction
+            ? 'tienen restricción en los siguientes horarios:'
+            : 'no tienen restricción.'}
+        </strong>
       </div>
       {hasRestriction ? (
         <div>
           <Hours hours={pypData.hours} />
         </div>
-      ) : null}
+      ) : (
+        <div>
+          Hoy tienen pico y placa los {listFormat(pypData.vehicleClasses)} con
+          placas {schemeString} en{' '}
+          <LicensePlate>{pypData.numbers.join('-')}</LicensePlate>.
+        </div>
+      )}
+      <div>
+        <h4>Prográmese</h4>
+        <div>
+          En los próximos 30 días {licenseString} tienen pico y placa los días:
+          <ol>
+            {categoryData.data.map((data) => {
+              if (data.numbers.includes(Number(number))) {
+                return (
+                  <li key={data.date}>
+                    <Date date={data.date} />
+                  </li>
+                );
+              }
+              return null;
+            })}
+          </ol>
+        </div>
+      </div>
       <NumberLinks
         path={categoryPath}
         cityName={cityName}
