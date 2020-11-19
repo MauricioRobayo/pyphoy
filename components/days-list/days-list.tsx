@@ -27,14 +27,11 @@ export default function DaysList({ cityName, categoryData }: DaysTableProps) {
   const schemeMessage = scheme === Scheme.FirstNumber ? 'primer' : 'último';
   return (
     <article className={styles.list}>
-      <header>
-        <h3 className={styles.title}>
-          Se restringe la circulación de <strong>{vehicleClassesList}</strong>{' '}
-          según el{' '}
-          <strong>{schemeMessage} dígito del número de la placa</strong>
-        </h3>
-      </header>
-      <main>
+      <h3 className={styles.title}>
+        Se restringe la circulación de <strong>{vehicleClassesList}</strong>{' '}
+        según el <strong>{schemeMessage} dígito del número de la placa</strong>
+      </h3>
+      <div>
         {categoryData.data.map(({ date, numbers, hours }) => {
           const numbersString = pypNumbersToString(numbers);
           return (
@@ -50,7 +47,7 @@ export default function DaysList({ cityName, categoryData }: DaysTableProps) {
             />
           );
         })}
-      </main>
+      </div>
       <footer className={styles.footer}>
         <NumberLinks
           path={categoryPath}
