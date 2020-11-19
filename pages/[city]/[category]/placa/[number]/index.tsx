@@ -32,7 +32,7 @@ export default function Category({
   } = categoryData;
   const header = (
     <header>
-      <h1>{`Pico y placa ${categoryData.name.toLowerCase()} en ${cityName} placas ${number}`}</h1>
+      <h1>{`Pico y placa ${categoryData.name.toLowerCase()} en ${cityName} placa ${number}`}</h1>
     </header>
   );
   const hasRestriction = pypData.numbers.includes(Number(number));
@@ -43,9 +43,11 @@ export default function Category({
         <Date />, las placas{' '}
         {pypData.scheme === Scheme.FirstNumber ? 'terminadas' : 'iniciadas'} en{' '}
         <LicensePlate>{number}</LicensePlate>{' '}
-        {hasRestriction
-          ? 'tienen restricción en los siguientes horarios:'
-          : 'no tienen restricción.'}
+        {hasRestriction ? (
+          'tienen restricción en los siguientes horarios:'
+        ) : (
+          <strong>no tienen restricción.</strong>
+        )}
       </div>
       {hasRestriction ? (
         <div>

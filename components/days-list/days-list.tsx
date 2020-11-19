@@ -29,18 +29,9 @@ export default function DaysList({ cityName, categoryData }: DaysTableProps) {
     <article className={styles.list}>
       <header>
         <h3 className={styles.title}>
-          Se restringe la circulación de
-          {' '}
-          <strong className={styles.strong}>{vehicleClassesList}</strong>
-          {' '}
-          según
-          el
-          {' '}
-          <strong className={styles.strong}>
-            {schemeMessage}
-            {' '}
-            dígito del número de la placa
-          </strong>
+          Se restringe la circulación de <strong>{vehicleClassesList}</strong>{' '}
+          según el{' '}
+          <strong>{schemeMessage} dígito del número de la placa</strong>
         </h3>
       </header>
       <main>
