@@ -35,22 +35,22 @@ export default function Category({
   const {
     name: categoryName,
     path: categoryPath,
-    data: [pypData],
+    data: [{ numbers, scheme, vehicleClasses, hours }],
   } = categoryData;
   const header = (
     <header>
       <h1>{`Pico y placa ${categoryData.name.toLowerCase()} en ${cityName} placa ${number}`}</h1>
     </header>
   );
-  const hasRestriction = pypData.numbers.includes(Number(number));
+  const hasRestriction = numbers.includes(Number(number));
   const schemeString =
-    pypData.scheme === Scheme.FirstNumber ? 'terminadas' : 'iniciadas';
+    scheme === Scheme.FirstNumber ? 'terminadas' : 'iniciadas';
   const licenseString = (
     <>
       placas {schemeString} en <LicensePlate>{number}</LicensePlate>
     </>
   );
-  const vehicleClassesString = listFormat(pypData.vehicleClasses);
+  const vehicleClassesString = listFormat(vehicleClasses);
 
   return (
     <Layout header={header}>
@@ -71,13 +71,12 @@ export default function Category({
       </div>
       {hasRestriction ? (
         <div>
-          <Hours hours={pypData.hours} />
+          <Hours hours={hours} />
         </div>
       ) : (
         <div>
           Hoy tienen pico y placa los {vehicleClassesString} con placas{' '}
-          {schemeString} en{' '}
-          <LicensePlate>{pypData.numbers.join('-')}</LicensePlate>.
+          {schemeString} en <LicensePlate>{numbers.join('-')}</LicensePlate>.
         </div>
       )}
       <div>
