@@ -1,16 +1,22 @@
+import { useContext } from 'react';
 import { IHourData } from '@mauriciorobayo/pyptron';
 
 import { convert24toAMPM } from './utils';
 import styles from './hour.module.scss';
 import { isEmptyArray, ALL_DAY } from '../../utils/utils';
+import dateContext from '../../contexts/date-context';
 
 type HourProps = {
   hourData: IHourData;
 };
 
-export default function Hour({ hourData: { hours, comment } }: HourProps) {
+export default function Hour({
+  hourData: { hours, comment, days },
+}: HourProps) {
   const hasComment = comment !== '';
   const isAllDay = comment === ALL_DAY;
+
+  const date = useContext(dateContext);
 
   return (
     <div>
@@ -29,6 +35,10 @@ export default function Hour({ hourData: { hours, comment } }: HourProps) {
           }
 
           if (isEmptyArray(hour)) {
+            return null;
+          }
+
+          if (!days.includes(date.getDay())) {
             return null;
           }
 
