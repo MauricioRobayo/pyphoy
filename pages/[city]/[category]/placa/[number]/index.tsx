@@ -9,14 +9,14 @@ import {
 import cn from 'classnames';
 
 import Layout from '../../../../../components/layout/layout';
-import Date from '../../../../../components/date/date';
+import PypDate from '../../../../../components/date/date';
 import {
   getInfoFromSlug,
   listFormat,
   Scheme,
 } from '../../../../../utils/utils';
 import NumberLinks from '../../../../../components/number-links/number-links';
-import Hours from '../../../../../components/hours/hours';
+import Hour from '../../../../../components/hour/hour';
 import LicensePlate from '../../../../../components/license-plate/license-plate';
 import styles from './index.module.scss';
 
@@ -60,7 +60,7 @@ export default function Category({
         {number}
       </div>
       <div className={styles.title}>
-        <Date />, {licenseString}{' '}
+        <PypDate />, {licenseString}{' '}
         <strong>
           {hasRestriction
             ? 'tienen restricción en los siguientes horarios:'
@@ -69,7 +69,16 @@ export default function Category({
       </div>
       {hasRestriction ? (
         <div>
-          <Hours hours={pypData.hours} />
+          {pypData.hours.map((hourData) => {
+            console.log({ hourData });
+            if (
+              hourData.days.includes(new Date(pypData.date).getDay()) ||
+              hourData.days.length === 0
+            ) {
+              return <Hour hourData={hourData} />;
+            }
+            return null;
+          })}
         </div>
       ) : (
         <div>
@@ -79,7 +88,7 @@ export default function Category({
         </div>
       )}
       <div>
-        <h4>Prográmese</h4>
+        <h4 className={styles.title}>Prográmese</h4>
         <div>
           En los próximos 30 días {licenseString} tienen pico y placa los días:
           <ol>
@@ -87,7 +96,7 @@ export default function Category({
               if (data.numbers.includes(Number(number))) {
                 return (
                   <li key={data.date}>
-                    <Date date={data.date} />
+                    <PypDate date={data.date} />
                   </li>
                 );
               }
