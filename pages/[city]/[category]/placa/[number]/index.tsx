@@ -20,6 +20,7 @@ import NumberLinks from '../../../../../components/number-links/number-links';
 import Hours from '../../../../../components/hours/hours';
 import LicensePlate from '../../../../../components/license-plate/license-plate';
 import styles from './index.module.scss';
+import utilStyles from '../../../../../styles/utils.module.scss';
 
 type CategoryProps = {
   categoryData: ICategoryData2;
@@ -70,7 +71,7 @@ export default function Category({
         </strong>
       </div>
       {hasRestriction ? (
-        <div>
+        <div className={utilStyles.textCenter}>
           <Hours hours={hours} />
         </div>
       ) : (
@@ -81,7 +82,7 @@ export default function Category({
       )}
       <div>
         <h4 className={styles.title}>Prográmese</h4>
-        <div>
+        <div className={utilStyles.textCenter}>
           Los {vehicleClassesString} con {licenseString} tienen pico y placa el
           próximo:
           <ol>
