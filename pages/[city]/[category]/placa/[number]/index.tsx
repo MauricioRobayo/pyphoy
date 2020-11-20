@@ -41,6 +41,9 @@ export default function Category({
   const header = (
     <header>
       <h1>{`Pico y placa ${categoryData.name.toLowerCase()} en ${cityName} placa ${number}`}</h1>
+      <h2>
+        <PypDate />
+      </h2>
     </header>
   );
   const hasRestriction = numbers.includes(Number(number));
@@ -55,56 +58,57 @@ export default function Category({
 
   return (
     <Layout header={header}>
-      <div
-        className={cn(styles.semaphore, {
-          [styles.hasRestriction]: hasRestriction,
-        })}
-      >
-        {number}
-      </div>
-      <div className={styles.title}>
-        <PypDate />, {licenseString}{' '}
-        <strong>
-          {hasRestriction
-            ? 'tienen restricción en el siguiente horario:'
-            : 'no tienen restricción.'}
-        </strong>
-      </div>
-      {hasRestriction ? (
-        <div className={utilStyles.textCenter}>
-          <Hours hours={hours} />
+      <div className={utilStyles.textCenter}>
+        <div className={styles.title}>
+          Los {vehicleClasses} con {licenseString}{' '}
+          <strong>
+            {hasRestriction
+              ? 'tienen restricción hoy en el siguiente horario:'
+              : 'hoy no tienen restricción.'}
+          </strong>
         </div>
-      ) : (
+        <div
+          className={cn(styles.semaphore, {
+            [styles.hasRestriction]: hasRestriction,
+          })}
+        >
+          {number}
+        </div>
+        {hasRestriction ? (
+          <div>
+            <Hours hours={hours} />
+          </div>
+        ) : (
+          <div>
+            Hoy tienen pico y placa los {vehicleClassesString} con placas{' '}
+            {schemeString} en <LicensePlate>{numbers.join('-')}</LicensePlate>.
+          </div>
+        )}
         <div>
-          Hoy tienen pico y placa los {vehicleClassesString} con placas{' '}
-          {schemeString} en <LicensePlate>{numbers.join('-')}</LicensePlate>.
+          <h4 className={styles.title}>Prográmese</h4>
+          <div>
+            <LicensePlate>{number}</LicensePlate> tiene pico y placa el próximo:
+            <ol>
+              {categoryData.data.slice(1).map((data) => {
+                if (data.numbers.includes(Number(number))) {
+                  return (
+                    <li key={data.date}>
+                      <PypDate date={data.date} />
+                    </li>
+                  );
+                }
+                return null;
+              })}
+            </ol>
+          </div>
         </div>
-      )}
-      <div>
-        <h4 className={styles.title}>Prográmese</h4>
-        <div className={utilStyles.textCenter}>
-          Los {vehicleClassesString} con {licenseString} tienen pico y placa el
-          próximo:
-          <ol>
-            {categoryData.data.slice(1).map((data) => {
-              if (data.numbers.includes(Number(number))) {
-                return (
-                  <li key={data.date}>
-                    <PypDate date={data.date} />
-                  </li>
-                );
-              }
-              return null;
-            })}
-          </ol>
-        </div>
+        <NumberLinks
+          path={categoryPath}
+          cityName={cityName}
+          categoryName={categoryName}
+          numberSelected={number}
+        />
       </div>
-      <NumberLinks
-        path={categoryPath}
-        cityName={cityName}
-        categoryName={categoryName}
-        numberSelected={number}
-      />
     </Layout>
   );
 }
