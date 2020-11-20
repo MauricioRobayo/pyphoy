@@ -50,3 +50,7 @@ export function isPublicLicense(categoryName: string) {
     lowerCaseName.includes(category)
   );
 }
+
+export function isEmptyArray(array: [string, string] | []): array is [] {
+  return array.length === 0;
+}

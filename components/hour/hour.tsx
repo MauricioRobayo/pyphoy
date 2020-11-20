@@ -1,8 +1,8 @@
 import { IHourData } from '@mauriciorobayo/pyptron';
 
-import { isEmptyArray, convert24toAMPM } from './utils';
+import { convert24toAMPM } from './utils';
 import styles from './hour.module.scss';
-import { ALL_DAY } from '../../utils/utils';
+import { isEmptyArray, ALL_DAY } from '../../utils/utils';
 
 type HourProps = {
   hourData: IHourData;
