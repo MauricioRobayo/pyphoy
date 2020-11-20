@@ -16,7 +16,8 @@ import {
   Scheme,
 } from '../../../../../utils/utils';
 import NumberLinks from '../../../../../components/number-links/number-links';
-import Hour from '../../../../../components/hour/hour';
+// import Hour from '../../../../../components/hour/hour';
+import Hours from '../../../../../components/hours/hours';
 import LicensePlate from '../../../../../components/license-plate/license-plate';
 import styles from './index.module.scss';
 
@@ -46,9 +47,10 @@ export default function Category({
     pypData.scheme === Scheme.FirstNumber ? 'terminadas' : 'iniciadas';
   const licenseString = (
     <>
-      las placas {schemeString} en <LicensePlate>{number}</LicensePlate>
+      placas {schemeString} en <LicensePlate>{number}</LicensePlate>
     </>
   );
+  const vehicleClassesString = listFormat(pypData.vehicleClasses);
 
   return (
     <Layout header={header}>
@@ -63,36 +65,28 @@ export default function Category({
         <PypDate />, {licenseString}{' '}
         <strong>
           {hasRestriction
-            ? 'tienen restricción en los siguientes horarios:'
+            ? 'tienen restricción en el siguiente horario:'
             : 'no tienen restricción.'}
         </strong>
       </div>
       {hasRestriction ? (
         <div>
-          {pypData.hours.map((hourData) => {
-            console.log({ hourData });
-            if (
-              hourData.days.includes(new Date(pypData.date).getDay()) ||
-              hourData.days.length === 0
-            ) {
-              return <Hour hourData={hourData} />;
-            }
-            return null;
-          })}
+          <Hours hours={pypData.hours} />
         </div>
       ) : (
         <div>
-          Hoy tienen pico y placa los {listFormat(pypData.vehicleClasses)} con
-          placas {schemeString} en{' '}
+          Hoy tienen pico y placa los {vehicleClassesString} con placas{' '}
+          {schemeString} en{' '}
           <LicensePlate>{pypData.numbers.join('-')}</LicensePlate>.
         </div>
       )}
       <div>
         <h4 className={styles.title}>Prográmese</h4>
         <div>
-          En los próximos 30 días {licenseString} tienen pico y placa los días:
+          Los {vehicleClassesString} con {licenseString} tienen pico y placa el
+          próximo:
           <ol>
-            {categoryData.data.map((data) => {
+            {categoryData.data.slice(1).map((data) => {
               if (data.numbers.includes(Number(number))) {
                 return (
                   <li key={data.date}>

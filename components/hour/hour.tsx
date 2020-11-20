@@ -38,7 +38,7 @@ export default function Hour({
             return null;
           }
 
-          if (!days.includes(date.getDay())) {
+          if (days.length > 0 && !days.includes(date.getDay())) {
             return null;
           }
 
