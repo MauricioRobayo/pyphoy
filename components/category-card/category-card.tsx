@@ -29,7 +29,7 @@ export default function CategoryCard({
   scheme,
 }: CategoryCardProps) {
   const numbersString = pypNumbersToString(numbers);
-  const allDigits = numbersString === ALL_DIGITS;
+  const isAllDigits = numbersString === ALL_DIGITS;
   const hasRestriction = numbersString !== NA;
   return (
     <article
@@ -55,7 +55,7 @@ export default function CategoryCard({
       >
         {numbersString}
       </LicensePlate>
-      {allDigits || !hasRestriction ? null : (
+      {isAllDigits || !hasRestriction ? null : (
         <div>
           {`${
             scheme === Scheme.FirstNumber ? 'Primer dígito' : 'Último dígito'
