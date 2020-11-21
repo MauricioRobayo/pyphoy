@@ -4,6 +4,7 @@ import styles from './Layout.module.scss';
 import Email from '../email/email';
 import CTA from '../call-to-action/call-to-action';
 import LicensePlate from '../license-plate/license-plate';
+import utilStyles from '../../styles/utils.module.scss';
 
 type LayoutProps = {
   children: ReactNode;
@@ -11,7 +12,7 @@ type LayoutProps = {
   header?: ReactNode;
 };
 
-export default function Layout({ children, home, header }: LayoutProps) {
+export default function Layout({ header, children, home }: LayoutProps) {
   return (
     <div className={styles.site}>
       <Head>
@@ -26,7 +27,7 @@ export default function Layout({ children, home, header }: LayoutProps) {
           <LicensePlate size="large">PYPHOY</LicensePlate>
         </nav>
       )}
-      {header}
+      <div className={utilStyles.textCenter}>{header}</div>
       <div className={styles.site}>
         <main className={styles.main}>{children}</main>
         {home ? null : <CTA />}
