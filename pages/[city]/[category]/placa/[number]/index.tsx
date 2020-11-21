@@ -14,9 +14,10 @@ import {
   getInfoFromSlug,
   listFormat,
   Scheme,
+  pypNumbersToString,
+  NA,
 } from '../../../../../utils/utils';
 import NumberLinks from '../../../../../components/number-links/number-links';
-// import Hour from '../../../../../components/hour/hour';
 import Hours from '../../../../../components/hours/hours';
 import LicensePlate from '../../../../../components/license-plate/license-plate';
 import styles from './index.module.scss';
@@ -46,27 +47,52 @@ export default function Category({
       </h2>
     </header>
   );
+  const numbersString = pypNumbersToString(numbers);
+  const vehicleClassesString = listFormat(vehicleClasses);
   const hasRestriction = numbers.includes(Number(number));
   const schemeString =
     scheme === Scheme.FirstNumber ? 'terminadas' : 'iniciadas';
-  const licenseString = (
+
+  const currentNumberLicense = hasRestriction ? (
+    <>
+      placas {schemeString} en <LicensePlate>{numbersString}</LicensePlate>
+    </>
+  ) : (
     <>
       placas {schemeString} en <LicensePlate>{number}</LicensePlate>
     </>
   );
-  const vehicleClassesString = listFormat(vehicleClasses);
+
+  const todaysRestriction =
+    numbersString !== NA ? (
+      <div>
+        Hoy tienen pico y placa los {vehicleClassesString} con placas{' '}
+        {schemeString} en <LicensePlate>{numbersString}</LicensePlate>.
+      </div>
+    ) : (
+      <div>
+        Hoy <strong>no tienen restricción</strong> los {vehicleClassesString}.
+      </div>
+    );
 
   return (
     <Layout header={header}>
       <div className={utilStyles.textCenter}>
         <div className={styles.title}>
-          Los {vehicleClasses} con {licenseString}{' '}
+          Los {vehicleClassesString} con {currentNumberLicense}{' '}
           <strong>
             {hasRestriction
-              ? 'tienen restricción hoy en el siguiente horario:'
+              ? 'hoy tienen restricción en el siguiente horario:'
               : 'hoy no tienen restricción.'}
           </strong>
         </div>
+        {hasRestriction ? (
+          <>
+            <Hours hours={hours} />
+          </>
+        ) : (
+          todaysRestriction
+        )}
         <div
           className={cn(styles.semaphore, {
             [styles.hasRestriction]: hasRestriction,
@@ -74,16 +100,6 @@ export default function Category({
         >
           {number}
         </div>
-        {hasRestriction ? (
-          <div>
-            <Hours hours={hours} />
-          </div>
-        ) : (
-          <div>
-            Hoy tienen pico y placa los {vehicleClassesString} con placas{' '}
-            {schemeString} en <LicensePlate>{numbers.join('-')}</LicensePlate>.
-          </div>
-        )}
         <div>
           <h4 className={styles.title}>Prográmese</h4>
           <div>
