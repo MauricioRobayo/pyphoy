@@ -27,7 +27,8 @@ export default function DayCard({
   isPublicLicense,
   hasRestriction,
 }: DayCardProps) {
-  const schemeMessage = scheme === Scheme.FirstNumber ? 'primer' : 'último';
+  const schemeString =
+    scheme === Scheme.FirstNumber ? 'terminadas' : 'iniciadas';
   const isAllDigits = numbersString === ALL_DIGITS;
   const isToday = dateIsToday(date);
   return (
@@ -54,23 +55,17 @@ export default function DayCard({
         ) : null}
       </div>
       <div className={styles.license}>
+        {hasRestriction && !isAllDigits && isToday ? (
+          <div className={styles.scheme}>
+            No circulan placas {schemeString} en
+          </div>
+        ) : null}
         <LicensePlate
           publicLicense={isPublicLicense}
           size={isToday ? 'large' : 'medium'}
         >
           {numbersString}
         </LicensePlate>
-        {hasRestriction && !isAllDigits && isToday ? (
-          <div className={styles.scheme}>
-            <span role="img" aria-label="No circulan" title="No circulan">
-              🛑
-            </span>
-            {' '}
-            {schemeMessage}
-            {' '}
-            dígito
-          </div>
-        ) : null}
       </div>
     </div>
   );

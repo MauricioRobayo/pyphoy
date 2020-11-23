@@ -31,6 +31,8 @@ export default function CategoryCard({
   const numbersString = pypNumbersToString(numbers);
   const isAllDigits = numbersString === ALL_DIGITS;
   const hasRestriction = numbersString !== NA;
+  const schemeString =
+    scheme === Scheme.FirstNumber ? 'terminadas' : 'iniciadas';
   return (
     <article
       key={categoryName}
@@ -43,25 +45,24 @@ export default function CategoryCard({
           <h4 className={styles.title}>{categoryName}</h4>
         </a>
       </Link>
-      {hasRestriction ? (
+      {isAllDigits || !hasRestriction ? null : (
         <div>
-          <h5>Horario</h5>
-          <Hours hours={hours} interactive />
+          No circulan placas
+          {schemeString} en
         </div>
-      ) : null}
+      )}
       <LicensePlate
         publicLicense={isPublicLicense(categoryName)}
         size={hasRestriction ? 'large' : 'medium'}
       >
         {numbersString}
       </LicensePlate>
-      {isAllDigits || !hasRestriction ? null : (
+      {hasRestriction ? (
         <div>
-          {`${
-            scheme === Scheme.FirstNumber ? 'Primer dígito' : 'Último dígito'
-          } del número de la placa`}
+          <h5>Horario</h5>
+          <Hours hours={hours} interactive />
         </div>
-      )}
+      ) : null}
     </article>
   );
 }
