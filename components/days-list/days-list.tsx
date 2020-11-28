@@ -49,7 +49,7 @@ export default function DaysList({ cityName, categoryData }: DaysTableProps) {
           );
         })}
       </div>
-      <footer className={styles.footer}>
+      <footer>
         <NumberLinks
           path={categoryPath}
           cityName={cityName}
