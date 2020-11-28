@@ -1,4 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
+import { useRouter } from 'next/router';
 import {
   getCitiesMap2,
   ICityMap2,
@@ -8,27 +9,50 @@ import {
 } from '@mauriciorobayo/pyptron';
 import Layout from '../../../components/layout/layout';
 import DaysList from '../../../components/days-list/days-list';
-import Date from '../../../components/date/date';
+import PypDate from '../../../components/date/date';
 import { getInfoFromSlug } from '../../../utils/utils';
 
 type CategoryProps = {
+  cityKey: string;
+  categoryKey: string;
   categoryData: ICategoryData2;
   cityName: string;
 };
 
-export default function Category({ categoryData, cityName }: CategoryProps) {
+export default function Category({
+  cityKey,
+  categoryKey,
+  categoryData,
+  cityName,
+}: CategoryProps) {
+  const router = useRouter();
+  const { d: date, category: categorySlug } = router.query;
+
+  let data = categoryData;
+
+  if (date && typeof date === 'string') {
+    data = getInfoFromSlug<ICategoryData2>(
+      categorySlug as string,
+      getCityData2(cityKey, {
+        date: new Date(date),
+        categoryKey: [categoryKey],
+        days: 8,
+      }).categories
+    );
+  }
+
   const header = (
     <header>
-      <h1>{`Pico y placa ${categoryData.name.toLowerCase()} en ${cityName}`}</h1>
+      <h1>{`Pico y placa ${data.name.toLowerCase()} en ${cityName}`}</h1>
       <h2>
-        <Date />
+        <PypDate />
       </h2>
     </header>
   );
 
   return (
     <Layout header={header}>
-      <DaysList cityName={cityName} categoryData={categoryData} />
+      <DaysList cityName={cityName} categoryData={data} />
     </Layout>
   );
 }
@@ -69,6 +93,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   );
   return {
     props: {
+      cityKey,
+      categoryKey,
+      citiesMap,
       cityName,
       categoryData,
     },
