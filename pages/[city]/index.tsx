@@ -1,9 +1,11 @@
+import Link from 'next/link';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import {
   getCitiesMap2,
   getCityData2,
   ICityData2,
 } from '@mauriciorobayo/pyptron';
+
 import Layout from '../../components/layout/layout';
 import CategoriesList from '../../components/categories-list/categories-list';
 import Date from '../../components/date/date';
@@ -14,9 +16,10 @@ type CityProps = {
 };
 
 export default function City({ cityData }: CityProps) {
+  const { name: cityName, categories: cityCategories } = cityData;
   const header = (
     <header>
-      <h1>{`Pico y placa ${cityData.name}`}</h1>
+      <h1>{`Pico y placa ${cityName}`}</h1>
       <h2>
         <Date />
       </h2>
@@ -26,6 +29,23 @@ export default function City({ cityData }: CityProps) {
   return (
     <Layout header={header}>
       <CategoriesList categories={cityData.categories} />
+      <section>
+        <h2>Pico y placa vigente en {cityName}</h2>
+        <p>
+          Las siguientes son las medidas de restricción vehicular vigentes para
+          {cityName} durante el segundo semestre del 2020, de acuerdo con lo
+          establecido por la Alcaldía de {cityName}:
+        </p>
+        <ul>
+          {cityCategories.map(({ name: categoryName, path: categoryPath }) => (
+            <li key={categoryName}>
+              <Link href={categoryPath}>
+                <a>{categoryName}</a>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
     </Layout>
   );
 }

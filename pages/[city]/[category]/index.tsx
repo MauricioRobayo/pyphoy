@@ -13,6 +13,7 @@ import Layout from '../../../components/layout/layout';
 import DaysList from '../../../components/days-list/days-list';
 import PypDate from '../../../components/date/date';
 import { getInfoFromSlug } from '../../../utils/utils';
+import CategoryInfo from '../../../components/category-info/category-info';
 
 type CategoryProps = {
   cityKey: string;
@@ -60,6 +61,7 @@ export default function Category({
       <DateContext.Provider value={queryDate}>
         <DaysList cityName={cityName} categoryData={data} />
       </DateContext.Provider>
+      <CategoryInfo />
     </Layout>
   );
 }
