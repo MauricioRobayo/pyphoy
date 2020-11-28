@@ -1,4 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
+import Link from 'next/link';
 import {
   getCitiesMap2,
   ICityMap2,
@@ -109,7 +110,16 @@ export default function Category({
                 if (data.numbers.includes(Number(number))) {
                   return (
                     <li key={data.date}>
-                      <PypDate date={data.date} />
+                      <Link
+                        href={`/${categoryData.path}?d=${data.date.substr(
+                          0,
+                          10
+                        )}`}
+                      >
+                        <a>
+                          <PypDate date={data.date} />
+                        </a>
+                      </Link>
                     </li>
                   );
                 }

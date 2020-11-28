@@ -45,11 +45,15 @@ export default function CategoryCard({
           <h4 className={styles.title}>{categoryName}</h4>
         </a>
       </Link>
-      {isAllDigits || !hasRestriction ? null : (
+      {hasRestriction ? (
         <div>
-          No circulan placas
-          {schemeString} en
+          <div>No circulan en el siguiente horario</div>
+          <Hours hours={hours} interactive />
         </div>
+      ) : null}
+
+      {isAllDigits || !hasRestriction ? null : (
+        <div>Placas {schemeString} en</div>
       )}
       <LicensePlate
         publicLicense={isPublicLicense(categoryName)}
@@ -57,12 +61,6 @@ export default function CategoryCard({
       >
         {numbersString}
       </LicensePlate>
-      {hasRestriction ? (
-        <div>
-          <h5>Horario</h5>
-          <Hours hours={hours} interactive />
-        </div>
-      ) : null}
     </article>
   );
 }
