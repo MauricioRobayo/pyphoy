@@ -1,7 +1,14 @@
 .title {
   font-size: 1.25rem;
 }
-
+.nextDays {
+  li:first-child {
+    margin-top: 1rem;
+  }
+  li {
+    margin-top: 0.5rem;
+  }
+}
 .semaphore {
   font-size: 2rem;
   border: 4px solid #444;

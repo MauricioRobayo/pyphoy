@@ -105,7 +105,7 @@ export default function Category({
           <h4 className={styles.title}>Prográmese</h4>
           <div>
             <LicensePlate>{number}</LicensePlate> tiene pico y placa el próximo:
-            <ol>
+            <ol className={styles.nextDays}>
               {categoryData.data.slice(1).map((data) => {
                 if (data.numbers.includes(Number(number))) {
                   return (
