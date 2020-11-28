@@ -1,12 +1,14 @@
 .numberLinks {
+  margin: 4rem 0;
   text-align: center;
   .title {
     font-weight: bold;
     font-size: 1.25rem;
     margin-bottom: 1rem;
   }
-  .selected, .link {
-    margin: .5rem;
+  .selected,
+  .link {
+    margin: 0.5rem;
     padding: 1rem;
     font-size: 1.25rem;
     display: inline-flex;
@@ -22,9 +24,9 @@
     border: 2px solid currentColor;
   }
   .link {
-    border: 2px solid #3273DC;
+    border: 2px solid #3273dc;
     text-decoration: none;
-    background-color: #3273DC;
+    background-color: #3273dc;
     color: white;
   }
 }
