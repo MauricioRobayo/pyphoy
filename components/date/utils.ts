@@ -37,14 +37,21 @@ export function getLocalShortDateString(date: Date = new Date()): string {
   return f.format(date);
 }
 
+export function areSameDate(date1: Date | string, date2: Date | string) {
+  const currentDate1 = new Date(date1);
+  const currentDate2 = new Date(date2);
+  const sameDate = currentDate1.getUTCDate() === currentDate2.getUTCDate();
+  const sameMonth = currentDate1.getUTCMonth() === currentDate2.getUTCMonth();
+  const sameYear =
+    currentDate1.getUTCFullYear() === currentDate2.getUTCFullYear();
+
+  return sameDate && sameMonth && sameYear;
+  // currentDate1.setUTCHours(5, 0, 0, 0); // Colombian TZ
+  // currentDate2.setUTCHours(5, 0, 0, 0); // Colombian TZ
+
+  // return currentDate1.toISOString() === currentDate2.toISOString();
+}
+
 export function dateIsToday(date: Date | string): boolean {
-  const currentDate = new Date(date);
-  const today = new Date();
-  currentDate.setUTCHours(5, 0, 0, 0); // Colombian TZ
-  today.setUTCHours(5, 0, 0, 0); // Colombian TZ
-
-  const currentDateISOString = currentDate.toISOString();
-  const todayISOString = today.toISOString();
-
-  return todayISOString.substr(0, 10) === currentDateISOString.substr(0, 10);
+  return areSameDate(date, new Date());
 }

@@ -1,12 +1,15 @@
 import cn from 'classnames';
 import { IHourData } from '@mauriciorobayo/pyptron';
+import Link from 'next/link';
+import { useContext } from 'react';
 
 import LicensePlate from '../license-plate/license-plate';
 import Date from '../date/date';
 import { Scheme, ALL_DIGITS } from '../../utils/utils';
-import { dateIsToday } from '../date/utils';
+import { areSameDate } from '../date/utils';
 import Hours from '../hours/hours';
 import styles from './day-card.module.scss';
+import DateContext from '../../contexts/date-context';
 
 type DayCardProps = {
   scheme: Scheme;
@@ -14,6 +17,7 @@ type DayCardProps = {
   date: string;
   numbersString: string;
   hours: IHourData[];
+  path: string;
   isPublicLicense?: boolean;
   hasRestriction?: boolean;
 };
@@ -24,45 +28,52 @@ export default function DayCard({
   date,
   numbersString,
   hours,
+  path,
   isPublicLicense,
   hasRestriction,
 }: DayCardProps) {
+  const currentDate = useContext(DateContext);
   const schemeString =
     scheme === Scheme.FirstNumber ? 'terminadas' : 'iniciadas';
   const isAllDigits = numbersString === ALL_DIGITS;
-  const isToday = dateIsToday(date);
+  const isCurrentDate = areSameDate(date, currentDate);
+
   return (
     <div
       key={date}
       className={cn(styles.card, {
-        [styles.today]: isToday,
+        [styles.current]: isCurrentDate,
         [styles.na]: !hasRestriction,
       })}
     >
       <div>
         <div
           className={cn(styles.title, {
-            [styles[categoryKey]]: isToday,
-            [styles.today]: isToday,
+            [styles[categoryKey]]: isCurrentDate,
+            [styles.current]: isCurrentDate,
           })}
         >
-          <Date date={date} type="short" />
+          <Link href={`/${path}?d=${date.substr(0, 10)}`}>
+            <a>
+              <Date date={date} type="short" />
+            </a>
+          </Link>
         </div>
-        {hasRestriction && isToday ? (
+        {hasRestriction && isCurrentDate ? (
           <div>
             <Hours hours={hours} interactive />
           </div>
         ) : null}
       </div>
       <div className={styles.license}>
-        {hasRestriction && !isAllDigits && isToday ? (
+        {hasRestriction && !isAllDigits && isCurrentDate ? (
           <div className={styles.scheme}>
             No circulan placas {schemeString} en
           </div>
         ) : null}
         <LicensePlate
           publicLicense={isPublicLicense}
-          size={isToday ? 'large' : 'medium'}
+          size={isCurrentDate ? 'large' : 'medium'}
         >
           {numbersString}
         </LicensePlate>

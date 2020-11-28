@@ -44,6 +44,7 @@ export default function DaysList({ cityName, categoryData }: DaysTableProps) {
               hours={hours}
               isPublicLicense={isPublicLicense(categoryName)}
               hasRestriction={numbersString !== NA}
+              path={categoryPath}
             />
           );
         })}

@@ -5,8 +5,8 @@
   padding: 1rem;
   border: 1px solid #dbdbdb;
   border-top: none;
-  &.today {
-    background-color: #FFF9C9;
+  &.current {
+    background-color: #fff9c9;
     align-items: start;
     box-shadow: 0 0 10px 0 #7a7a7a;
     position: relative;
@@ -15,6 +15,9 @@
     .title {
       margin-bottom: 1rem;
     }
+  }
+  a {
+    text-decoration: none;
   }
   &.na {
     background-color: #f5f5f5;
@@ -26,7 +29,7 @@
   .scheme {
     margin-top: 0.5rem;
   }
-  .today {
+  .current {
     font-size: 1.25rem;
   }
   *::before {
@@ -55,5 +58,5 @@
   }
   .carga::before {
     content: '🚛';
-  } 
+  }
 }

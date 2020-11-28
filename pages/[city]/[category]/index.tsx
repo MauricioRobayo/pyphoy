@@ -7,6 +7,8 @@ import {
   ICategoryData2,
   getCityData2,
 } from '@mauriciorobayo/pyptron';
+
+import DateContext from '../../../contexts/date-context';
 import Layout from '../../../components/layout/layout';
 import DaysList from '../../../components/days-list/days-list';
 import PypDate from '../../../components/date/date';
@@ -29,12 +31,15 @@ export default function Category({
   const { d: date, category: categorySlug } = router.query;
 
   let data = categoryData;
+  let queryDate = new Date();
 
-  if (date && typeof date === 'string') {
+  // a date query string was provided
+  if (typeof date === 'string') {
+    queryDate = new Date(date);
     data = getInfoFromSlug<ICategoryData2>(
       categorySlug as string,
       getCityData2(cityKey, {
-        date: new Date(date),
+        date: queryDate,
         categoryKey: [categoryKey],
         days: 8,
       }).categories
@@ -45,14 +50,16 @@ export default function Category({
     <header>
       <h1>{`Pico y placa ${data.name.toLowerCase()} en ${cityName}`}</h1>
       <h2>
-        <PypDate />
+        <PypDate date={queryDate} />
       </h2>
     </header>
   );
 
   return (
     <Layout header={header}>
-      <DaysList cityName={cityName} categoryData={data} />
+      <DateContext.Provider value={queryDate}>
+        <DaysList cityName={cityName} categoryData={data} />
+      </DateContext.Provider>
     </Layout>
   );
 }
