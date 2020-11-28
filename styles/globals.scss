@@ -10,3 +10,11 @@ body {
 strong {
   font-weight: bold;
 }
+
+a {
+  text-decoration: none;
+  color: inherit;
+  &:hover {
+    color: #3273dc;
+  }
+}
