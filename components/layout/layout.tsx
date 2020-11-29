@@ -10,12 +10,14 @@ type LayoutProps = {
   children: ReactNode;
   home?: boolean;
   header?: ReactNode;
+  aside?: ReactNode;
 };
 
-export default function Layout({ header, children, home }: LayoutProps) {
+export default function Layout({ header, children, home, aside }: LayoutProps) {
   return (
     <div className={styles.site}>
       <Head>
+        j
         <title>
           Toda la información sobre el pico y placa en Colombia | Pico y placa
           hoy
@@ -32,6 +34,7 @@ export default function Layout({ header, children, home }: LayoutProps) {
         <main className={styles.main}>{children}</main>
         {home ? null : <CTA />}
       </div>
+      {aside ? <aside>{aside}</aside> : null}
       <footer className={styles.footer}>
         <p>PICO Y PLACA HOY</p>
         <Email />
@@ -43,4 +46,5 @@ export default function Layout({ header, children, home }: LayoutProps) {
 Layout.defaultProps = {
   home: false,
   header: null,
+  aside: null,
 };

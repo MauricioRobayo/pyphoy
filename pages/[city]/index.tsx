@@ -8,7 +8,8 @@ import {
 
 import Layout from '../../components/layout/layout';
 import CategoriesList from '../../components/categories-list/categories-list';
-import Date from '../../components/date/date';
+import PypDate from '../../components/date/date';
+import { getLocalLongDateString } from '../../components/date/utils';
 import { getInfoFromSlug } from '../../utils/utils';
 
 type CityProps = {
@@ -17,35 +18,40 @@ type CityProps = {
 
 export default function City({ cityData }: CityProps) {
   const { name: cityName, categories: cityCategories } = cityData;
+
   const header = (
     <header>
       <h1>{`Pico y placa ${cityName}`}</h1>
       <h2>
-        <Date />
+        <PypDate />
       </h2>
     </header>
   );
 
+  const aside = (
+    <section>
+      <h2>Pico y placa vigente en {cityName}</h2>
+      <p>
+        Las siguientes son las medidas de restricción vehicular vigentes para{' '}
+        {cityName} durante el mes de{' '}
+        {getLocalLongDateString().split(' ').slice(3).join(' ')}, de acuerdo con
+        lo establecido por la Alcaldía de {cityName}:
+      </p>
+      <ul>
+        {cityCategories.map(({ name: categoryName, path: categoryPath }) => (
+          <li key={categoryName}>
+            <Link href={categoryPath}>
+              <a>{categoryName}</a>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+
   return (
-    <Layout header={header}>
+    <Layout header={header} aside={aside}>
       <CategoriesList categories={cityData.categories} />
-      <section>
-        <h2>Pico y placa vigente en {cityName}</h2>
-        <p>
-          Las siguientes son las medidas de restricción vehicular vigentes para
-          {cityName} durante el segundo semestre del 2020, de acuerdo con lo
-          establecido por la Alcaldía de {cityName}:
-        </p>
-        <ul>
-          {cityCategories.map(({ name: categoryName, path: categoryPath }) => (
-            <li key={categoryName}>
-              <Link href={categoryPath}>
-                <a>{categoryName}</a>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
     </Layout>
   );
 }

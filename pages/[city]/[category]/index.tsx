@@ -56,12 +56,13 @@ export default function Category({
     </header>
   );
 
+  const aside = <CategoryInfo categoryData={categoryData} />;
+
   return (
-    <Layout header={header}>
+    <Layout header={header} aside={aside}>
       <DateContext.Provider value={queryDate}>
         <DaysList cityName={cityName} categoryData={data} />
       </DateContext.Provider>
-      <CategoryInfo />
     </Layout>
   );
 }
