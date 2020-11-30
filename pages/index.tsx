@@ -25,8 +25,8 @@ export default function Home({
   );
 
   return (
-    <Layout home header={header}>
-      <Select id="city" name="Ciudad" options={selectOptions} />
+    <Layout home header={header} pypOptions={selectOptions}>
+      <Select pypOptions={selectOptions} />
     </Layout>
   );
 }

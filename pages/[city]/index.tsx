@@ -10,13 +10,15 @@ import Layout from '../../components/layout/layout';
 import CategoriesList from '../../components/categories-list/categories-list';
 import PypDate from '../../components/date/date';
 import { getLocalLongDateString } from '../../components/date/utils';
-import { getInfoFromSlug } from '../../utils/utils';
+import { getInfoFromSlug, getPypOptions } from '../../utils/utils';
+import { PypOption } from '../../types';
 
 type CityProps = {
   cityData: ICityData2;
+  pypOptions: PypOption[];
 };
 
-export default function City({ cityData }: CityProps) {
+export default function City({ cityData, pypOptions }: CityProps) {
   const { name: cityName, categories: cityCategories } = cityData;
 
   const header = (
@@ -50,7 +52,7 @@ export default function City({ cityData }: CityProps) {
   );
 
   return (
-    <Layout header={header} aside={aside}>
+    <Layout header={header} aside={aside} pypOptions={pypOptions}>
       <CategoriesList categories={cityData.categories} />
     </Layout>
   );
@@ -71,6 +73,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       cityData,
+      pypOptions: getPypOptions(),
     },
   };
 };

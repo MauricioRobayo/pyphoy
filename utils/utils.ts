@@ -15,7 +15,7 @@ export function getPypOptions() {
   citiesMap.forEach(({ name: cityName, categories }) => {
     categories.forEach(({ name: categoryName, path }) => {
       pypOptions.push({
-        value: path,
+        value: `/${path}`,
         name: `${cityName} / ${categoryName}`,
       });
     });

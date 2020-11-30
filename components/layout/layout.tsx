@@ -5,15 +5,24 @@ import Email from '../email/email';
 import CTA from '../call-to-action/call-to-action';
 import LicensePlate from '../license-plate/license-plate';
 import utilStyles from '../../styles/utils.module.scss';
+import Select from '../select/select';
+import { PypOption } from '../../types';
 
 type LayoutProps = {
   children: ReactNode;
+  pypOptions: PypOption[];
   home?: boolean;
   header?: ReactNode;
   aside?: ReactNode;
 };
 
-export default function Layout({ header, children, home, aside }: LayoutProps) {
+export default function Layout({
+  header,
+  children,
+  home,
+  aside,
+  pypOptions,
+}: LayoutProps) {
   return (
     <div className={styles.site}>
       <Head>
@@ -24,9 +33,14 @@ export default function Layout({ header, children, home, aside }: LayoutProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {home ? null : (
-        <nav>
-          <LicensePlate size="large">PYPHOY</LicensePlate>
-        </nav>
+        <header>
+          <h2>
+            <LicensePlate size="large">PYPHOY</LicensePlate>
+          </h2>
+          <nav>
+            <Select pypOptions={pypOptions} />
+          </nav>
+        </header>
       )}
       <div className={utilStyles.textCenter}>{header}</div>
       <div className={styles.site}>

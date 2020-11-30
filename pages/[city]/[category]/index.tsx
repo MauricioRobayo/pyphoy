@@ -12,14 +12,16 @@ import DateContext from '../../../contexts/date-context';
 import Layout from '../../../components/layout/layout';
 import DaysList from '../../../components/days-list/days-list';
 import PypDate from '../../../components/date/date';
-import { getInfoFromSlug } from '../../../utils/utils';
+import { getInfoFromSlug, getPypOptions } from '../../../utils/utils';
 import CategoryInfo from '../../../components/category-info/category-info';
+import { PypOption } from '../../../types';
 
 type CategoryProps = {
   cityKey: string;
   categoryKey: string;
   categoryData: ICategoryData2;
   cityName: string;
+  pypOptions: PypOption[];
 };
 
 export default function Category({
@@ -27,6 +29,7 @@ export default function Category({
   categoryKey,
   categoryData,
   cityName,
+  pypOptions,
 }: CategoryProps) {
   const router = useRouter();
   const { d: date, category: categorySlug } = router.query;
@@ -59,7 +62,7 @@ export default function Category({
   const aside = <CategoryInfo categoryData={categoryData} />;
 
   return (
-    <Layout header={header} aside={aside}>
+    <Layout header={header} aside={aside} pypOptions={pypOptions}>
       <DateContext.Provider value={queryDate}>
         <DaysList cityName={cityName} categoryData={data} />
       </DateContext.Provider>
@@ -108,6 +111,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       citiesMap,
       cityName,
       categoryData,
+      pypOptions: getPypOptions(),
     },
   };
 };

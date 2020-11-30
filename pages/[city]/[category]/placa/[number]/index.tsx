@@ -17,23 +17,27 @@ import {
   Scheme,
   pypNumbersToString,
   NA,
+  getPypOptions,
 } from '../../../../../utils/utils';
 import NumberLinks from '../../../../../components/number-links/number-links';
 import Hours from '../../../../../components/hours/hours';
 import LicensePlate from '../../../../../components/license-plate/license-plate';
 import styles from './index.module.scss';
 import utilStyles from '../../../../../styles/utils.module.scss';
+import { PypOption } from '../../../../../types';
 
 type CategoryProps = {
   categoryData: ICategoryData2;
   cityName: string;
   number: string;
+  pypOptions: PypOption[];
 };
 
 export default function Category({
   categoryData,
   cityName,
   number,
+  pypOptions,
 }: CategoryProps) {
   const {
     name: categoryName,
@@ -77,7 +81,7 @@ export default function Category({
     );
 
   return (
-    <Layout header={header}>
+    <Layout header={header} pypOptions={pypOptions}>
       <div className={utilStyles.textCenter}>
         <div className={styles.title}>
           Los {vehicleClassesString} con {currentNumberLicense}{' '}
@@ -187,6 +191,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       cityName,
       categoryData,
       number: params?.number,
+      pypOptions: getPypOptions(),
     },
   };
 };
