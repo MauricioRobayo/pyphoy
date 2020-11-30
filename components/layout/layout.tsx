@@ -17,7 +17,6 @@ export default function Layout({ header, children, home, aside }: LayoutProps) {
   return (
     <div className={styles.site}>
       <Head>
-        j
         <title>
           Toda la información sobre el pico y placa en Colombia | Pico y placa
           hoy
