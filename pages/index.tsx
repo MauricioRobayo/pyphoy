@@ -1,21 +1,13 @@
 import { InferGetStaticPropsType } from 'next';
-import { getCitiesMap2 } from '@mauriciorobayo/pyptron';
 import Layout from '../components/layout/layout';
 import Select from '../components/select/select';
 import Date from '../components/date/date';
+import { getPypOptions } from '../utils/utils';
 
 export const getStaticProps = async () => {
-  const citiesMap = getCitiesMap2();
-  const selectOptions: { value: string; name: string }[] = [];
-  citiesMap.forEach(({ name: cityName, categories }) => {
-    categories.forEach(({ name: categoryName, path }) => {
-      selectOptions.push({ value: path, name: `${cityName}/${categoryName}` });
-    });
-  });
-
   return {
     props: {
-      selectOptions,
+      selectOptions: getPypOptions(),
     },
   };
 };

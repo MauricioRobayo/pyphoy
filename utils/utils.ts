@@ -1,3 +1,5 @@
+import { getCitiesMap2 } from '@mauriciorobayo/pyptron';
+
 export const ALL_DIGITS = 'Todos';
 export const NA = 'No aplica';
 export const ALL_DAY = 'Todo el día';
@@ -5,6 +7,20 @@ export const ALL_DAY = 'Todo el día';
 export enum Scheme {
   LastNumber,
   FirstNumber,
+}
+
+export function getPypOptions() {
+  const citiesMap = getCitiesMap2();
+  const pypOptions: { value: string; name: string }[] = [];
+  citiesMap.forEach(({ name: cityName, categories }) => {
+    categories.forEach(({ name: categoryName, path }) => {
+      pypOptions.push({
+        value: path,
+        name: `${cityName} / ${categoryName}`,
+      });
+    });
+  });
+  return pypOptions;
 }
 
 export function getInfoFromSlug<T extends { slug: string }>(
