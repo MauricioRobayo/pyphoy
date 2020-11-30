@@ -33,7 +33,6 @@ export default function Select({ pypOptions }: SelectProps) {
     }
 
     setSelectedOption(targetOption.name);
-    console.log(targetOption.value);
     router.push(targetOption.value);
   }
 
