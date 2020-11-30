@@ -22,18 +22,16 @@ export default function Select({ pypOptions }: SelectProps) {
       return;
     }
 
-    setSelectedOption(targetValue);
-
     const targetOption = pypOptions.find(({ name: optionName }) => {
       return optionName === targetValue;
     });
 
-    if (!targetOption) {
-      return;
+    if (targetOption) {
+      setSelectedOption(targetOption.name);
+      router.push(targetOption.value);
     }
 
-    setSelectedOption(targetOption.name);
-    router.push(targetOption.value);
+    setSelectedOption(targetValue);
   }
 
   return (
